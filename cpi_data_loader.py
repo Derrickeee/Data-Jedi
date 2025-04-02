@@ -46,7 +46,10 @@ def find_data_file(file_name):
     """Search for the data file in all directories"""
     for root, dirs, files in os.walk('/'):
         if file_name in files:
-            return os.path.join(root, file_name)
+            file_path = os.path.join(root, file_name)
+            print(f"File found: {file_path}")
+            return file_path
+    print(f"Error: Could not find data file '{file_name}'")
     return None
 
 
@@ -101,6 +104,10 @@ def load_and_clean_data(file_path):
     try:
         df = pd.read_csv(file_path)
 
+        # Display the first few rows of the dataframe
+        print("\nFirst 5 rows of the data:")
+        print(df.head())
+
         # Clean and rename columns
         df = df.rename(columns={
             'DataSeries': 'data_series',
@@ -135,7 +142,6 @@ def insert_data():
         # Find and load data file
         file_path = find_data_file(CPI_DATA_FILE)
         if not file_path:
-            print(f"Error: Could not find data file '{CPI_DATA_FILE}'")
             return
 
         df = load_and_clean_data(file_path)
@@ -163,9 +169,9 @@ def insert_data():
         if batch:
             session.bulk_save_objects(batch)
             session.commit()
-            print(f"Successfully inserted {len(batch)} records")
+            print(f"\nSuccessfully inserted {len(batch)} records")
         else:
-            print("No new records to insert")
+            print("\nNo new records to insert")
 
     except Exception as e:
         print(f"Error inserting data: {e}")
@@ -187,7 +193,7 @@ def main():
     # Step 3: Insert data
     insert_data()
 
-    print("CPI Data Loader - Process completed")
+    print("\nCPI Data Loader - Process completed")
 
 
 if __name__ == "__main__":
