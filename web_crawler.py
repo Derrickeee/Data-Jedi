@@ -1,42 +1,45 @@
 #!/usr/bin/env python3
 """
-CPI Data Crawler - Collects CPI data from multiple sources including:
-1. US Bureau of Labor Statistics (BLS)
-2. Singapore Data.gov.sg API
+Combined CPI Data Crawler - Collects CPI data from multiple sources including:
+1. Singapore Data.gov.sg API
+2. Singapore SingStat Table Builder API
 """
 
+import json
 import requests
 import pandas as pd
 import time
 import os
-import json
+from urllib.request import Request, urlopen
 from datetime import datetime
+from bs4 import BeautifulSoup
 
 
 class CPIDataCrawler:
     def __init__(self):
         self.output_dir = "cpi_data"
         self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
         }
         os.makedirs(self.output_dir, exist_ok=True)
 
         # Data source configurations
         self.sources = {
-            'us_bls': {
-                'base_url': "https://www.bls.gov/cpi/",
-                'active': True
-            },
             'sg_gov': {
                 'base_url': "https://api-production.data.gov.sg",
                 'active': True,
                 'dataset_ids': []  # Can be populated with Singapore CPI dataset IDs
+            },
+            'sg_singstat': {
+                'base_url': "https://tablebuilder.singstat.gov.sg",
+                'active': True
             }
         }
 
     def fetch_sg_datasets(self, dataset_id=None):
         """Fetch data from Singapore's Data.gov.sg API"""
-        print("\nFetching Singapore CPI data...")
+        print("\nFetching Singapore CPI data from Data.gov.sg...")
 
         if not dataset_id:
             print("No dataset ID provided for Singapore data")
@@ -106,33 +109,82 @@ class CPIDataCrawler:
             print(f"Error fetching Singapore data: {e}")
             return None
 
-    @staticmethod
-    def fetch_bls_data():
-        """Fetch data from US Bureau of Labor Statistics"""
-        print("\nFetching US BLS CPI data...")
+    def fetch_singstat_data(self, table_id="M213071", series_filter="1.1", time_filter="2023 1H"):
+        """Fetch data from SingStat Table Builder API"""
+        print("\nFetching Singapore CPI data from SingStat Table Builder...")
+        api_url = f"{self.sources['sg_singstat']['base_url']}/api/table/tabledata/{table_id}"
+        params = {
+            "seriesNoORrowNo": series_filter,
+            "offset": 0,
+            "limit": 3000,
+            "sortBy": "rowtext asc",
+            "timeFilter": time_filter,
+            "between": "0,9000",
+            "search": "food"
+        }
+
         try:
-            # This would be replaced with actual BLS API calls or web scraping
-            # For prototype, we'll simulate with sample data
-            data = {
-                'DataSeries': ['All Items', 'Food', 'Housing', 'Transportation'],
-                'Year': [2023, 2023, 2023, 2023],
-                'CPI': [304.127, 320.354, 334.029, 295.491],
-                'Period': ['Post-COVID'] * 4,
-                'Income_Group': ['All'] * 4
-            }
-            df = pd.DataFrame(data)
-            print("\nSample of US BLS CPI data:")
+            request = Request(api_url, headers=self.headers)
+            with urlopen(request) as response:
+                data = json.loads(response.read().decode())
+
+                # Process the raw data
+                if 'Data' in data:
+                    df = pd.DataFrame(data['Data'])
+                    df.columns = df.columns.str.strip()
+                    df['extraction_date'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    df['source'] = 'SingStat Table Builder API'
+
+                    print("\nSample of SingStat CPI data:")
+                    print(df.head())
+                    return df
+                return None
+
+        except Exception as e:
+            print(f"Error fetching SingStat API data: {e}")
+            return None
+
+    def scrape_singstat_table(self, table_url):
+        """Scrape data from SingStat Table Builder interface"""
+        print("\nScraping Singapore CPI data from SingStat Table Builder page...")
+        try:
+            response = requests.get(table_url, headers=self.headers)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            # Extract the main data table
+            table = soup.find('table', {'class': 'data-table'})
+            if not table:
+                print("No data table found on page")
+                return None
+
+            # Extract headers
+            headers = [th.text.strip() for th in table.find_all('th')]
+
+            # Extract rows
+            data = []
+            for row in table.find_all('tr')[1:]:  # Skip header row
+                cols = row.find_all('td')
+                data.append([col.text.strip() for col in cols])
+
+            # Create DataFrame
+            df = pd.DataFrame(data, columns=headers)
+
+            print("\nSample of scraped SingStat data:")
             print(df.head())
             return df
 
         except Exception as e:
-            print(f"Error fetching BLS data: {e}")
+            print(f"Error scraping SingStat table: {e}")
             return None
 
     @staticmethod
     def clean_and_transform(df, source):
         """Clean and transform the raw data based on source"""
         print(f"\nCleaning {source} data...")
+
+        if df is None or df.empty:
+            return None
 
         # Basic cleaning
         df = df.dropna(how='all')
@@ -155,21 +207,26 @@ class CPIDataCrawler:
             if 'year' not in df.columns:
                 df['year'] = datetime.now().year
             df['period'] = df['year'].apply(lambda x: 'Post-COVID' if x >= 2020 else 'Pre-COVID')
-            df['income_group'] = 'All'  # Singapore data might not have income groups
+            df['income_group'] = 'All'
 
-        elif source == 'us_bls':
-            # Standardize US data columns
+        elif source == 'sg_singstat':
+            # Standardize SingStat data columns
             column_mapping = {
-                'dataseries': 'data_series',
                 'year': 'year',
-                'cpi': 'cpi_value',
-                'period': 'period',
-                'income_group': 'income_group'
+                'value': 'cpi_value',
+                'rowtext': 'data_series',
+                'time': 'period'
             }
             for col in df.columns:
                 lower_col = col.lower()
                 if lower_col in column_mapping:
                     df = df.rename(columns={col: column_mapping[lower_col]})
+
+            # Add missing columns if needed
+            if 'period' not in df.columns:
+                df['period'] = 'Annual'
+            if 'income_group' not in df.columns:
+                df['income_group'] = 'All'
 
         # Common transformations
         if 'year' in df.columns:
@@ -184,6 +241,10 @@ class CPIDataCrawler:
 
     def save_data(self, df, source):
         """Save processed data to CSV"""
+        if df is None or df.empty:
+            print(f"No data to save for {source}")
+            return None
+
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         filename = f"cpi_{source}_{timestamp}.csv"
         output_path = os.path.join(self.output_dir, filename)
@@ -205,7 +266,7 @@ class CPIDataCrawler:
 
         if dfs:
             combined_df = pd.concat(dfs, ignore_index=True)
-            combined_path = os.path.join(self.output_dir, "combined_cpi_analysis.csv")
+            combined_path = os.path.join(self.output_dir, "combined_cpi_data.csv")
             combined_df.to_csv(combined_path, index=False)
             print(f"\nCombined data saved to: {combined_path}")
             print("\nSample of combined data:")
@@ -213,19 +274,38 @@ class CPIDataCrawler:
             return combined_path
         return None
 
-    def run(self, sg_dataset_id=None):
+    def run(self, sg_dataset_id=None, singstat_table_id=None, singstat_url=None):
         """Main execution method"""
-        print("Starting CPI Data Crawler...")
+        print("Starting Combined CPI Data Crawler...")
 
         processed_files = []
 
-        # Fetch Singapore data if enabled and dataset ID provided
+        # Fetch Singapore Data.gov.sg data if enabled and dataset ID provided
         if self.sources['sg_gov']['active'] and sg_dataset_id:
             sg_df = self.fetch_sg_datasets(sg_dataset_id)
             if sg_df is not None:
                 sg_df = self.clean_and_transform(sg_df, 'sg_gov')
                 sg_file = self.save_data(sg_df, 'sg_gov')
-                processed_files.append(sg_file)
+                if sg_file:
+                    processed_files.append(sg_file)
+
+        # Fetch Singapore SingStat API data if enabled
+        if self.sources['sg_singstat']['active'] and singstat_table_id:
+            singstat_df = self.fetch_singstat_data(table_id=singstat_table_id)
+            if singstat_df is not None:
+                singstat_df = self.clean_and_transform(singstat_df, 'sg_singstat')
+                singstat_file = self.save_data(singstat_df, 'sg_singstat')
+                if singstat_file:
+                    processed_files.append(singstat_file)
+
+        # Scrape Singapore SingStat table if URL provided
+        if self.sources['sg_singstat']['active'] and singstat_url:
+            scraped_df = self.scrape_singstat_table(singstat_url)
+            if scraped_df is not None:
+                scraped_df = self.clean_and_transform(scraped_df, 'sg_singstat')
+                scraped_file = self.save_data(scraped_df, 'sg_singstat_scraped')
+                if scraped_file:
+                    processed_files.append(scraped_file)
 
         # Combine all datasets
         if processed_files:
@@ -238,6 +318,14 @@ if __name__ == "__main__":
     crawler = CPIDataCrawler()
 
     # Example Singapore CPI dataset ID (replace with actual ID)
-    SG_CPI_DATASET_ID = "d_c5bde9ed17cef8c365629311f8550ce2"  # This should be a real CPI dataset ID
+    SG_CPI_DATASET_ID = "d_c5bde9ed17cef8c365629311f8550ce2"  # Should be a real CPI dataset ID
 
-    crawler.run(sg_dataset_id=SG_CPI_DATASET_ID)
+    # Example SingStat parameters (replace with actual values)
+    SINGSTAT_TABLE_ID = "M213071"  # Example table ID for CPI data
+    SINGSTAT_TABLE_URL = "https://tablebuilder.singstat.gov.sg/table/TS/M213071"  # Example table URL
+
+    crawler.run(
+        sg_dataset_id=SG_CPI_DATASET_ID,
+        singstat_table_id=SINGSTAT_TABLE_ID,
+        singstat_url=SINGSTAT_TABLE_URL
+    )
