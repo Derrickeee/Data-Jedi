@@ -238,6 +238,6 @@ if __name__ == "__main__":
     crawler = CPIDataCrawler()
 
     # Example Singapore CPI dataset ID (replace with actual ID)
-    SG_CPI_DATASET_ID = "d_69b3380ad7e51aff3a7dcc84eba52b8a"  # This should be a real CPI dataset ID
+    SG_CPI_DATASET_ID = "d_c5bde9ed17cef8c365629311f8550ce2"  # This should be a real CPI dataset ID
 
     crawler.run(sg_dataset_id=SG_CPI_DATASET_ID)
