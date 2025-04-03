@@ -27,6 +27,8 @@ CPI_DATA_FILE = "combined_cpi_analysis1.csv"
 # SQLAlchemy Base for ORM
 Base = declarative_base()
 
+conn = None
+session = None
 
 class CPIData(Base):
     """CPI Data ORM model"""
@@ -55,6 +57,7 @@ def find_data_file(file_name):
 
 def create_database():
     """Create the target database if it doesn't exist"""
+    global conn
     try:
         conn = psycopg2.connect(
             host=DATABASE_CONFIG['host'],
@@ -130,12 +133,14 @@ def load_and_clean_data(file_path):
 
 def insert_data():
     """Insert data into the database"""
+    global session
     try:
         # Initialize database connection
         engine = create_engine(
             f"postgresql://{DATABASE_CONFIG['user']}:{DATABASE_CONFIG['password']}@"
             f"{DATABASE_CONFIG['host']}:{DATABASE_CONFIG['port']}/{DATABASE_CONFIG['target_db']}"
         )
+
         Session = sessionmaker(bind=engine)
         session = Session()
 
