@@ -31,7 +31,8 @@ class EnhancedCPIDataCrawler:
             print(f"Request failed for {url}: {e}")
             return None
 
-    def extract_news_links(self, soup, base_url):
+    @staticmethod
+    def extract_news_links(soup, base_url):
         """Extracts and returns all links from a news page."""
         links = []
         for link in soup.find_all('a'):
@@ -42,12 +43,14 @@ class EnhancedCPIDataCrawler:
                 links.append({'text': text, 'url': full_url})
         return links
 
-    def extract_headline(self, soup):
+    @staticmethod
+    def extract_headline(soup):
         """Extracts the main headline if available."""
         title_tag = soup.find('h1')
         return title_tag.text.strip() if title_tag else "No headline found."
 
-    def extract_elements_by_class(self, soup, class_name):
+    @staticmethod
+    def extract_elements_by_class(soup, class_name):
         """Extracts elements based on class name."""
         elements = soup.find_all(class_=class_name)
         return [element.text.strip() for element in elements]
@@ -141,7 +144,8 @@ class EnhancedCPIDataCrawler:
             print(f"Error downloading {data_type} data: {e}")
             return None
 
-    def clean_and_transform_cpi_data(self, df):
+    @staticmethod
+    def clean_and_transform_cpi_data(df):
         """Clean and transform the raw CPI data"""
         print("Cleaning and transforming CPI data...")
 
