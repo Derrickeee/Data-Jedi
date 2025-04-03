@@ -141,8 +141,7 @@ def insert_data():
             f"{DATABASE_CONFIG['host']}:{DATABASE_CONFIG['port']}/{DATABASE_CONFIG['target_db']}"
         )
 
-        Session = sessionmaker(bind=engine)
-        session = Session()
+        session = sessionmaker(bind=engine)()
 
         # Find and load data file
         file_path = find_data_file(CPI_DATA_FILE)
