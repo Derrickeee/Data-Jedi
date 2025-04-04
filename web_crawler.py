@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Combined CPI Data Crawler - Collects CPI data from multiple sources including:
+CPI Data Crawler - Collects CPI data from multiple sources including:
 1. Singapore Data.gov.sg API
 2. Singapore SingStat Table Builder API
 """
@@ -186,8 +186,9 @@ class CPIDataCrawler:
         if df is None or df.empty:
             return None
 
-        # Basic cleaning
+        # Basic cleaning - replace "na" strings with pd.NA and drop all-NA columns
         df = df.dropna(how='all')
+        df = df.replace("na", pd.NA).dropna(axis=1, how='any')
         df = df.rename(columns=lambda x: x.strip().replace(' ', '_'))
 
         # Source-specific transformations
@@ -239,6 +240,7 @@ class CPIDataCrawler:
 
         return df
 
+
     def save_data(self, df, source):
         """Save processed data to CSV"""
         if df is None or df.empty:
@@ -252,31 +254,9 @@ class CPIDataCrawler:
         print(f"Data saved to {output_path}")
         return output_path
 
-    def combine_datasets(self, file_paths):
-        """Combine multiple CPI datasets into one"""
-        if not file_paths:
-            return None
-
-        dfs = []
-        for path in file_paths:
-            try:
-                dfs.append(pd.read_csv(path))
-            except Exception as e:
-                print(f"Error reading {path}: {e}")
-
-        if dfs:
-            combined_df = pd.concat(dfs, ignore_index=True)
-            combined_path = os.path.join(self.output_dir, "combined_cpi_data.csv")
-            combined_df.to_csv(combined_path, index=False)
-            print(f"\nCombined data saved to: {combined_path}")
-            print("\nSample of combined data:")
-            print(combined_df.head())
-            return combined_path
-        return None
-
     def run(self, sg_dataset_id=None, singstat_table_id=None, singstat_url=None):
         """Main execution method"""
-        print("Starting Combined CPI Data Crawler...")
+        print("Starting CPI Data Crawler...")
 
         processed_files = []
 
@@ -306,10 +286,6 @@ class CPIDataCrawler:
                 scraped_file = self.save_data(scraped_df, 'sg_singstat_scraped')
                 if scraped_file:
                     processed_files.append(scraped_file)
-
-        # Combine all datasets
-        if processed_files:
-            self.combine_datasets(processed_files)
 
         print("\nCPI Data Crawler completed successfully.")
 
