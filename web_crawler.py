@@ -13,6 +13,7 @@ import os
 from urllib.request import Request, urlopen
 from datetime import datetime
 from bs4 import BeautifulSoup
+import ast
 
 
 class CPIDataCrawler:
@@ -186,7 +187,7 @@ class CPIDataCrawler:
         if df is None or df.empty:
             return None
 
-        # Basic cleaning - replace "na" strings with pd.NA and drop all-NA columns
+        # Basic cleaning - replace "na" strings with pd.NA and drop any columns containing NA values
         df = df.dropna(how='all')
         df = df.replace("na", pd.NA).dropna(axis=1, how='any')
         df = df.rename(columns=lambda x: x.strip().replace(' ', '_'))
@@ -211,6 +212,24 @@ class CPIDataCrawler:
             df['income_group'] = 'All'
 
         elif source == 'sg_singstat':
+            # Parse JSON-like data in 'row' column if it exists
+            if 'row' in df.columns:
+                def parse_row(row):
+                    try:
+                        return ast.literal_eval(row)  # Safely evaluate the JSON-like string
+                    except (ValueError, SyntaxError):
+                        return None
+
+                df["parsed_row"] = df["row"].apply(parse_row)
+
+                def extract_columns(parsed_row):
+                    if parsed_row and "columns" in parsed_row:
+                        return pd.DataFrame(parsed_row["columns"]).set_index("key")["value"]
+                    return pd.Series()
+
+                # Extract data from parsed rows and merge with original dataframe
+                extracted_data = df["parsed_row"].apply(extract_columns)
+                df = pd.concat([df.drop(columns=["row", "parsed_row"]), extracted_data], axis=1)
             # Standardize SingStat data columns
             column_mapping = {
                 'year': 'year',
@@ -228,6 +247,8 @@ class CPIDataCrawler:
                 df['period'] = 'Annual'
             if 'income_group' not in df.columns:
                 df['income_group'] = 'All'
+
+
 
         # Common transformations
         if 'year' in df.columns:

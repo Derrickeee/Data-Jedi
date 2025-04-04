@@ -58,7 +58,8 @@ def clean_csv(file_name):
         df["parsed_row"] = df["row"].apply(parse_row)
 
         # Extract specific data from the parsed rows
-        extracted_data = df["parsed_row"].apply(extract_columns)
+        extracted_data = df["parsed_row"].apply(
+            extract_columns)
 
         # Concatenate the extracted data with the original dataframe
         try:
@@ -82,4 +83,4 @@ def clean_csv(file_name):
 
 
 # Example usage
-clean_csv("cpi_sg_singstat_20250404_092638.csv")
+clean_csv("cpi_sg_singstat_20250404_141959.csv")
