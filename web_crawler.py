@@ -109,19 +109,10 @@ class CPIDataCrawler:
             print(f"Error fetching Singapore data: {e}")
             return None
 
-    def fetch_singstat_data(self, table_id="M213071", series_filter="1.1", time_filter="2023 1H"):
+    def fetch_singstat_data(self, table_id="M213071"):
         """Fetch data from SingStat Table Builder API"""
         print("\nFetching Singapore CPI data from SingStat Table Builder...")
         api_url = f"{self.sources['sg_singstat']['base_url']}/api/table/tabledata/{table_id}"
-        params = {
-            "seriesNoORrowNo": series_filter,
-            "offset": 0,
-            "limit": 3000,
-            "sortBy": "rowtext asc",
-            "timeFilter": time_filter,
-            "between": "0,9000",
-            "search": "food"
-        }
 
         try:
             request = Request(api_url, headers=self.headers)
