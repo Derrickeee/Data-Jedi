@@ -229,7 +229,7 @@ class CPIDataCrawler:
             column_mapping = {
                 'year': 'year',
                 'value': 'cpi_value',
-                'rowText': 'data_series',
+                'rowtext': 'data_series',
                 'time': 'period'
             }
             for col in df.columns:
