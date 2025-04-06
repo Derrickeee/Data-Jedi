@@ -4,7 +4,7 @@ CPI Data Crawler - Collects CPI data from multiple sources including:
 1. Singapore Data.gov.sg API
 2. Singapore SingStat Table Builder API
 """
-
+import ast
 import json
 import requests
 import pandas as pd
@@ -13,8 +13,9 @@ import os
 from urllib.request import Request, urlopen
 from datetime import datetime
 from bs4 import BeautifulSoup
-import ast
 
+import urllib3  # Import urllib3 for HTTP requests
+import certifi  # Import certifi for SSL certificate verification
 
 class CPIDataCrawler:
     def __init__(self):
@@ -24,6 +25,12 @@ class CPIDataCrawler:
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
         }
         os.makedirs(self.output_dir, exist_ok=True)
+
+        # Initialize a PoolManager for HTTP requests with SSL verification
+        self.http = urllib3.PoolManager(
+            cert_reqs='CERT_REQUIRED',
+            ca_certs=certifi.where()
+        )
 
         # Data source configurations
         self.sources = {
@@ -179,6 +186,7 @@ class CPIDataCrawler:
             print(f"Error scraping SingStat table: {e}")
             return None
 
+
     @staticmethod
     def clean_and_transform(df, source):
         """Clean and transform the raw data based on source"""
@@ -187,10 +195,7 @@ class CPIDataCrawler:
         if df is None or df.empty:
             return None
 
-        # Basic cleaning - replace "na" strings with pd.NA and drop any columns containing NA values
-        df = df.dropna(how='all')
-        df = df.replace("na", pd.NA).dropna(axis=1, how='any')
-        df = df.rename(columns=lambda x: x.strip().replace(' ', '_'))
+
 
         # Source-specific transformations
         if source == 'sg_gov':
@@ -211,25 +216,16 @@ class CPIDataCrawler:
             df['period'] = df['year'].apply(lambda x: 'Post-COVID' if x >= 2020 else 'Pre-COVID')
             df['income_group'] = 'All'
 
+
         elif source == 'sg_singstat':
-            # Parse JSON-like data in 'row' column if it exists
+
             if 'row' in df.columns:
-                def parse_row(row):
-                    try:
-                        return ast.literal_eval(row)  # Safely evaluate the JSON-like string
-                    except (ValueError, SyntaxError):
-                        return None
+                # Normalize the nested JSON data in 'row' column
+                normalized_data = pd.json_normalize(df['row'], 'columns', 'rowText')
+                # Concatenate with the original DataFrame and drop the original 'row' column
 
-                df["parsed_row"] = df["row"].apply(parse_row)
+                df = pd.concat([df.drop(columns=['row']), normalized_data], axis=1)
 
-                def extract_columns(parsed_row):
-                    if parsed_row and "columns" in parsed_row:
-                        return pd.DataFrame(parsed_row["columns"]).set_index("key")["value"]
-                    return pd.Series()
-
-                # Extract data from parsed rows and merge with original dataframe
-                extracted_data = df["parsed_row"].apply(extract_columns)
-                df = pd.concat([df.drop(columns=["row", "parsed_row"]), extracted_data], axis=1)
             # Standardize SingStat data columns
             column_mapping = {
                 'year': 'year',
@@ -242,12 +238,23 @@ class CPIDataCrawler:
                 if lower_col in column_mapping:
                     df = df.rename(columns={col: column_mapping[lower_col]})
 
+            # Pivot the DataFrame to rearrange the data by 'data_series'
+            df = df.pivot(index="data_series", columns="key", values="cpi_value")
+
+            # Reset the index if you need a clean DataFrame
+            df.reset_index(inplace=True)
             # Add missing columns if needed
             if 'period' not in df.columns:
                 df['period'] = 'Annual'
             if 'income_group' not in df.columns:
                 df['income_group'] = 'All'
+                # Add source identifier
+                df['data_source'] = source
 
+        # Basic cleaning - replace "na" strings with pd.NA and drop any columns containing NA values
+        df = df.dropna(how='all')
+        df = df.replace("na", pd.NA).dropna(axis=1, how='any')
+        df = df.rename(columns=lambda x: x.strip().replace(' ', '_'))
 
 
         # Common transformations
@@ -256,8 +263,7 @@ class CPIDataCrawler:
         if 'cpi_value' in df.columns:
             df['cpi_value'] = pd.to_numeric(df['cpi_value'], errors='coerce')
 
-        # Add source identifier
-        df['data_source'] = source
+
 
         return df
 
