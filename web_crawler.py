@@ -116,7 +116,7 @@ class CPIDataCrawler:
             print(f"Error fetching Singapore data: {e}")
             return None
 
-    def fetch_singstat_data(self, table_id="M213071", series_filter="1.1", time_filter="2023 1H"):
+    def fetch_singstat_data(self, table_id="M810361", series_filter="1.1", time_filter="2023 1H"):
         """Fetch data from SingStat Table Builder API"""
         print("\nFetching Singapore CPI data from SingStat Table Builder...")
         api_url = f"{self.sources['sg_singstat']['base_url']}/api/table/tabledata/{table_id}"
@@ -324,8 +324,8 @@ if __name__ == "__main__":
     SG_CPI_DATASET_ID = "d_c5bde9ed17cef8c365629311f8550ce2"  # Should be a real CPI dataset ID
 
     # Example SingStat parameters (replace with actual values)
-    SINGSTAT_TABLE_ID = "M213071"  # Example table ID for CPI data
-    SINGSTAT_TABLE_URL = "https://tablebuilder.singstat.gov.sg/table/TS/M213071"  # Example table URL
+    SINGSTAT_TABLE_ID = "M810361"  # Example table ID for CPI data
+    SINGSTAT_TABLE_URL = "https://tablebuilder.singstat.gov.sg/table/TS/M810361"  # Example table URL
 
     crawler.run(
         sg_dataset_id=SG_CPI_DATASET_ID,
