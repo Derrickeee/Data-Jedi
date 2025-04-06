@@ -57,7 +57,7 @@ class CPICrawlerGUI:
 
         # Description
         desc = """Select a data source from the tabs above and configure the parameters.
-        Then click 'Run Crawler' to collect the data."""
+          Then click 'Run Crawler' to collect the data."""
         ttk.Label(self.main_frame, text=desc, wraplength=500).pack(pady=10)
 
         # Run button
