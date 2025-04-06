@@ -4,18 +4,17 @@ CPI Data Crawler - Collects CPI data from multiple sources including:
 1. Singapore Data.gov.sg API
 2. Singapore SingStat Table Builder API
 """
-import ast
+
 import json
 import requests
 import pandas as pd
 import time
 import os
+import urllib3  # Import urllib3 for HTTP requests
+import certifi  # Import certifi for SSL certificate verification
 from urllib.request import Request, urlopen
 from datetime import datetime
 from bs4 import BeautifulSoup
-
-import urllib3  # Import urllib3 for HTTP requests
-import certifi  # Import certifi for SSL certificate verification
 
 class CPIDataCrawler:
     def __init__(self):
