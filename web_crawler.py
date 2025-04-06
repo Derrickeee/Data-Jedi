@@ -237,6 +237,7 @@ class CPIDataCrawler:
                 if lower_col in column_mapping:
                     df = df.rename(columns={col: column_mapping[lower_col]})
 
+            df = df.drop_duplicates(subset=["data_series", "key"])
             # Pivot the DataFrame to rearrange the data by 'data_series'
             df = df.pivot(index="data_series", columns="key", values="cpi_value")
 
