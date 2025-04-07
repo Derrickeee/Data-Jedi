@@ -267,19 +267,6 @@ class CPIDataCrawler:
             # Add missing columns if needed
             if 'period' not in df.columns:
                 df['period'] = 'Annual'
-            if 'income_group' not in df.columns:
-                # Singapore specific processing
-                dataset_map = {
-                    "M213051": "Highest 20%",
-                    "M213071": "Middle 60%",
-                    "M213031": "Lowest 60%"
-                }
-
-                # Iterate through the dataset_id list
-                for dataset in dataset_id:
-                    if dataset in dataset_map:
-                        df['income_group'] = dataset_map[dataset]
-                        break  # Exit the loop once a match is found
             # Add source identifier
             df['data_source'] = source
 
