@@ -204,12 +204,18 @@ class CPIDataCrawler:
                     df = df.rename(columns={col: column_mapping[lower_col]})
 
             # Singapore specific processing
-            if dataset_id[0] == "d_c5bde9ed17cef8c365629311f8550ce2":
-                df['income_group'] = 'Highest 20%'
-            elif dataset_id[1] == "d_8f3660871b62f38609915ee7ef45ee2c":
-                df['income_group'] = 'Middle 60%'
-            elif dataset_id[2] == "d_36c4af91ffd0a75f6b557960efcb476e":
-                df['income_group'] = 'Lowest 60%'
+            dataset_map = {
+                "d_c5bde9ed17cef8c365629311f8550ce2": "Highest 20%",
+                "d_8f3660871b62f38609915ee7ef45ee2c": "Middle 60%",
+                "d_36c4af91ffd0a75f6b557960efcb476e": "Lowest 60%"
+            }
+
+            # Iterate through the dataset_id list
+            for dataset in dataset_id:
+                if dataset in dataset_map:
+                    df['income_group'] = dataset_map[dataset]
+                    break  # Exit the loop once a match is found
+
 
         elif source == 'sg_singstat':
             if 'row' in df.columns:
