@@ -122,65 +122,89 @@ class CPIDataCrawler:
             return pd.concat(all_dfs, ignore_index=True)
         return None
 
-    def fetch_singstat_data(self, table_id="M810361"):
-        """Fetch data from SingStat Table Builder API"""
-        print("\nFetching Singapore CPI data from SingStat Table Builder...")
-        api_url = f"{self.sources['sg_singstat']['base_url']}/api/table/tabledata/{table_id}"
-
-        try:
-            request = Request(api_url, headers=self.headers)
-            with urlopen(request) as response:
-                data = json.loads(response.read().decode())
-
-                # Process the raw data
-                if 'Data' in data:
-                    df = pd.DataFrame(data['Data'])
-                    df.columns = df.columns.str.strip()
-                    df['extraction_date'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                    df['source'] = 'SingStat Table Builder API'
-
-                    print("\nSample of SingStat CPI data:")
-                    print(df.head())
-                    return df
-                return None
-
-        except Exception as e:
-            print(f"Error fetching SingStat API data: {e}")
+    def fetch_singstat_data(self, table_ids=None):
+        """Fetch data from SingStat Table Builder API for multiple table IDs"""
+        if not table_ids:
+            print("No table IDs provided for SingStat data")
             return None
 
-    def scrape_singstat_table(self, table_url):
-        """Scrape data from SingStat Table Builder interface"""
-        print("\nScraping Singapore CPI data from SingStat Table Builder page...")
-        try:
-            response = requests.get(table_url, headers=self.headers)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.text, 'html.parser')
+        all_dfs = []
 
-            # Extract the main data table
-            table = soup.find('table', {'class': 'data-table'})
-            if not table:
-                print("No data table found on page")
-                return None
+        for table_id in table_ids:
+            print(f"\nFetching Singapore CPI data from SingStat Table Builder for table ID: {table_id}...")
+            api_url = f"{self.sources['sg_singstat']['base_url']}/api/table/tabledata/{table_id}"
 
-            # Extract headers
-            headers = [th.text.strip() for th in table.find_all('th')]
+            try:
+                request = Request(api_url, headers=self.headers)
+                with urlopen(request) as response:
+                    data = json.loads(response.read().decode())
 
-            # Extract rows
-            data = []
-            for row in table.find_all('tr')[1:]:  # Skip header row
-                cols = row.find_all('td')
-                data.append([col.text.strip() for col in cols])
+                    # Process the raw data
+                    if 'Data' in data:
+                        df = pd.DataFrame(data['Data'])
+                        df.columns = df.columns.str.strip()
+                        df['extraction_date'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        df['source'] = 'SingStat Table Builder API'
 
-            # Create DataFrame
-            df = pd.DataFrame(data, columns=headers)
+                        print("\nSample of SingStat CPI data:")
+                        print(df.head())
+                        all_dfs.append(df)
+                    else:
+                        print(f"No data found for table ID {table_id}")
 
-            print("\nSample of scraped SingStat data:")
-            print(df.head())
-            return df
+            except Exception as e:
+                print(f"Error fetching SingStat API data: {e}")
+                continue
 
-        except Exception as e:
-            print(f"Error scraping SingStat table: {e}")
+        if all_dfs:
+            return pd.concat(all_dfs, ignore_index=True)
+        return None
+
+    def scrape_singstat_table(self, table_urls=None):
+        """Scrape data from SingStat Table Builder interface for multiple URLs"""
+        if not table_urls:
+            print("No table URLs provided for SingStat scraping")
             return None
+
+        all_dfs = []
+
+        for table_url in table_urls:
+            print(f"\nScraping Singapore CPI data from SingStat Table Builder page: {table_url}...")
+            try:
+                response = requests.get(table_url, headers=self.headers)
+                response.raise_for_status()
+                soup = BeautifulSoup(response.text, 'html.parser')
+
+                # Extract the main data table
+                table = soup.find('table', {'class': 'data-table'})
+                if not table:
+                    print(f"No data table found on page: {table_url}")
+                    continue
+
+                # Extract headers
+                headers = [th.text.strip() for th in table.find_all('th')]
+
+                # Extract rows
+                data = []
+                for row in table.find_all('tr')[1:]:  # Skip header row
+                    cols = row.find_all('td')
+                    data.append([col.text.strip() for col in cols])
+
+                # Create DataFrame
+                df = pd.DataFrame(data, columns=headers)
+                df['source_url'] = table_url  # Add source URL for reference
+
+                print("\nSample of scraped SingStat data:")
+                print(df.head())
+                all_dfs.append(df)
+
+            except Exception as e:
+                print(f"Error scraping SingStat table from {table_url}: {e}")
+                continue
+
+        if all_dfs:
+            return pd.concat(all_dfs, ignore_index=True)
+        return None
 
     @staticmethod
     def clean_and_transform(df, source, dataset_id):
@@ -189,7 +213,6 @@ class CPIDataCrawler:
 
         if df is None or df.empty:
             return None
-        print(dataset_id)
         # Source-specific transformations
         if source == 'sg_gov':
             # Standardize Singapore data columns
@@ -246,9 +269,20 @@ class CPIDataCrawler:
             if 'period' not in df.columns:
                 df['period'] = 'Annual'
             if 'income_group' not in df.columns:
-                df['income_group'] = 'All'
-                # Add source identifier
-                df['data_source'] = source
+                # Singapore specific processing
+                dataset_map = {
+                    "M213051": "Highest 20%",
+                    "M213071": "Middle 60%",
+                    "M213031": "Lowest 60%"
+                }
+
+                # Iterate through the dataset_id list
+                for dataset in dataset_id:
+                    if dataset in dataset_map:
+                        df['income_group'] = dataset_map[dataset]
+                        break  # Exit the loop once a match is found
+            # Add source identifier
+            df['data_source'] = source
 
         # Basic cleaning - replace "na" strings with pd.NA and drop any columns containing NA values
         df = df.dropna(how='all')
@@ -298,7 +332,7 @@ class CPIDataCrawler:
             return combined_path
         return None
 
-    def run(self, sg_dataset_ids=None, singstat_table_id=None, singstat_url=None):
+    def run(self, sg_dataset_ids=None, singstat_table_ids=None, singstat_urls=None):
         """Main execution method"""
         print("Starting CPI Data Crawler...")
 
@@ -318,8 +352,12 @@ class CPIDataCrawler:
                     processed_files.append(sg_file)
 
         # Fetch Singapore SingStat API data if enabled
-        if self.sources['sg_singstat']['active'] and singstat_table_id:
-            singstat_df = self.fetch_singstat_data(table_id=singstat_table_id)
+        if self.sources['sg_singstat']['active'] and singstat_table_ids:
+            # Convert single ID to list if needed
+            if isinstance(singstat_table_ids, str):
+                singstat_table_ids = [singstat_table_ids]
+
+            singstat_df = self.fetch_singstat_data(table_ids=singstat_table_ids)
             if singstat_df is not None:
                 singstat_df = self.clean_and_transform(singstat_df, 'sg_singstat', sg_dataset_ids)
                 singstat_file = self.save_data(singstat_df, 'sg_singstat')
@@ -327,8 +365,12 @@ class CPIDataCrawler:
                     processed_files.append(singstat_file)
 
         # Scrape Singapore SingStat table if URL provided
-        if self.sources['sg_singstat']['active'] and singstat_url:
-            scraped_df = self.scrape_singstat_table(singstat_url)
+        if self.sources['sg_singstat']['active'] and singstat_urls:
+            # Convert single URL to list if needed
+            if isinstance(singstat_urls, str):
+                singstat_urls = [singstat_urls]
+
+            scraped_df = self.scrape_singstat_table(table_urls=singstat_urls)
             if scraped_df is not None:
                 scraped_df = self.clean_and_transform(scraped_df, 'sg_singstat', sg_dataset_ids)
                 scraped_file = self.save_data(scraped_df, 'sg_singstat_scraped')
@@ -352,12 +394,22 @@ if __name__ == "__main__":
         "d_36c4af91ffd0a75f6b557960efcb476e"  # Example dataset ID 3
     ]
 
-    # Example SingStat parameters (replace with actual values)
-    SINGSTAT_TABLE_ID = "M810361"  # Example table ID for CPI data
-    SINGSTAT_TABLE_URL = "https://tablebuilder.singstat.gov.sg/table/TS/M810361"  # Example table URL
+    # Example SingStat table IDs (replace with actual values)
+    SINGSTAT_TABLE_IDS = [
+        "M213051",  # CPI for Highest 20%
+        "M213071",  # CPI for Middle 60%
+        "M213031"   # CPI for Lowest 60%
+    ]
+
+    # Example SingStat table URLs (replace with actual URLs)
+    SINGSTAT_TABLE_URLS = [
+        "https://tablebuilder.singstat.gov.sg/table/TS/M213051",
+        "https://tablebuilder.singstat.gov.sg/table/TS/M213071",
+        "https://tablebuilder.singstat.gov.sg/table/TS/M213031"
+    ]
 
     crawler.run(
         sg_dataset_ids=SG_CPI_DATASET_IDS,
-        singstat_table_id=SINGSTAT_TABLE_ID,
-        singstat_url=SINGSTAT_TABLE_URL
+        singstat_table_ids=SINGSTAT_TABLE_IDS,
+        singstat_urls=SINGSTAT_TABLE_URLS
     )

@@ -4,7 +4,7 @@ CPI Data Crawler GUI - Provides a user interface for the CPI data crawler
 """
 import tkinter as tk
 from tkinter import ttk, messagebox
-from web_crawler import CPIDataCrawler
+from web_crawler2 import CPIDataCrawler
 
 
 class CPICrawlerGUI:
@@ -93,7 +93,7 @@ class CPICrawlerGUI:
         example_frame.pack(padx=10, pady=10, fill='x')
 
         examples = [
-            "Consumer Price Index (CPI) - d_c5bde9ed17cef8c365629311f8550ce2",
+            "Consumer Price Index (CPI) (Highest 20%) - d_c5bde9ed17cef8c365629311f8550ce2",
             "Household Expenditure - d_8b84c4ee58e3cfc0a5d363b7c8d7b12f"
         ]
 
@@ -121,7 +121,7 @@ class CPICrawlerGUI:
 
         ttk.Label(self.api_frame, text="Table ID:").pack(anchor='w', padx=10, pady=(10, 0))
         self.table_id_entry.pack(anchor='w', padx=10, pady=(0, 5))
-        self.table_id_entry.insert(0, "M810361")
+        self.table_id_entry.insert(0, "M213071")
 
         # ttk.Label(self.api_frame, text="Series Filter:").pack(anchor='w', padx=10, pady=(5, 0))
         # self.series_filter_entry.pack(anchor='w', padx=10, pady=(0, 5))
@@ -136,7 +136,7 @@ class CPICrawlerGUI:
 
         ttk.Label(self.scrape_frame, text="Table URL:").pack(anchor='w', padx=10, pady=(10, 0))
         self.table_url_entry.pack(anchor='w', padx=10, pady=(0, 10))
-        self.table_url_entry.insert(0, "https://tablebuilder.singstat.gov.sg/table/TS/M810361")
+        self.table_url_entry.insert(0, "https://tablebuilder.singstat.gov.sg/table/TS/M213071")
 
     def run_crawler(self):
         """Execute the crawler based on user configuration"""
@@ -158,6 +158,7 @@ class CPICrawlerGUI:
                 else:
                     singstat_table_id = None
                     singstat_url = self.table_url_entry.get()
+
             else:
                 singstat_table_id = None
                 singstat_url = None
@@ -165,8 +166,8 @@ class CPICrawlerGUI:
             # Run crawler
             self.crawler.run(
                 sg_dataset_ids=sg_dataset_id,
-                singstat_table_id=singstat_table_id,
-                singstat_url=singstat_url
+                singstat_table_ids=singstat_table_id,
+                singstat_urls=singstat_url
             )
 
             self.status_var.set("Crawler completed successfully")
