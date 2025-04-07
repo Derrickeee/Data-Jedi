@@ -210,7 +210,6 @@ class CPIDataCrawler:
     def clean_and_transform(df, source, dataset_id):
         """Clean and transform the raw data based on source"""
         print(f"\nCleaning {source} data...")
-
         if df is None or df.empty:
             return None
         # Source-specific transformations
@@ -387,14 +386,14 @@ class CPIDataCrawler:
 if __name__ == "__main__":
     crawler = CPIDataCrawler()
 
-    # Example Singapore CPI dataset IDs (replace with actual IDs)
+    # Singapore CPI dataset IDs
     SG_CPI_DATASET_IDS = [
-        "d_c5bde9ed17cef8c365629311f8550ce2",  # Example dataset ID 1
-        "d_8f3660871b62f38609915ee7ef45ee2c",  # Example dataset ID 2
-        "d_36c4af91ffd0a75f6b557960efcb476e"  # Example dataset ID 3
+        "d_c5bde9ed17cef8c365629311f8550ce2",  # Dataset ID 1
+        "d_8f3660871b62f38609915ee7ef45ee2c",  # Dataset ID 2
+        "d_36c4af91ffd0a75f6b557960efcb476e"  # Dataset ID 3
     ]
 
-    # Example SingStat table IDs (replace with actual values)
+    # SingStat table IDs
     SINGSTAT_TABLE_IDS = [
         "M213051",  # CPI for Highest 20%
         "M213071",  # CPI for Middle 60%

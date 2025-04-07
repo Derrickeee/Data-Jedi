@@ -4,7 +4,7 @@ CPI Data Crawler GUI - Provides a user interface for the CPI data crawler
 """
 import tkinter as tk
 from tkinter import ttk, messagebox
-from web_crawler2 import CPIDataCrawler
+from web_crawler import CPIDataCrawler
 
 
 class CPICrawlerGUI:
@@ -22,7 +22,6 @@ class CPICrawlerGUI:
         self.notebook.add(self.data_gov_frame, text='Data.gov.sg')
         self.notebook.add(self.singstat_frame, text='SingStat')
 
-
         self.table_url_entry = ttk.Entry(self.scrape_frame, width=50)
         self.time_filter_entry = ttk.Entry(self.api_frame, width=30)
         self.series_filter_entry = ttk.Entry(self.api_frame, width=30)
@@ -37,8 +36,6 @@ class CPICrawlerGUI:
         self.root.geometry("600x500")
 
         self.crawler = CPIDataCrawler()
-
-
 
         # Initialize tabs
         self.create_main_tab()
