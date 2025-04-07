@@ -16,6 +16,7 @@ from urllib.request import Request, urlopen
 from datetime import datetime
 from bs4 import BeautifulSoup
 
+
 class CPIDataCrawler:
     def __init__(self):
         self.output_dir = "cpi_data"
@@ -35,8 +36,7 @@ class CPIDataCrawler:
         self.sources = {
             'sg_gov': {
                 'base_url': "https://api-production.data.gov.sg",
-                'active': True,
-                'dataset_ids': []  # Can be populated with Singapore CPI dataset IDs
+                'active': True
             },
             'sg_singstat': {
                 'base_url': "https://tablebuilder.singstat.gov.sg",
@@ -44,77 +44,83 @@ class CPIDataCrawler:
             }
         }
 
-    def fetch_sg_datasets(self, dataset_id=None):
-        """Fetch data from Singapore's Data.gov.sg API"""
-        print("\nFetching Singapore CPI data from Data.gov.sg...")
-
-        if not dataset_id:
-            print("No dataset ID provided for Singapore data")
+    def fetch_sg_datasets(self, dataset_ids=None):
+        """Fetch data from Singapore's Data.gov.sg API for multiple dataset IDs"""
+        if not dataset_ids:
+            print("No dataset IDs provided for Singapore data")
             return None
 
-        try:
-            # Initialize session
-            s = requests.Session()
-            s.headers.update({
-                'referer': 'https://colab.research.google.com',
-                'User-Agent': self.headers['User-Agent']
-            })
+        all_dfs = []
 
-            # Get metadata first
-            url = f"{self.sources['sg_gov']['base_url']}/v2/public/api/datasets/{dataset_id}/metadata"
-            print(f"Fetching metadata from: {url}")
-            response = s.get(url)
-            data = response.json()['data']
-            column_metadata = data.pop('columnMetadata', None)
+        for dataset_id in dataset_ids:
+            print(f"\nFetching Singapore CPI data from Data.gov.sg for dataset ID: {dataset_id}...")
 
-            print("\nSingapore Dataset Metadata:")
-            print(json.dumps(data, indent=2))
+            try:
+                # Initialize session
+                s = requests.Session()
+                s.headers.update({
+                    'referer': 'https://colab.research.google.com',
+                    'User-Agent': self.headers['User-Agent']
+                })
 
-            if column_metadata:
-                print("\nColumns:", list(column_metadata['map'].values()))
+                # Get metadata first
+                url = f"{self.sources['sg_gov']['base_url']}/v2/public/api/datasets/{dataset_id}/metadata"
+                print(f"Fetching metadata from: {url}")
+                response = s.get(url)
+                data = response.json()['data']
+                column_metadata = data.pop('columnMetadata', None)
 
-            # Download the actual data
-            print("\nInitiating data download...")
-            initiate_url = f"https://api-open.data.gov.sg/v1/public/api/datasets/{dataset_id}/initiate-download"
-            initiate_response = s.get(
-                initiate_url,
-                headers={"Content-Type": "application/json"},
-                json={}
-            )
-            print(initiate_response.json()['data']['message'])
+                print("\nSingapore Dataset Metadata:")
+                print(json.dumps(data, indent=2))
 
-            # Poll for download URL
-            max_polls = 5
-            download_url = None
-            for i in range(max_polls):
-                poll_url = f"https://api-open.data.gov.sg/v1/public/api/datasets/{dataset_id}/poll-download"
-                poll_response = s.get(
-                    poll_url,
+                if column_metadata:
+                    print("\nColumns:", list(column_metadata['map'].values()))
+
+                # Download the actual data
+                print("\nInitiating data download...")
+                initiate_url = f"https://api-open.data.gov.sg/v1/public/api/datasets/{dataset_id}/initiate-download"
+                initiate_response = s.get(
+                    initiate_url,
                     headers={"Content-Type": "application/json"},
                     json={}
                 )
+                print(initiate_response.json()['data']['message'])
 
-                poll_data = poll_response.json()['data']
-                if "url" in poll_data:
-                    download_url = poll_data['url']
-                    print(f"Download URL obtained: {download_url}")
-                    break
+                # Poll for download URL
+                max_polls = 5
+                download_url = None
+                for i in range(max_polls):
+                    poll_url = f"https://api-open.data.gov.sg/v1/public/api/datasets/{dataset_id}/poll-download"
+                    poll_response = s.get(
+                        poll_url,
+                        headers={"Content-Type": "application/json"},
+                        json={}
+                    )
 
-                print(f"{i + 1}/{max_polls}: Polling...")
-                time.sleep(3)
+                    poll_data = poll_response.json()['data']
+                    if "url" in poll_data:
+                        download_url = poll_data['url']
+                        print(f"Download URL obtained: {download_url}")
+                        break
 
-            if download_url:
-                df = pd.read_csv(download_url)
-                print("\nSample of Singapore CPI data:")
-                print(df.head())
-                return df
-            else:
-                print("Failed to obtain download URL after multiple attempts")
-                return None
+                    print(f"{i + 1}/{max_polls}: Polling...")
+                    time.sleep(3)
 
-        except Exception as e:
-            print(f"Error fetching Singapore data: {e}")
-            return None
+                if download_url:
+                    df = pd.read_csv(download_url)
+                    print("\nSample of Singapore CPI data:")
+                    print(df.head())
+                    all_dfs.append(df)
+                else:
+                    print(f"Failed to obtain download URL for dataset {dataset_id} after multiple attempts")
+
+            except Exception as e:
+                print(f"Error fetching Singapore data for dataset {dataset_id}: {e}")
+                continue
+
+        if all_dfs:
+            return pd.concat(all_dfs, ignore_index=True)
+        return None
 
     def fetch_singstat_data(self, table_id="M810361"):
         """Fetch data from SingStat Table Builder API"""
@@ -176,17 +182,14 @@ class CPIDataCrawler:
             print(f"Error scraping SingStat table: {e}")
             return None
 
-
     @staticmethod
-    def clean_and_transform(df, source):
+    def clean_and_transform(df, source, dataset_id):
         """Clean and transform the raw data based on source"""
         print(f"\nCleaning {source} data...")
 
         if df is None or df.empty:
             return None
-
-
-
+        print(dataset_id)
         # Source-specific transformations
         if source == 'sg_gov':
             # Standardize Singapore data columns
@@ -201,19 +204,18 @@ class CPIDataCrawler:
                     df = df.rename(columns={col: column_mapping[lower_col]})
 
             # Singapore specific processing
-            if 'year' not in df.columns:
-                df['year'] = datetime.now().year
-            df['period'] = df['year'].apply(lambda x: 'Post-COVID' if x >= 2020 else 'Pre-COVID')
-            df['income_group'] = 'All'
-
+            if dataset_id[0] == "d_c5bde9ed17cef8c365629311f8550ce2":
+                df['income_group'] = 'Highest 20%'
+            elif dataset_id[1] == "d_8f3660871b62f38609915ee7ef45ee2c":
+                df['income_group'] = 'Middle 60%'
+            elif dataset_id[2] == "d_36c4af91ffd0a75f6b557960efcb476e":
+                df['income_group'] = 'Lowest 60%'
 
         elif source == 'sg_singstat':
-
             if 'row' in df.columns:
                 # Normalize the nested JSON data in 'row' column
                 normalized_data = pd.json_normalize(df['row'], 'columns', 'rowText')
                 # Concatenate with the original DataFrame and drop the original 'row' column
-
                 df = pd.concat([df.drop(columns=['row']), normalized_data], axis=1)
 
             # Standardize SingStat data columns
@@ -247,17 +249,13 @@ class CPIDataCrawler:
         df = df.replace("na", pd.NA).dropna(axis=1, how='any')
         df = df.rename(columns=lambda x: x.strip().replace(' ', '_'))
 
-
         # Common transformations
         if 'year' in df.columns:
             df['year'] = df['year'].astype(int)
         if 'cpi_value' in df.columns:
             df['cpi_value'] = pd.to_numeric(df['cpi_value'], errors='coerce')
 
-
-
         return df
-
 
     def save_data(self, df, source):
         """Save processed data to CSV"""
@@ -272,17 +270,43 @@ class CPIDataCrawler:
         print(f"Data saved to {output_path}")
         return output_path
 
-    def run(self, sg_dataset_id=None, singstat_table_id=None, singstat_url=None):
+    def combine_datasets(self, file_paths):
+        """Combine multiple CPI datasets into one"""
+        if not file_paths:
+            return None
+
+        dfs = []
+        for path in file_paths:
+            try:
+                dfs.append(pd.read_csv(path))
+            except Exception as e:
+                print(f"Error reading {path}: {e}")
+
+        if dfs:
+            combined_df = pd.concat(dfs, ignore_index=True)
+            combined_path = os.path.join(self.output_dir, "combined_cpi_data.csv")
+            combined_df.to_csv(combined_path, index=False)
+            print(f"\nCombined data saved to: {combined_path}")
+            print("\nSample of combined data:")
+            print(combined_df.head())
+            return combined_path
+        return None
+
+    def run(self, sg_dataset_ids=None, singstat_table_id=None, singstat_url=None):
         """Main execution method"""
         print("Starting CPI Data Crawler...")
 
         processed_files = []
 
-        # Fetch Singapore Data.gov.sg data if enabled and dataset ID provided
-        if self.sources['sg_gov']['active'] and sg_dataset_id:
-            sg_df = self.fetch_sg_datasets(sg_dataset_id)
+        # Fetch Singapore Data.gov.sg data if enabled and dataset IDs provided
+        if self.sources['sg_gov']['active'] and sg_dataset_ids:
+            # Convert single ID to list if needed
+            if isinstance(sg_dataset_ids, str):
+                sg_dataset_ids = [sg_dataset_ids]
+
+            sg_df = self.fetch_sg_datasets(sg_dataset_ids)
             if sg_df is not None:
-                sg_df = self.clean_and_transform(sg_df, 'sg_gov')
+                sg_df = self.clean_and_transform(sg_df, 'sg_gov', sg_dataset_ids)
                 sg_file = self.save_data(sg_df, 'sg_gov')
                 if sg_file:
                     processed_files.append(sg_file)
@@ -291,7 +315,7 @@ class CPIDataCrawler:
         if self.sources['sg_singstat']['active'] and singstat_table_id:
             singstat_df = self.fetch_singstat_data(table_id=singstat_table_id)
             if singstat_df is not None:
-                singstat_df = self.clean_and_transform(singstat_df, 'sg_singstat')
+                singstat_df = self.clean_and_transform(singstat_df, 'sg_singstat', sg_dataset_ids)
                 singstat_file = self.save_data(singstat_df, 'sg_singstat')
                 if singstat_file:
                     processed_files.append(singstat_file)
@@ -300,10 +324,14 @@ class CPIDataCrawler:
         if self.sources['sg_singstat']['active'] and singstat_url:
             scraped_df = self.scrape_singstat_table(singstat_url)
             if scraped_df is not None:
-                scraped_df = self.clean_and_transform(scraped_df, 'sg_singstat')
+                scraped_df = self.clean_and_transform(scraped_df, 'sg_singstat', sg_dataset_ids)
                 scraped_file = self.save_data(scraped_df, 'sg_singstat_scraped')
                 if scraped_file:
                     processed_files.append(scraped_file)
+
+        # Combine all datasets
+        if processed_files:
+            self.combine_datasets(processed_files)
 
         print("\nCPI Data Crawler completed successfully.")
 
@@ -311,15 +339,19 @@ class CPIDataCrawler:
 if __name__ == "__main__":
     crawler = CPIDataCrawler()
 
-    # Example Singapore CPI dataset ID (replace with actual ID)
-    SG_CPI_DATASET_ID = "d_c5bde9ed17cef8c365629311f8550ce2"  # Should be a real CPI dataset ID
+    # Example Singapore CPI dataset IDs (replace with actual IDs)
+    SG_CPI_DATASET_IDS = [
+        "d_c5bde9ed17cef8c365629311f8550ce2",  # Example dataset ID 1
+        "d_8f3660871b62f38609915ee7ef45ee2c",  # Example dataset ID 2
+        "d_36c4af91ffd0a75f6b557960efcb476e"  # Example dataset ID 3
+    ]
 
     # Example SingStat parameters (replace with actual values)
     SINGSTAT_TABLE_ID = "M810361"  # Example table ID for CPI data
     SINGSTAT_TABLE_URL = "https://tablebuilder.singstat.gov.sg/table/TS/M810361"  # Example table URL
 
     crawler.run(
-        sg_dataset_id=SG_CPI_DATASET_ID,
+        sg_dataset_ids=SG_CPI_DATASET_IDS,
         singstat_table_id=SINGSTAT_TABLE_ID,
         singstat_url=SINGSTAT_TABLE_URL
     )
