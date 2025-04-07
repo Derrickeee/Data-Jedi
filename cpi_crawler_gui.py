@@ -1,32 +1,43 @@
 #!/usr/bin/env python3
 """
-CPI Data Crawler GUI - Provides a user interface for the CPI data crawler
+CPI Data Crawler GUI - Cross-platform interface for the CPI data crawler
 """
 import tkinter as tk
 from tkinter import ttk, messagebox
+import os
+import platform
+import subprocess
 from web_crawler import CPIDataCrawler
 
 
 class CPICrawlerGUI:
     def __init__(self, root):
-        self.time_filter_entry = None
-        self.scrape_frame = None
-        self.api_frame = None
-        self.table_id_entry = None
-        self.table_url_entry = None
-        self.series_filter_entry = None
-        self.singstat_mode = None
-        self.singstat_enabled = None
-        self.dataset_id_entry = None
-        self.data_gov_enabled = None
         self.root = root
-        self.root.title("Singapore CPI Data Crawler")
-        self.root.geometry("600x500")
-
+        self.setup_window()
         self.crawler = CPIDataCrawler()
+        self.setup_ui()
+        self.setup_platform_specific_features()
 
+    def setup_window(self):
+        """Configure main window settings"""
+        self.root.title("Singapore CPI Data Crawler")
+        self.root.geometry("650x550")
+        self.root.minsize(600, 500)
+
+        # Set window icon if available
+        try:
+            if platform.system() == "Windows":
+                self.root.iconbitmap(default='icon.ico')  # Windows .ico file
+            else:
+                img = tk.PhotoImage(file='icon.png')  # macOS/Linux .png file
+                self.root.iconphoto(True, img)
+        except:
+            pass  # Icon not essential for functionality
+
+    def setup_ui(self):
+        """Create the main UI components"""
         # Create notebook for tabs
-        self.notebook = ttk.Notebook(root)
+        self.notebook = ttk.Notebook(self.root)
         self.notebook.pack(pady=10, padx=10, fill='both', expand=True)
 
         # Create frames for each tab
@@ -46,8 +57,68 @@ class CPICrawlerGUI:
         # Status bar
         self.status_var = tk.StringVar()
         self.status_var.set("Ready")
-        self.status_bar = ttk.Label(root, textvariable=self.status_var, relief='sunken')
+        self.status_bar = ttk.Label(self.root, textvariable=self.status_var,
+                                    relief='sunken', padding=(10, 5))
         self.status_bar.pack(side='bottom', fill='x')
+
+        # Create menu bar
+        self.create_menubar()
+
+    def setup_platform_specific_features(self):
+        """Configure platform-specific UI elements"""
+        # Style adjustments
+        self.style = ttk.Style()
+
+        if platform.system() == 'Darwin':
+            # macOS specific configurations
+            self.style.theme_use('aqua')
+            # Increase padding for macOS
+            self.style.configure('TButton', padding=6)
+            self.style.configure('TEntry', padding=6)
+            self.style.configure('TLabel', padding=6)
+
+            # Special macOS menu commands
+            self.root.createcommand('tk::mac::Quit', self.root.quit)
+            self.root.createcommand('tk::mac::About', self.show_about)
+
+            # Make window appear as proper macOS document
+            self.root.tk.call('tk', 'windowingsystem') == 'aqua'
+            self.root.tk.call('::tk::unsupported::MacWindowStyle',
+                              'style', self.root._w, 'document', 'withTitleBar')
+
+            # Set application name in macOS dock
+            try:
+                from Foundation import NSBundle
+                bundle = NSBundle.mainBundle()
+                if bundle:
+                    info = bundle.localizedInfoDictionary() or bundle.infoDictionary()
+                    if info:
+                        info['CFBundleName'] = "CPI Data Crawler"
+            except ImportError:
+                pass
+
+        else:
+            # Windows/Linux configurations
+            self.style.theme_use('clam')  # Modern look on Windows/Linux
+
+    def create_menubar(self):
+        """Create a menu bar that adapts to the platform"""
+        menubar = tk.Menu(self.root)
+
+        # File menu
+        file_menu = tk.Menu(menubar, tearoff=0)
+        file_menu.add_command(label="Run Crawler", command=self.run_crawler)
+        file_menu.add_command(label="Open Output Folder", command=self.open_output_folder)
+        file_menu.add_separator()
+        file_menu.add_command(label="Exit", command=self.root.quit)
+        menubar.add_cascade(label="File", menu=file_menu)
+
+        # Help menu
+        help_menu = tk.Menu(menubar, tearoff=0)
+        help_menu.add_command(label="About", command=self.show_about)
+        menubar.add_cascade(label="Help", menu=help_menu)
+
+        self.root.config(menu=menubar)
 
     def create_main_tab(self):
         """Create the main tab with general controls"""
@@ -57,7 +128,7 @@ class CPICrawlerGUI:
 
         # Description
         desc = """Select a data source from the tabs above and configure the parameters.
-          Then click 'Run Crawler' to collect the data."""
+        Then click 'Run Crawler' to collect the data."""
         ttk.Label(self.main_frame, text=desc, wraplength=500).pack(pady=10)
 
         # Run button
@@ -146,6 +217,25 @@ class CPICrawlerGUI:
         self.table_url_entry.pack(anchor='w', padx=10, pady=(0, 10))
         self.table_url_entry.insert(0, "https://tablebuilder.singstat.gov.sg/table/TS/M810361")
 
+    def open_output_folder(self):
+        """Open the output folder in the system file explorer (cross-platform)"""
+        path = os.path.abspath(self.crawler.output_dir)
+
+        # Ensure directory exists
+        os.makedirs(path, exist_ok=True)
+
+        try:
+            if platform.system() == "Windows":
+                os.startfile(path)
+            elif platform.system() == "Darwin":
+                subprocess.run(['open', path], check=True)
+            else:  # Linux and other Unix-like systems
+                subprocess.Popen(['xdg-open', path])
+        except subprocess.CalledProcessError as e:
+            messagebox.showerror("Error", f"Could not open folder: {str(e)}")
+        except Exception as e:
+            messagebox.showerror("Error", f"Unexpected error opening folder: {str(e)}")
+
     def run_crawler(self):
         """Execute the crawler based on user configuration"""
         self.status_var.set("Running crawler...")
@@ -184,23 +274,16 @@ class CPICrawlerGUI:
             self.status_var.set(f"Error: {str(e)}")
             messagebox.showerror("Error", f"An error occurred: {str(e)}")
 
-    def open_output_folder(self):
-        """Open the output folder in the system file explorer"""
-        import os
-        import platform
-        import subprocess
+    @staticmethod
+    def show_about():
+        """Show about dialog"""
+        about_text = """CPI Data Crawler GUI
+Version 1.0
 
-        path = os.path.abspath(self.crawler.output_dir)
+A cross-platform application for collecting CPI data from Singapore government sources.
 
-        try:
-            if platform.system() == "Windows":
-                os.startfile(path)
-            elif platform.system() == "Darwin":
-                subprocess.Popen(["open", path])
-            else:
-                subprocess.Popen(["xdg-open", path])
-        except Exception as e:
-            messagebox.showerror("Error", f"Could not open folder: {str(e)}")
+Works on Windows, macOS, and Linux."""
+        messagebox.showinfo("About CPI Data Crawler", about_text)
 
 
 if __name__ == "__main__":
