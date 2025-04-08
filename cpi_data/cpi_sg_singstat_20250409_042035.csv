@@ -1,0 +1,67 @@
+data_series,2019,2020,2021,2022,2023,2024,period,income_group,data_source
+Accommodation,100,100.159,102.044,106.525,111.626,114.892,Annual,Lowest 60%,sg_singstat
+Alcoholic Drinks & Tobacco,100,99.526,99.497,100.808,112.253,115.996,Annual,Lowest 60%,sg_singstat
+All Items,100,99.932,101.624,106.737,111.299,114.318,Annual,Lowest 60%,sg_singstat
+All Items Less Accommodation,100,99.836,101.447,106.826,111.162,114.077,Annual,Lowest 60%,sg_singstat
+All Items Less Imputed Rentals On Owner-Occupied Accommodation,100,99.745,101.328,106.44,110.686,113.527,Annual,Lowest 60%,sg_singstat
+Bread & Cereals,100,101.894,102.357,106.231,113.642,117.774,Annual,Lowest 60%,sg_singstat
+Bus & Train Fares,100.001,106.964,106.998,109.323,112.668,120.381,Annual,Lowest 60%,sg_singstat
+Cars,100,101.825,115.202,143.294,160.819,164.319,Annual,Lowest 60%,sg_singstat
+Catered Food,100,101.658,102.597,107.096,113.673,117.347,Annual,Lowest 60%,sg_singstat
+Clothing,100,96.554,91.502,93.603,94.837,93.791,Annual,Lowest 60%,sg_singstat
+Clothing & Footwear,100,96.474,91.356,93.476,96.326,95.263,Annual,Lowest 60%,sg_singstat
+Communication,100,100.874,100.653,99.466,102.358,102.758,Annual,Lowest 60%,sg_singstat
+Education,100,98.963,100.076,102.647,104.581,104.362,Annual,Lowest 60%,sg_singstat
+Electricity,100,90.61,91.382,111.145,116.09,122.148,Annual,Lowest 60%,sg_singstat
+Fast Food,100,101.408,103.2,107.413,115.868,120.811,Annual,Lowest 60%,sg_singstat
+Fish & Seafood,100,101.388,102.438,107.646,112.772,109.311,Annual,Lowest 60%,sg_singstat
+Food,100,101.977,103.574,109.323,115.685,118.778,Annual,Lowest 60%,sg_singstat
+Food Courts & Coffee Shops,100,101.174,102.776,108.711,115.481,119.243,Annual,Lowest 60%,sg_singstat
+Food Excl Food Serving Services,100,102.925,104.644,110.344,116.151,117.617,Annual,Lowest 60%,sg_singstat
+Food Serving Services,100,101.324,102.836,108.62,115.364,119.578,Annual,Lowest 60%,sg_singstat
+Footwear,100,95.366,89.35,91.053,97.238,95.01,Annual,Lowest 60%,sg_singstat
+Fruits,100,101.53,104.52,106.989,111.919,114.746,Annual,Lowest 60%,sg_singstat
+Gas,100,95.038,103.026,111.13,109.043,115.15,Annual,Lowest 60%,sg_singstat
+Hawker Centres,100,101.597,102.978,109.1,115.69,120.92,Annual,Lowest 60%,sg_singstat
+Hawker Food,100,101.293,102.833,108.821,115.54,119.718,Annual,Lowest 60%,sg_singstat
+Health Care,100,97.783,98.685,99.665,99.593,103.627,Annual,Lowest 60%,sg_singstat
+Health Insurance,100,99.958,105.23,106.546,108.445,110.603,Annual,Lowest 60%,sg_singstat
+Holiday Expenses,100,97.513,98.531,104.599,113.443,118.297,Annual,Lowest 60%,sg_singstat
+Hospital Services,100,100.856,103.053,104.278,101.381,107.197,Annual,Lowest 60%,sg_singstat
+Household Durables,100,99.902,101.41,104.608,106.512,106.703,Annual,Lowest 60%,sg_singstat
+Household Durables & Services,100,100.288,101.612,103.702,105.609,106.167,Annual,Lowest 60%,sg_singstat
+Household Services & Supplies,100,100.493,101.719,103.22,105.128,105.881,Annual,Lowest 60%,sg_singstat
+Housing & Utilities,100,99.413,101.218,106.744,111.512,115.145,Annual,Lowest 60%,sg_singstat
+Meat,100,105.641,105.649,116.488,124.381,124.164,Annual,Lowest 60%,sg_singstat
+Medicines & Health Products,100,99.417,99.581,101.054,103.536,105.661,Annual,Lowest 60%,sg_singstat
+"Milk, Cheese & Eggs",100,101.558,103.127,110.672,118.183,119.752,Annual,Lowest 60%,sg_singstat
+Miscellaneous Goods & Services,100,99.566,98.553,99.231,104.691,106.637,Annual,Lowest 60%,sg_singstat
+"Newspapers, Books & Stationery",100,100.414,100.59,101.052,101.947,102.635,Annual,Lowest 60%,sg_singstat
+Non-Alcoholic Beverages,100,103.345,105.094,110.144,116.85,120.176,Annual,Lowest 60%,sg_singstat
+Oils & Fats,100,101.899,103.689,111.251,113.867,115.118,Annual,Lowest 60%,sg_singstat
+Other Articles & Related Services,100,99.153,96.204,99.862,109.925,112.432,Annual,Lowest 60%,sg_singstat
+Other Food,100,101.118,102.415,106.307,113.626,119.129,Annual,Lowest 60%,sg_singstat
+Other Miscellaneous Services,100,100,98.288,93.133,92.266,92.704,Annual,Lowest 60%,sg_singstat
+Other Transport Services,100,96.582,100.207,114.552,110.612,106.753,Annual,Lowest 60%,sg_singstat
+Outpatient Services,100,94.58,93.782,94.347,94.917,98.798,Annual,Lowest 60%,sg_singstat
+Personal Care,100,100.153,98.608,100.547,104.23,105.615,Annual,Lowest 60%,sg_singstat
+Personal Effects,100,95.833,96.374,96.553,96.991,97.144,Annual,Lowest 60%,sg_singstat
+Petrol,100,92.378,108.687,129.596,124.507,128.165,Annual,Lowest 60%,sg_singstat
+Point-To-Point Transport Services,100,99.248,103.32,117.163,120.88,129.924,Annual,Lowest 60%,sg_singstat
+Postage & Courier Services,100.001,102.522,92.955,97.149,99.54,111.887,Annual,Lowest 60%,sg_singstat
+Private Transport,100,98.321,108.323,127.932,137.619,140.84,Annual,Lowest 60%,sg_singstat
+Public Transport,100,104.03,105.18,111.093,114.412,122.368,Annual,Lowest 60%,sg_singstat
+Recreation & Culture,100,98.694,99.279,103.728,109.883,113.704,Annual,Lowest 60%,sg_singstat
+Recreational & Cultural Goods,100,99.17,98.676,100.632,102.711,104.462,Annual,Lowest 60%,sg_singstat
+Recreational & Cultural Services,100,100.029,100.597,104.654,109.812,113.793,Annual,Lowest 60%,sg_singstat
+Restaurant Food,100,101.429,102.765,108.075,114.504,118.711,Annual,Lowest 60%,sg_singstat
+Social Services,100,97.565,91.776,86.971,87.425,87.455,Annual,Lowest 60%,sg_singstat
+"Sugar, Preserves & Confectionery",100,105.035,105.705,109.056,113.774,114.9,Annual,Lowest 60%,sg_singstat
+Telecommunication Equipment,100,98.041,93.342,97.859,96.701,92.873,Annual,Lowest 60%,sg_singstat
+Telecommunication Services,100,100.967,100.944,99.533,102.57,103.066,Annual,Lowest 60%,sg_singstat
+Textbooks & Study Guides,100,100.548,100.426,101.025,103.75,105.717,Annual,Lowest 60%,sg_singstat
+Transport,100,100.028,106.488,121.072,127.32,131.401,Annual,Lowest 60%,sg_singstat
+Tuition & Other Fees,100,98.944,100.071,102.667,104.591,104.345,Annual,Lowest 60%,sg_singstat
+Utilities & Other Fuels,100,94.703,95.997,108.132,110.785,116.739,Annual,Lowest 60%,sg_singstat
+Vegetables,100,104.911,110.02,114.994,116.945,119.79,Annual,Lowest 60%,sg_singstat
+Water Supply,100,100,100,100,101.023,107.355,Annual,Lowest 60%,sg_singstat

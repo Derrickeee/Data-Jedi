@@ -44,6 +44,7 @@ class CPIDataCrawler:
             }
         }
 
+
     def fetch_sg_datasets(self, dataset_ids=None):
         """Fetch data from Singapore's Data.gov.sg API for multiple dataset IDs"""
         if not dataset_ids:
@@ -224,20 +225,24 @@ class CPIDataCrawler:
                 lower_col = col.lower()
                 if lower_col in column_mapping:
                     df = df.rename(columns={col: column_mapping[lower_col]})
+            # Add missing columns if needed
+            if 'period' not in df.columns:
+                df['period'] = 'Annual'
+            if 'income_group' not in df.columns:
+                # Singapore specific processing
+                dataset_map = {
+                    "d_c5bde9ed17cef8c365629311f8550ce2": "Highest 20%",
+                    "d_8f3660871b62f38609915ee7ef45ee2c": "Middle 60%",
+                    "d_36c4af91ffd0a75f6b557960efcb476e": "Lowest 60%"
+                }
 
-            # Singapore specific processing
-            dataset_map = {
-                "d_c5bde9ed17cef8c365629311f8550ce2": "Highest 20%",
-                "d_8f3660871b62f38609915ee7ef45ee2c": "Middle 60%",
-                "d_36c4af91ffd0a75f6b557960efcb476e": "Lowest 60%"
-            }
-
-            # Iterate through the dataset_id list
-            for dataset in dataset_id:
-                if dataset in dataset_map:
-                    df['income_group'] = dataset_map[dataset]
-                    break  # Exit the loop once a match is found
-
+                # Iterate through the dataset_id list
+                for dataset in dataset_id:
+                    if dataset in dataset_map:
+                        df['income_group'] = dataset_map[dataset]
+                        break  # Exit the loop once a match is found
+            # Add source identifier
+            df['data_source'] = source
 
         elif source == 'sg_singstat':
             if 'row' in df.columns:
@@ -264,9 +269,34 @@ class CPIDataCrawler:
 
             # Reset the index if you need a clean DataFrame
             df.reset_index(inplace=True)
+            # Add processing for half-yearly data
+            years = [str(year) for year in range(1000, 2025)]
+            half_year_cols_exist = any(f"{year} 1H" in df.columns for year in years)
+            quarter_year_cols_exist = any(f"{year} 1Q" in df.columns for year in years)
+            month_cols_exist = any(f"{year} May" in df.columns for year in years)
             # Add missing columns if needed
             if 'period' not in df.columns:
-                df['period'] = 'Annual'
+                if half_year_cols_exist:
+                    df['period'] = 'Semiannual'
+                elif quarter_year_cols_exist:
+                    df['period'] = 'Quarterly'
+                elif month_cols_exist:
+                    df['period'] = 'Monthly'
+                else:
+                    df['period'] = 'Annual'
+            if 'income_group' not in df.columns:
+                # Singapore specific processing
+                dataset_map = {
+                    "M213051": "Highest 20%",
+                    "M213071": "Middle 60%",
+                    "M213031": "Lowest 60%"
+                }
+
+                # Iterate through the dataset_id list
+                for dataset in dataset_id:
+                    if dataset in dataset_map:
+                        df['income_group'] = dataset_map[dataset]
+                        break  # Exit the loop once a match is found
             # Add source identifier
             df['data_source'] = source
 
@@ -296,27 +326,6 @@ class CPIDataCrawler:
         print(f"Data saved to {output_path}")
         return output_path
 
-    def combine_datasets(self, file_paths):
-        """Combine multiple CPI datasets into one"""
-        if not file_paths:
-            return None
-
-        dfs = []
-        for path in file_paths:
-            try:
-                dfs.append(pd.read_csv(path))
-            except Exception as e:
-                print(f"Error reading {path}: {e}")
-
-        if dfs:
-            combined_df = pd.concat(dfs, ignore_index=True)
-            combined_path = os.path.join(self.output_dir, "combined_cpi_data.csv")
-            combined_df.to_csv(combined_path, index=False)
-            print(f"\nCombined data saved to: {combined_path}")
-            print("\nSample of combined data:")
-            print(combined_df.head())
-            return combined_path
-        return None
 
     def run(self, sg_dataset_ids=None, singstat_table_ids=None, singstat_urls=None):
         """Main execution method"""
@@ -345,7 +354,7 @@ class CPIDataCrawler:
 
             singstat_df = self.fetch_singstat_data(table_ids=singstat_table_ids)
             if singstat_df is not None:
-                singstat_df = self.clean_and_transform(singstat_df, 'sg_singstat', sg_dataset_ids)
+                singstat_df = self.clean_and_transform(singstat_df, 'sg_singstat', singstat_table_ids)
                 singstat_file = self.save_data(singstat_df, 'sg_singstat')
                 if singstat_file:
                     processed_files.append(singstat_file)
@@ -358,14 +367,10 @@ class CPIDataCrawler:
 
             scraped_df = self.scrape_singstat_table(table_urls=singstat_urls)
             if scraped_df is not None:
-                scraped_df = self.clean_and_transform(scraped_df, 'sg_singstat', sg_dataset_ids)
+                scraped_df = self.clean_and_transform(scraped_df, 'sg_singstat', singstat_table_ids)
                 scraped_file = self.save_data(scraped_df, 'sg_singstat_scraped')
                 if scraped_file:
                     processed_files.append(scraped_file)
-
-        # Combine all datasets
-        if processed_files:
-            self.combine_datasets(processed_files)
 
         print("\nCPI Data Crawler completed successfully.")
 
@@ -390,7 +395,7 @@ if __name__ == "__main__":
     # Example SingStat table URLs (replace with actual URLs)
     SINGSTAT_TABLE_URLS = [
         "https://tablebuilder.singstat.gov.sg/table/TS/M213051",
-        "https://tablebuilder.singstat.gov.sg/table/TS/M213071",
+        "https://tablebuilder.singstat.gov.sg/table/TS/M213071"
         "https://tablebuilder.singstat.gov.sg/table/TS/M213031"
     ]
 
