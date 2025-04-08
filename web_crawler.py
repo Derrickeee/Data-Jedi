@@ -271,9 +271,12 @@ class CPIDataCrawler:
             df.reset_index(inplace=True)
             # Add processing for half-yearly data
             years = [str(year) for year in range(1000, 2025)]
-            half_year_cols_exist = any(f"{year} 1H" in df.columns for year in years)
-            quarter_year_cols_exist = any(f"{year} 1Q" in df.columns for year in years)
-            month_cols_exist = any(f"{year} May" in df.columns for year in years)
+            half_years = ["1H", "2H", "3H", "4H"]
+            quarter_years = ["1Q", "2Q", "3Q", "4Q"]
+            months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            half_year_cols_exist = any(f"{year} {half}" in df.columns for year in years for half in half_years)
+            quarter_year_cols_exist = any(f"{year} {quarter}" in df.columns for year in years for quarter in quarter_years)
+            month_cols_exist = all(any(f"{year} {month}" in df.columns for year in years) for month in months)
             # Add missing columns if needed
             if 'period' not in df.columns:
                 if half_year_cols_exist:
@@ -288,6 +291,7 @@ class CPIDataCrawler:
                 # Singapore specific processing
                 dataset_map = {
                     "M213051": "Highest 20%",
+                    "M213041": "Middle 60%",
                     "M213071": "Middle 60%",
                     "M213031": "Lowest 60%"
                 }
@@ -380,22 +384,22 @@ if __name__ == "__main__":
 
     # Singapore CPI dataset IDs
     SG_CPI_DATASET_IDS = [
-        "d_c5bde9ed17cef8c365629311f8550ce2",  # Dataset ID 1
-        "d_8f3660871b62f38609915ee7ef45ee2c",  # Dataset ID 2
-        "d_36c4af91ffd0a75f6b557960efcb476e"  # Dataset ID 3
+        "d_c5bde9ed17cef8c365629311f8550ce2",  # CPI for Highest 20%
+        "d_8f3660871b62f38609915ee7ef45ee2c",  # CPI for Middle 60%
+        "d_36c4af91ffd0a75f6b557960efcb476e"  # CPI for Lowest 60%
     ]
 
     # SingStat table IDs
     SINGSTAT_TABLE_IDS = [
         "M213051",  # CPI for Highest 20%
-        "M213071",  # CPI for Middle 60%
+        "M213041",  # CPI for Middle 60%
         "M213031"   # CPI for Lowest 60%
     ]
 
-    # Example SingStat table URLs (replace with actual URLs)
+    # SingStat table URLs
     SINGSTAT_TABLE_URLS = [
         "https://tablebuilder.singstat.gov.sg/table/TS/M213051",
-        "https://tablebuilder.singstat.gov.sg/table/TS/M213071"
+        "https://tablebuilder.singstat.gov.sg/table/TS/M213041"
         "https://tablebuilder.singstat.gov.sg/table/TS/M213031"
     ]
 

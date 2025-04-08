@@ -118,7 +118,7 @@ class CPICrawlerGUI:
 
         ttk.Label(self.api_frame, text="Table ID:").pack(anchor='w', padx=10, pady=(10, 0))
         self.table_id_entry.pack(anchor='w', padx=10, pady=(0, 5))
-        self.table_id_entry.insert(0, "M213071")
+        self.table_id_entry.insert(0, "M213041")
 
         # ttk.Label(self.api_frame, text="Series Filter:").pack(anchor='w', padx=10, pady=(5, 0))
         # self.series_filter_entry.pack(anchor='w', padx=10, pady=(0, 5))
@@ -133,7 +133,7 @@ class CPICrawlerGUI:
 
         ttk.Label(self.scrape_frame, text="Table URL:").pack(anchor='w', padx=10, pady=(10, 0))
         self.table_url_entry.pack(anchor='w', padx=10, pady=(0, 10))
-        self.table_url_entry.insert(0, "https://tablebuilder.singstat.gov.sg/table/TS/M213071")
+        self.table_url_entry.insert(0, "https://tablebuilder.singstat.gov.sg/table/TS/M213041")
 
     def run_crawler(self):
         """Execute the crawler based on user configuration"""
