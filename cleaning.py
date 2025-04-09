@@ -15,7 +15,7 @@ def process_cpi_file(filepath, income_group):
         df[col] = pd.to_numeric(df[col], errors='coerce')
 
     # Melt to long format
-    df_long = df.iloc[:, :-4].melt(id_vars='DataSeries', var_name='Year', value_name='CPI')
+    df_long = df.iloc[:, :-3].melt(id_vars='DataSeries', var_name='Year', value_name='CPI')
     df_long['Year'] = df_long['Year'].astype(int)
 
     # Add period classification
