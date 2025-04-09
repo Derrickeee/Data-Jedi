@@ -219,15 +219,33 @@ class CPIDataCrawler:
             column_mapping = {
                 'year': 'year',
                 'value': 'cpi_value',
-                'category': 'data_series'
+                'category': 'DataSeries'
             }
             for col in df.columns:
                 lower_col = col.lower()
                 if lower_col in column_mapping:
                     df = df.rename(columns={col: column_mapping[lower_col]})
+
+            # Add processing for half-yearly data
+            years = [str(year) for year in range(1000, 2025)]
+            half_years = ["1H", "2H", "3H", "4H"]
+            quarter_years = ["1Q", "2Q", "3Q", "4Q"]
+            months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            half_year_cols_exist = all(
+                    any(f"{year} {half}" in df.columns for year in years) for half in half_years)
+            quarter_year_cols_exist = all(
+                    any(f"{year} {quarter}" in df.columns for year in years) for quarter in quarter_years)
+            month_cols_exist = all(any(f"{year} {month}" in df.columns for year in years) for month in months)
             # Add missing columns if needed
-            if 'period' not in df.columns:
-                df['period'] = 'Annual'
+            if 'frequency' not in df.columns:
+                if half_year_cols_exist:
+                    df['frequency'] = 'Semiannual'
+                elif quarter_year_cols_exist:
+                    df['frequency'] = 'Quarterly'
+                elif month_cols_exist:
+                    df['frequency'] = 'Monthly'
+                else:
+                    df['frequency'] = 'Annual'
             if 'income_group' not in df.columns:
                 # Singapore specific processing
                 dataset_map = {
@@ -255,8 +273,7 @@ class CPIDataCrawler:
             column_mapping = {
                 'year': 'year',
                 'value': 'cpi_value',
-                'rowtext': 'data_series',
-                'time': 'period'
+                'rowtext': 'data_series'
             }
             for col in df.columns:
                 lower_col = col.lower()
@@ -274,19 +291,21 @@ class CPIDataCrawler:
             half_years = ["1H", "2H", "3H", "4H"]
             quarter_years = ["1Q", "2Q", "3Q", "4Q"]
             months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-            half_year_cols_exist = any(f"{year} {half}" in df.columns for year in years for half in half_years)
-            quarter_year_cols_exist = any(f"{year} {quarter}" in df.columns for year in years for quarter in quarter_years)
+            half_year_cols_exist = all(any(f"{year} {half}" in df.columns for year in years) for half in half_years)
+            quarter_year_cols_exist = all(
+                any(f"{year} {quarter}" in df.columns for year in years) for quarter in quarter_years)
             month_cols_exist = all(any(f"{year} {month}" in df.columns for year in years) for month in months)
             # Add missing columns if needed
-            if 'period' not in df.columns:
+            if 'frequency' not in df.columns:
                 if half_year_cols_exist:
-                    df['period'] = 'Semiannual'
+                    df['frequency'] = 'Semiannual'
                 elif quarter_year_cols_exist:
-                    df['period'] = 'Quarterly'
+                    df['frequency'] = 'Quarterly'
                 elif month_cols_exist:
-                    df['period'] = 'Monthly'
+                    df['frequency'] = 'Monthly'
                 else:
-                    df['period'] = 'Annual'
+                    df['frequency'] = 'Annual'
+
             if 'income_group' not in df.columns:
                 # Singapore specific processing
                 dataset_map = {
@@ -302,6 +321,7 @@ class CPIDataCrawler:
                         df['income_group'] = dataset_map[dataset]
                         break  # Exit the loop once a match is found
             # Add source identifier
+
             df['data_source'] = source
 
         # Basic cleaning - replace "na" strings with pd.NA and drop any columns containing NA values
