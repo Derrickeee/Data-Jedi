@@ -1,0 +1,67 @@
+data_series,2019,2020,2021,2022,2023,2024,period,income_group,data_source
+Accommodation,100,100.449,101.508,105.494,110.018,113.365,Annual,Highest 20%,sg_singstat
+Alcoholic Drinks & Tobacco,100,98.114,98.245,98.97,106.093,107.664,Annual,Highest 20%,sg_singstat
+All Items,100,99.85,102.639,109.579,115.16,117.607,Annual,Highest 20%,sg_singstat
+All Items Less Accommodation,100,99.691,102.938,110.659,116.52,118.729,Annual,Highest 20%,sg_singstat
+All Items Less Imputed Rentals On Owner-Occupied Accommodation,100,99.735,102.838,110.3,116.071,118.366,Annual,Highest 20%,sg_singstat
+Bread & Cereals,100,101.963,102.741,106.877,114.113,118.279,Annual,Highest 20%,sg_singstat
+Bus & Train Fares,100.001,106.958,106.993,109.329,112.652,120.367,Annual,Highest 20%,sg_singstat
+Cars,100,100.696,115.277,142.588,158.794,156.217,Annual,Highest 20%,sg_singstat
+Catered Food,100.001,101.639,102.223,106.917,113.704,117.283,Annual,Highest 20%,sg_singstat
+Clothing,100,96.52,91.34,94.117,94.936,94.152,Annual,Highest 20%,sg_singstat
+Clothing & Footwear,100,96.331,91.205,93.864,96.177,95.232,Annual,Highest 20%,sg_singstat
+Communication,100,100.592,99.865,98.815,101.579,102.041,Annual,Highest 20%,sg_singstat
+Education,100,101.588,102.914,104.954,108.075,111.855,Annual,Highest 20%,sg_singstat
+Electricity,100,90.83,91.382,111.145,116.09,122.148,Annual,Highest 20%,sg_singstat
+Fast Food,100,101.395,103.124,107.582,115.921,120.818,Annual,Highest 20%,sg_singstat
+Fish & Seafood,100,100.685,100.977,106.816,112.546,108.481,Annual,Highest 20%,sg_singstat
+Food,100,101.842,103.248,108.661,114.909,118.253,Annual,Highest 20%,sg_singstat
+Food Courts & Coffee Shops,100,101.211,102.739,108.4,115.023,118.557,Annual,Highest 20%,sg_singstat
+Food Excl Food Serving Services,100,102.845,104.508,110.039,115.578,117.02,Annual,Highest 20%,sg_singstat
+Food Serving Services,100,101.42,102.719,108.082,114.628,118.772,Annual,Highest 20%,sg_singstat
+Footwear,100,94.92,89.317,91.341,97.314,95.011,Annual,Highest 20%,sg_singstat
+Fruits,100,101.594,104.365,108.132,110.921,112.695,Annual,Highest 20%,sg_singstat
+Gas,100,97.4,102.356,111.66,109.922,116.183,Annual,Highest 20%,sg_singstat
+Hawker Centres,100,101.642,102.974,109.17,115.655,120.58,Annual,Highest 20%,sg_singstat
+Hawker Food,100,101.296,102.785,108.55,115.146,118.952,Annual,Highest 20%,sg_singstat
+Health Care,100,99.397,100.684,103.217,109.237,113.684,Annual,Highest 20%,sg_singstat
+Health Insurance,100,100.009,104.959,107.371,112.58,120.699,Annual,Highest 20%,sg_singstat
+Holiday Expenses,100,96.544,98.069,103.262,111.864,116.542,Annual,Highest 20%,sg_singstat
+Hospital Services,100,102.277,103.825,106.157,112.204,117.364,Annual,Highest 20%,sg_singstat
+Household Durables,100,99.874,101.456,104.51,106.231,106.574,Annual,Highest 20%,sg_singstat
+Household Durables & Services,100,100.244,101.805,103.699,105.683,106.561,Annual,Highest 20%,sg_singstat
+Household Services & Supplies,100,100.446,101.996,103.254,105.384,106.554,Annual,Highest 20%,sg_singstat
+Housing & Utilities,100,99.889,100.923,105.782,110.181,113.768,Annual,Highest 20%,sg_singstat
+Meat,100,105.347,105.881,115.865,123.558,123.677,Annual,Highest 20%,sg_singstat
+Medicines & Health Products,100,98.71,98.656,99.847,101.288,102.709,Annual,Highest 20%,sg_singstat
+"Milk, Cheese & Eggs",100,102.286,103.736,109.087,115.175,117.124,Annual,Highest 20%,sg_singstat
+Miscellaneous Goods & Services,100,98.833,98.295,98.57,100.85,101.837,Annual,Highest 20%,sg_singstat
+"Newspapers, Books & Stationery",100,100.385,100.642,101.584,103.363,104.075,Annual,Highest 20%,sg_singstat
+Non-Alcoholic Beverages,100,103.694,105.398,109.819,116.17,119.314,Annual,Highest 20%,sg_singstat
+Oils & Fats,100,101.546,102.239,108.943,114,119.049,Annual,Highest 20%,sg_singstat
+Other Articles & Related Services,100.001,99.316,96.862,100.385,109.109,111.322,Annual,Highest 20%,sg_singstat
+Other Food,100,101.442,102.944,106.629,113.336,118.651,Annual,Highest 20%,sg_singstat
+Other Miscellaneous Services,100,100.022,99.215,94.721,94.079,93.839,Annual,Highest 20%,sg_singstat
+Other Transport Services,100,97.519,101.573,112.006,110.259,107.784,Annual,Highest 20%,sg_singstat
+Outpatient Services,100,98.341,99.12,102.324,110.439,114.89,Annual,Highest 20%,sg_singstat
+Personal Care,100,99.861,98.711,100.261,103.618,105.088,Annual,Highest 20%,sg_singstat
+Personal Effects,100,95.6,96.418,96.385,96.922,97.333,Annual,Highest 20%,sg_singstat
+Petrol,100,92.839,109.29,129.73,124.801,128.469,Annual,Highest 20%,sg_singstat
+Point-To-Point Transport Services,100,99.115,103.522,117.927,121.749,130.65,Annual,Highest 20%,sg_singstat
+Postage & Courier Services,100.001,102.522,92.955,97.149,99.54,111.887,Annual,Highest 20%,sg_singstat
+Private Transport,100,98.609,110.206,131.638,143.047,142.353,Annual,Highest 20%,sg_singstat
+Public Transport,100,102.002,104.193,112.73,116.607,124.57,Annual,Highest 20%,sg_singstat
+Recreation & Culture,100,97.821,98.999,103.307,109.78,114.119,Annual,Highest 20%,sg_singstat
+Recreational & Cultural Goods,100,99.263,99.047,101.118,103.257,104.042,Annual,Highest 20%,sg_singstat
+Recreational & Cultural Services,100,99.905,101.28,105.322,109.799,116.407,Annual,Highest 20%,sg_singstat
+Restaurant Food,100,101.506,102.647,107.819,114.165,118.494,Annual,Highest 20%,sg_singstat
+Social Services,100,101.77,100.738,101.737,101.238,102.442,Annual,Highest 20%,sg_singstat
+"Sugar, Preserves & Confectionery",100,104.908,105.642,108.839,113.783,114.435,Annual,Highest 20%,sg_singstat
+Telecommunication Equipment,100,98.5,94.727,98.964,96.745,93.631,Annual,Highest 20%,sg_singstat
+Telecommunication Services,100,100.775,100.402,98.814,102.051,102.76,Annual,Highest 20%,sg_singstat
+Textbooks & Study Guides,100,100.227,100.109,100.557,102.972,104.707,Annual,Highest 20%,sg_singstat
+Transport,100,98.841,108.586,127.404,136.516,136.528,Annual,Highest 20%,sg_singstat
+Tuition & Other Fees,100,101.598,102.935,104.987,108.113,111.909,Annual,Highest 20%,sg_singstat
+Utilities & Other Fuels,100,94.224,95.012,108.69,111.831,117.84,Annual,Highest 20%,sg_singstat
+Vegetables,100,105.097,110.517,116.112,118.302,120.538,Annual,Highest 20%,sg_singstat
+Water Supply,100,100,100,100,101.023,107.355,Annual,Highest 20%,sg_singstat

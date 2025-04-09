@@ -1,0 +1,67 @@
+data_series,2019,2020,2021,2022,2023,2024,period,income_group,data_source
+Accommodation,100,100.406,102.025,106.539,111.493,114.799,Annual,Middle 60%,sg_singstat
+Alcoholic Drinks & Tobacco,100,99.108,98.933,100.247,110.557,113.492,Annual,Middle 60%,sg_singstat
+All Items,100,99.861,101.901,107.862,112.954,115.742,Annual,Middle 60%,sg_singstat
+All Items Less Accommodation,100,99.712,101.868,108.224,113.353,116,Annual,Middle 60%,sg_singstat
+All Items Less Imputed Rentals On Owner-Occupied Accommodation,100,99.736,101.821,107.994,113.065,115.729,Annual,Middle 60%,sg_singstat
+Bread & Cereals,100,101.944,102.626,106.658,113.909,118.097,Annual,Middle 60%,sg_singstat
+Bus & Train Fares,100,106.961,106.996,109.326,112.661,120.374,Annual,Middle 60%,sg_singstat
+Cars,100,101.39,115.936,145.801,163.245,162.56,Annual,Middle 60%,sg_singstat
+Catered Food,100.001,101.644,102.336,106.971,113.694,117.302,Annual,Middle 60%,sg_singstat
+Clothing,100,96.099,90.426,93.152,93.773,92.586,Annual,Middle 60%,sg_singstat
+Clothing & Footwear,100,95.976,90.375,92.947,95.27,94.014,Annual,Middle 60%,sg_singstat
+Communication,100,100.689,100.098,98.831,101.791,102.302,Annual,Middle 60%,sg_singstat
+Education,100,98.93,100.093,102.135,104.899,108.034,Annual,Middle 60%,sg_singstat
+Electricity,100,90.846,91.382,111.145,116.09,122.148,Annual,Middle 60%,sg_singstat
+Fast Food,100,101.36,102.873,107.04,115.199,119.994,Annual,Middle 60%,sg_singstat
+Fish & Seafood,100,101.086,101.85,106.937,112.349,108.364,Annual,Middle 60%,sg_singstat
+Food,100,101.835,103.314,108.802,115.138,118.383,Annual,Middle 60%,sg_singstat
+Food Courts & Coffee Shops,100,101.191,102.729,108.537,115.172,118.786,Annual,Middle 60%,sg_singstat
+Food Excl Food Serving Services,100,102.851,104.509,110.033,115.726,117.157,Annual,Middle 60%,sg_singstat
+Food Serving Services,100,101.348,102.741,108.212,114.855,118.971,Annual,Middle 60%,sg_singstat
+Footwear,100,95.019,89.085,91.077,97.099,95.004,Annual,Middle 60%,sg_singstat
+Fruits,100,101.711,104.517,107.759,111.785,113.821,Annual,Middle 60%,sg_singstat
+Gas,100,96.581,101.912,112.011,110.504,116.867,Annual,Middle 60%,sg_singstat
+Hawker Centres,100,101.614,103.001,109.146,115.665,120.751,Annual,Middle 60%,sg_singstat
+Hawker Food,100,101.273,102.783,108.657,115.268,119.171,Annual,Middle 60%,sg_singstat
+Health Care,100,97.962,98.998,101.204,105.814,109.752,Annual,Middle 60%,sg_singstat
+Health Insurance,100,100.009,104.827,106.76,110.253,115.206,Annual,Middle 60%,sg_singstat
+Holiday Expenses,100,97.508,98.752,103.809,112.303,116.354,Annual,Middle 60%,sg_singstat
+Hospital Services,100,101.182,102.475,104.194,108.72,113.679,Annual,Middle 60%,sg_singstat
+Household Durables,100,100.018,101.6,104.672,106.337,106.464,Annual,Middle 60%,sg_singstat
+Household Durables & Services,100,100.289,101.665,103.835,105.754,106.296,Annual,Middle 60%,sg_singstat
+Household Services & Supplies,100,100.518,101.719,103.127,105.262,106.155,Annual,Middle 60%,sg_singstat
+Housing & Utilities,100,99.671,101.188,106.754,111.444,115.099,Annual,Middle 60%,sg_singstat
+Meat,100,105.323,105.638,116.193,124.027,123.928,Annual,Middle 60%,sg_singstat
+Medicines & Health Products,100,98.461,98.503,99.74,101.182,102.7,Annual,Middle 60%,sg_singstat
+"Milk, Cheese & Eggs",100,101.671,103.09,108.883,115.136,117.035,Annual,Middle 60%,sg_singstat
+Miscellaneous Goods & Services,100,98.861,98.38,98.979,102.29,103.893,Annual,Middle 60%,sg_singstat
+"Newspapers, Books & Stationery",100,100.311,100.556,101.22,102.266,102.951,Annual,Middle 60%,sg_singstat
+Non-Alcoholic Beverages,100,103.584,105.284,110.179,116.649,120.058,Annual,Middle 60%,sg_singstat
+Oils & Fats,100,101.797,103.438,110.538,113.26,115.527,Annual,Middle 60%,sg_singstat
+Other Articles & Related Services,100.001,99.275,96.656,99.965,109.021,111.278,Annual,Middle 60%,sg_singstat
+Other Food,100,101.314,102.837,106.193,112.421,117.012,Annual,Middle 60%,sg_singstat
+Other Miscellaneous Services,100,100.053,100.641,96.58,95.993,98.546,Annual,Middle 60%,sg_singstat
+Other Transport Services,100,96.162,99.933,115.125,110.162,106.29,Annual,Middle 60%,sg_singstat
+Outpatient Services,100,95.626,95.895,98.812,105.076,109.233,Annual,Middle 60%,sg_singstat
+Personal Care,100,99.985,98.357,100.04,103.334,104.604,Annual,Middle 60%,sg_singstat
+Personal Effects,100,93.933,96.286,98.068,97.775,97.98,Annual,Middle 60%,sg_singstat
+Petrol,100,92.584,108.95,129.65,124.635,128.292,Annual,Middle 60%,sg_singstat
+Point-To-Point Transport Services,100,98.976,103.732,118.727,122.659,131.41,Annual,Middle 60%,sg_singstat
+Postage & Courier Services,100.001,102.522,92.955,97.149,99.54,111.887,Annual,Middle 60%,sg_singstat
+Private Transport,100,98.627,109.587,130.464,140.282,140.947,Annual,Middle 60%,sg_singstat
+Public Transport,100,103.451,105.214,112.438,116.15,124.018,Annual,Middle 60%,sg_singstat
+Recreation & Culture,100,98.45,99.406,103.759,110.089,113.684,Annual,Middle 60%,sg_singstat
+Recreational & Cultural Goods,100,98.921,98.768,100.767,103.033,103.88,Annual,Middle 60%,sg_singstat
+Recreational & Cultural Services,100,99.656,100.799,105.701,111.057,115.763,Annual,Middle 60%,sg_singstat
+Restaurant Food,100,101.484,102.646,107.622,114.01,118.427,Annual,Middle 60%,sg_singstat
+Social Services,100,97.135,95.442,94.932,93.869,94.333,Annual,Middle 60%,sg_singstat
+"Sugar, Preserves & Confectionery",100,105.213,105.882,109.276,114.041,114.654,Annual,Middle 60%,sg_singstat
+Telecommunication Equipment,100,98.571,94.959,98.802,96.951,93.959,Annual,Middle 60%,sg_singstat
+Telecommunication Services,100,100.811,100.445,98.84,102.097,102.772,Annual,Middle 60%,sg_singstat
+Textbooks & Study Guides,100,100.641,100.566,101.038,103.587,105.306,Annual,Middle 60%,sg_singstat
+Transport,100,99.576,107.64,124.674,131.653,133.657,Annual,Middle 60%,sg_singstat
+Tuition & Other Fees,100,98.91,100.087,102.148,104.914,108.066,Annual,Middle 60%,sg_singstat
+Utilities & Other Fuels,100,94.688,95.517,108.21,111.109,117.133,Annual,Middle 60%,sg_singstat
+Vegetables,100,104.957,110.157,115.261,117.642,120.474,Annual,Middle 60%,sg_singstat
+Water Supply,100,100,100,100,101.023,107.355,Annual,Middle 60%,sg_singstat
