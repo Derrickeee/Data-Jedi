@@ -44,7 +44,6 @@ class CPIDataCrawler:
             }
         }
 
-
     def fetch_sg_datasets(self, dataset_ids=None):
         """Fetch data from Singapore's Data.gov.sg API for multiple dataset IDs"""
         if not dataset_ids:
@@ -232,9 +231,9 @@ class CPIDataCrawler:
             quarter_years = ["1Q", "2Q", "3Q", "4Q"]
             months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
             half_year_cols_exist = all(
-                    any(f"{year} {half}" in df.columns for year in years) for half in half_years)
+                any(f"{year} {half}" in df.columns for year in years) for half in half_years)
             quarter_year_cols_exist = all(
-                    any(f"{year} {quarter}" in df.columns for year in years) for quarter in quarter_years)
+                any(f"{year} {quarter}" in df.columns for year in years) for quarter in quarter_years)
             month_cols_exist = all(any(f"{year} {month}" in df.columns for year in years) for month in months)
             # Add missing columns if needed
             if 'frequency' not in df.columns:
@@ -350,7 +349,6 @@ class CPIDataCrawler:
         print(f"Data saved to {output_path}")
         return output_path
 
-
     def run(self, sg_dataset_ids=None, singstat_table_ids=None, singstat_urls=None):
         """Main execution method"""
         print("Starting CPI Data Crawler...")
@@ -413,7 +411,7 @@ if __name__ == "__main__":
     SINGSTAT_TABLE_IDS = [
         "M213051",  # CPI for Highest 20%
         "M213041",  # CPI for Middle 60%
-        "M213031"   # CPI for Lowest 60%
+        "M213031"  # CPI for Lowest 60%
     ]
 
     # SingStat table URLs

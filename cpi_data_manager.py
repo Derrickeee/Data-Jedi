@@ -7,8 +7,7 @@ from tkinter import ttk, messagebox, filedialog
 from web_crawler import CPIDataCrawler
 from database import DatabaseManager
 
-
-class CombinedCPIApp:
+class CPIApp:
     def __init__(self, master):
         self.dataset_id_entry = None
         self.table_id_entry = None
@@ -307,5 +306,5 @@ class CombinedCPIApp:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = CombinedCPIApp(root)
+    app = CPIApp(root)
     root.mainloop()

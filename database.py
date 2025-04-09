@@ -3,6 +3,7 @@ from psycopg2 import sql
 import csv
 import os
 
+
 class DatabaseManager:
     def __init__(self):
         # Connection parameters
