@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Combined CPI Data Crawler and Database Manager GUI
+CPI Data Crawler GUI
 """
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
@@ -174,12 +174,19 @@ class CPIApp:
         status_frame = ttk.LabelFrame(self.database_frame, text="Operation Status", padding=10)
         status_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
 
-        self.status_text = tk.Text(status_frame, wrap=tk.WORD, height=10)
-        self.status_text.pack(fill=tk.BOTH, expand=True)
+        # Create a frame to hold both text widget and scrollbar
+        text_frame = ttk.Frame(status_frame)
+        text_frame.pack(fill=tk.BOTH, expand=True)
 
-        scrollbar = ttk.Scrollbar(status_frame, orient=tk.VERTICAL, command=self.status_text.yview)
+        self.status_text = tk.Text(text_frame, wrap=tk.WORD, height=10)
+        self.status_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        # Add scrollbar - now properly placed next to the text widget
+        scrollbar = ttk.Scrollbar(text_frame, orient=tk.VERTICAL, command=self.status_text.yview)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.status_text.config(yscrollcommand=scrollbar.set)
+
+        # Make text widget read-only
         self.status_text.config(state=tk.DISABLED)
 
     def run_crawler(self):

@@ -182,6 +182,9 @@ class DatabaseManager:
             self.conn = psycopg2.connect(**conn_params)
             cursor = self.conn.cursor()
 
+            success_count = 0
+            total_tables = len(table_config)
+
             # Process each CSV file
             for csv_file, config in table_config.items():
                 csv_path = os.path.join(csv_dir, csv_file)
@@ -207,20 +210,25 @@ class DatabaseManager:
                     )
 
                     # Insert each row
+                    rows_imported = 0
                     for row in reader:
                         try:
                             # Convert empty strings to None
                             row = [None if x == '' else x for x in row]
                             cursor.execute(insert_query, row)
+                            rows_imported += 1
                         except psycopg2.Error as e:
                             self.conn.rollback()
                             log_callback(f"Error inserting row {row}: {e}")
                             continue
 
                     self.conn.commit()
-                    log_callback(f"Successfully imported data to {config['table']} table")
-
-            log_callback("\nAll data imported successfully!")
+                    if rows_imported > 0:
+                        log_callback(f"Successfully imported data to {config['table']} table")
+                        success_count += 1
+                    else:
+                        log_callback(
+                            f"\nImport completed with {success_count} out of {total_tables} tables successfully imported")
 
         except psycopg2.Error as e:
             raise Exception(f"Database error: {e}")
