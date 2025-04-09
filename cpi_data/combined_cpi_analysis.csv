@@ -72,7 +72,7 @@ Bread & Cereals,2023,114.113,Post-COVID,Highest 20%
 Meat,2023,123.558,Post-COVID,Highest 20%
 Fish & Seafood,2023,112.546,Post-COVID,Highest 20%
 "Milk, Cheese & Eggs",2023,115.175,Post-COVID,Highest 20%
-Oils & Fats,2023,114,Post-COVID,Highest 20%
+Oils & Fats,2023,114.0,Post-COVID,Highest 20%
 Fruits,2023,110.921,Post-COVID,Highest 20%
 Vegetables,2023,118.302,Post-COVID,Highest 20%
 "Sugar, Preserves & Confectionery",2023,113.783,Post-COVID,Highest 20%
@@ -158,7 +158,7 @@ Footwear,2022,91.341,COVID,Highest 20%
 Housing & Utilities,2022,105.782,COVID,Highest 20%
 Accommodation,2022,105.494,COVID,Highest 20%
 Utilities & Other Fuels,2022,108.69,COVID,Highest 20%
-Water Supply,2022,100,COVID,Highest 20%
+Water Supply,2022,100.0,COVID,Highest 20%
 Electricity,2022,111.145,COVID,Highest 20%
 Gas,2022,111.66,COVID,Highest 20%
 Household Durables & Services,2022,103.699,COVID,Highest 20%
@@ -224,7 +224,7 @@ Footwear,2021,89.317,COVID,Highest 20%
 Housing & Utilities,2021,100.923,COVID,Highest 20%
 Accommodation,2021,101.508,COVID,Highest 20%
 Utilities & Other Fuels,2021,95.012,COVID,Highest 20%
-Water Supply,2021,100,COVID,Highest 20%
+Water Supply,2021,100.0,COVID,Highest 20%
 Electricity,2021,91.382,COVID,Highest 20%
 Gas,2021,102.356,COVID,Highest 20%
 Household Durables & Services,2021,101.805,COVID,Highest 20%
@@ -290,7 +290,7 @@ Footwear,2020,94.92,COVID,Highest 20%
 Housing & Utilities,2020,99.889,COVID,Highest 20%
 Accommodation,2020,100.449,COVID,Highest 20%
 Utilities & Other Fuels,2020,94.224,COVID,Highest 20%
-Water Supply,2020,100,COVID,Highest 20%
+Water Supply,2020,100.0,COVID,Highest 20%
 Electricity,2020,90.83,COVID,Highest 20%
 Gas,2020,97.4,COVID,Highest 20%
 Household Durables & Services,2020,100.244,COVID,Highest 20%
@@ -329,138 +329,6 @@ Social Services,2020,101.77,COVID,Highest 20%
 Other Miscellaneous Services,2020,100.022,COVID,Highest 20%
 All Items Less Imputed Rentals On Owner-Occupied Accommodation,2020,99.735,COVID,Highest 20%
 All Items Less Accommodation,2020,99.691,COVID,Highest 20%
-All Items,2019,100,Pre-COVID,Highest 20%
-Food,2019,100,Pre-COVID,Highest 20%
-Food Excl Food Serving Services,2019,100,Pre-COVID,Highest 20%
-Bread & Cereals,2019,100,Pre-COVID,Highest 20%
-Meat,2019,100,Pre-COVID,Highest 20%
-Fish & Seafood,2019,100,Pre-COVID,Highest 20%
-"Milk, Cheese & Eggs",2019,100,Pre-COVID,Highest 20%
-Oils & Fats,2019,100,Pre-COVID,Highest 20%
-Fruits,2019,100,Pre-COVID,Highest 20%
-Vegetables,2019,100,Pre-COVID,Highest 20%
-"Sugar, Preserves & Confectionery",2019,100,Pre-COVID,Highest 20%
-Non-Alcoholic Beverages,2019,100,Pre-COVID,Highest 20%
-Other Food,2019,100,Pre-COVID,Highest 20%
-Food Serving Services,2019,100,Pre-COVID,Highest 20%
-Restaurant Food,2019,100,Pre-COVID,Highest 20%
-Fast Food,2019,100,Pre-COVID,Highest 20%
-Hawker Food,2019,100,Pre-COVID,Highest 20%
-Hawker Centres,2019,100,Pre-COVID,Highest 20%
-Food Courts & Coffee Shops,2019,100,Pre-COVID,Highest 20%
-Catered Food,2019,100.001,Pre-COVID,Highest 20%
-Clothing & Footwear,2019,100,Pre-COVID,Highest 20%
-Clothing,2019,100,Pre-COVID,Highest 20%
-Other Articles & Related Services,2019,100.001,Pre-COVID,Highest 20%
-Footwear,2019,100,Pre-COVID,Highest 20%
-Housing & Utilities,2019,100,Pre-COVID,Highest 20%
-Accommodation,2019,100,Pre-COVID,Highest 20%
-Utilities & Other Fuels,2019,100,Pre-COVID,Highest 20%
-Water Supply,2019,100,Pre-COVID,Highest 20%
-Electricity,2019,100,Pre-COVID,Highest 20%
-Gas,2019,100,Pre-COVID,Highest 20%
-Household Durables & Services,2019,100,Pre-COVID,Highest 20%
-Household Durables,2019,100,Pre-COVID,Highest 20%
-Household Services & Supplies,2019,100,Pre-COVID,Highest 20%
-Health Care,2019,100,Pre-COVID,Highest 20%
-Medicines & Health Products,2019,100,Pre-COVID,Highest 20%
-Outpatient Services,2019,100,Pre-COVID,Highest 20%
-Hospital Services,2019,100,Pre-COVID,Highest 20%
-Health Insurance,2019,100,Pre-COVID,Highest 20%
-Transport,2019,100,Pre-COVID,Highest 20%
-Private Transport,2019,100,Pre-COVID,Highest 20%
-Cars,2019,100,Pre-COVID,Highest 20%
-Petrol,2019,100,Pre-COVID,Highest 20%
-Public Transport,2019,100,Pre-COVID,Highest 20%
-Bus & Train Fares,2019,100.001,Pre-COVID,Highest 20%
-Point-To-Point Transport Services,2019,100,Pre-COVID,Highest 20%
-Other Transport Services,2019,100,Pre-COVID,Highest 20%
-Communication,2019,100,Pre-COVID,Highest 20%
-Postage & Courier Services,2019,100.001,Pre-COVID,Highest 20%
-Telecommunication Equipment,2019,100,Pre-COVID,Highest 20%
-Telecommunication Services,2019,100,Pre-COVID,Highest 20%
-Recreation & Culture,2019,100,Pre-COVID,Highest 20%
-Recreational & Cultural Goods,2019,100,Pre-COVID,Highest 20%
-Recreational & Cultural Services,2019,100,Pre-COVID,Highest 20%
-"Newspapers, Books & Stationery",2019,100,Pre-COVID,Highest 20%
-Holiday Expenses,2019,100,Pre-COVID,Highest 20%
-Education,2019,100,Pre-COVID,Highest 20%
-Tuition & Other Fees,2019,100,Pre-COVID,Highest 20%
-Textbooks & Study Guides,2019,100,Pre-COVID,Highest 20%
-Miscellaneous Goods & Services,2019,100,Pre-COVID,Highest 20%
-Personal Care,2019,100,Pre-COVID,Highest 20%
-Alcoholic Drinks & Tobacco,2019,100,Pre-COVID,Highest 20%
-Personal Effects,2019,100,Pre-COVID,Highest 20%
-Social Services,2019,100,Pre-COVID,Highest 20%
-Other Miscellaneous Services,2019,100,Pre-COVID,Highest 20%
-All Items Less Imputed Rentals On Owner-Occupied Accommodation,2019,100,Pre-COVID,Highest 20%
-All Items Less Accommodation,2019,100,Pre-COVID,Highest 20%
-All Items,2018,99.252,Pre-COVID,Highest 20%
-Food,2018,98.465,Pre-COVID,Highest 20%
-Food Excl Food Serving Services,2018,98.916,Pre-COVID,Highest 20%
-Bread & Cereals,2018,98.474,Pre-COVID,Highest 20%
-Meat,2018,99.725,Pre-COVID,Highest 20%
-Fish & Seafood,2018,98.809,Pre-COVID,Highest 20%
-"Milk, Cheese & Eggs",2018,99.631,Pre-COVID,Highest 20%
-Oils & Fats,2018,99.799,Pre-COVID,Highest 20%
-Fruits,2018,98.252,Pre-COVID,Highest 20%
-Vegetables,2018,97.971,Pre-COVID,Highest 20%
-"Sugar, Preserves & Confectionery",2018,100.155,Pre-COVID,Highest 20%
-Non-Alcoholic Beverages,2018,98.602,Pre-COVID,Highest 20%
-Other Food,2018,99.485,Pre-COVID,Highest 20%
-Food Serving Services,2018,98.248,Pre-COVID,Highest 20%
-Restaurant Food,2018,98.236,Pre-COVID,Highest 20%
-Fast Food,2018,98.387,Pre-COVID,Highest 20%
-Hawker Food,2018,98.369,Pre-COVID,Highest 20%
-Hawker Centres,2018,,Pre-COVID,Highest 20%
-Food Courts & Coffee Shops,2018,,Pre-COVID,Highest 20%
-Catered Food,2018,95.25,Pre-COVID,Highest 20%
-Clothing & Footwear,2018,100.915,Pre-COVID,Highest 20%
-Clothing,2018,101.274,Pre-COVID,Highest 20%
-Other Articles & Related Services,2018,100.702,Pre-COVID,Highest 20%
-Footwear,2018,99.737,Pre-COVID,Highest 20%
-Housing & Utilities,2018,100.741,Pre-COVID,Highest 20%
-Accommodation,2018,100.597,Pre-COVID,Highest 20%
-Utilities & Other Fuels,2018,101.862,Pre-COVID,Highest 20%
-Water Supply,2018,93.591,Pre-COVID,Highest 20%
-Electricity,2018,105.92,Pre-COVID,Highest 20%
-Gas,2018,99.963,Pre-COVID,Highest 20%
-Household Durables & Services,2018,98.978,Pre-COVID,Highest 20%
-Household Durables,2018,100.183,Pre-COVID,Highest 20%
-Household Services & Supplies,2018,98.41,Pre-COVID,Highest 20%
-Health Care,2018,98.708,Pre-COVID,Highest 20%
-Medicines & Health Products,2018,101.127,Pre-COVID,Highest 20%
-Outpatient Services,2018,97.977,Pre-COVID,Highest 20%
-Hospital Services,2018,97.761,Pre-COVID,Highest 20%
-Health Insurance,2018,99.95,Pre-COVID,Highest 20%
-Transport,2018,98.882,Pre-COVID,Highest 20%
-Private Transport,2018,98.889,Pre-COVID,Highest 20%
-Cars,2018,98.27,Pre-COVID,Highest 20%
-Petrol,2018,99.869,Pre-COVID,Highest 20%
-Public Transport,2018,98.359,Pre-COVID,Highest 20%
-Bus & Train Fares,2018,95.79,Pre-COVID,Highest 20%
-Point-To-Point Transport Services,2018,100,Pre-COVID,Highest 20%
-Other Transport Services,2018,99.435,Pre-COVID,Highest 20%
-Communication,2018,101.132,Pre-COVID,Highest 20%
-Postage & Courier Services,2018,100.024,Pre-COVID,Highest 20%
-Telecommunication Equipment,2018,112.137,Pre-COVID,Highest 20%
-Telecommunication Services,2018,100.558,Pre-COVID,Highest 20%
-Recreation & Culture,2018,98.893,Pre-COVID,Highest 20%
-Recreational & Cultural Goods,2018,101.682,Pre-COVID,Highest 20%
-Recreational & Cultural Services,2018,98.69,Pre-COVID,Highest 20%
-"Newspapers, Books & Stationery",2018,99.734,Pre-COVID,Highest 20%
-Holiday Expenses,2018,98.064,Pre-COVID,Highest 20%
-Education,2018,97.664,Pre-COVID,Highest 20%
-Tuition & Other Fees,2018,97.638,Pre-COVID,Highest 20%
-Textbooks & Study Guides,2018,100.599,Pre-COVID,Highest 20%
-Miscellaneous Goods & Services,2018,99.761,Pre-COVID,Highest 20%
-Personal Care,2018,99.373,Pre-COVID,Highest 20%
-Alcoholic Drinks & Tobacco,2018,100.225,Pre-COVID,Highest 20%
-Personal Effects,2018,100.445,Pre-COVID,Highest 20%
-Social Services,2018,99.836,Pre-COVID,Highest 20%
-Other Miscellaneous Services,2018,100.046,Pre-COVID,Highest 20%
-All Items Less Imputed Rentals On Owner-Occupied Accommodation,2018,98.986,Pre-COVID,Highest 20%
-All Items Less Accommodation,2018,98.943,Pre-COVID,Highest 20%
 All Items,2024,115.742,Post-COVID,Middle 60%
 Food,2024,118.383,Post-COVID,Middle 60%
 Food Excl Food Serving Services,2024,117.157,Post-COVID,Middle 60%
@@ -526,7 +394,7 @@ Personal Effects,2024,97.98,Post-COVID,Middle 60%
 Social Services,2024,94.333,Post-COVID,Middle 60%
 Other Miscellaneous Services,2024,98.546,Post-COVID,Middle 60%
 All Items Less Imputed Rentals On Owner-Occupied Accommodation,2024,115.729,Post-COVID,Middle 60%
-All Items Less Accommodation,2024,116,Post-COVID,Middle 60%
+All Items Less Accommodation,2024,116.0,Post-COVID,Middle 60%
 All Items,2023,112.954,Post-COVID,Middle 60%
 Food,2023,115.138,Post-COVID,Middle 60%
 Food Excl Food Serving Services,2023,115.726,Post-COVID,Middle 60%
@@ -620,7 +488,7 @@ Footwear,2022,91.077,COVID,Middle 60%
 Housing & Utilities,2022,106.754,COVID,Middle 60%
 Accommodation,2022,106.539,COVID,Middle 60%
 Utilities & Other Fuels,2022,108.21,COVID,Middle 60%
-Water Supply,2022,100,COVID,Middle 60%
+Water Supply,2022,100.0,COVID,Middle 60%
 Electricity,2022,111.145,COVID,Middle 60%
 Gas,2022,112.011,COVID,Middle 60%
 Household Durables & Services,2022,103.835,COVID,Middle 60%
@@ -686,7 +554,7 @@ Footwear,2021,89.085,COVID,Middle 60%
 Housing & Utilities,2021,101.188,COVID,Middle 60%
 Accommodation,2021,102.025,COVID,Middle 60%
 Utilities & Other Fuels,2021,95.517,COVID,Middle 60%
-Water Supply,2021,100,COVID,Middle 60%
+Water Supply,2021,100.0,COVID,Middle 60%
 Electricity,2021,91.382,COVID,Middle 60%
 Gas,2021,101.912,COVID,Middle 60%
 Household Durables & Services,2021,101.665,COVID,Middle 60%
@@ -752,7 +620,7 @@ Footwear,2020,95.019,COVID,Middle 60%
 Housing & Utilities,2020,99.671,COVID,Middle 60%
 Accommodation,2020,100.406,COVID,Middle 60%
 Utilities & Other Fuels,2020,94.688,COVID,Middle 60%
-Water Supply,2020,100,COVID,Middle 60%
+Water Supply,2020,100.0,COVID,Middle 60%
 Electricity,2020,90.846,COVID,Middle 60%
 Gas,2020,96.581,COVID,Middle 60%
 Household Durables & Services,2020,100.289,COVID,Middle 60%
@@ -791,138 +659,6 @@ Social Services,2020,97.135,COVID,Middle 60%
 Other Miscellaneous Services,2020,100.053,COVID,Middle 60%
 All Items Less Imputed Rentals On Owner-Occupied Accommodation,2020,99.736,COVID,Middle 60%
 All Items Less Accommodation,2020,99.712,COVID,Middle 60%
-All Items,2019,100,Pre-COVID,Middle 60%
-Food,2019,100,Pre-COVID,Middle 60%
-Food Excl Food Serving Services,2019,100,Pre-COVID,Middle 60%
-Bread & Cereals,2019,100,Pre-COVID,Middle 60%
-Meat,2019,100,Pre-COVID,Middle 60%
-Fish & Seafood,2019,100,Pre-COVID,Middle 60%
-"Milk, Cheese & Eggs",2019,100,Pre-COVID,Middle 60%
-Oils & Fats,2019,100,Pre-COVID,Middle 60%
-Fruits,2019,100,Pre-COVID,Middle 60%
-Vegetables,2019,100,Pre-COVID,Middle 60%
-"Sugar, Preserves & Confectionery",2019,100,Pre-COVID,Middle 60%
-Non-Alcoholic Beverages,2019,100,Pre-COVID,Middle 60%
-Other Food,2019,100,Pre-COVID,Middle 60%
-Food Serving Services,2019,100,Pre-COVID,Middle 60%
-Restaurant Food,2019,100,Pre-COVID,Middle 60%
-Fast Food,2019,100,Pre-COVID,Middle 60%
-Hawker Food,2019,100,Pre-COVID,Middle 60%
-Hawker Centres,2019,100,Pre-COVID,Middle 60%
-Food Courts & Coffee Shops,2019,100,Pre-COVID,Middle 60%
-Catered Food,2019,100.001,Pre-COVID,Middle 60%
-Clothing & Footwear,2019,100,Pre-COVID,Middle 60%
-Clothing,2019,100,Pre-COVID,Middle 60%
-Other Articles & Related Services,2019,100.001,Pre-COVID,Middle 60%
-Footwear,2019,100,Pre-COVID,Middle 60%
-Housing & Utilities,2019,100,Pre-COVID,Middle 60%
-Accommodation,2019,100,Pre-COVID,Middle 60%
-Utilities & Other Fuels,2019,100,Pre-COVID,Middle 60%
-Water Supply,2019,100,Pre-COVID,Middle 60%
-Electricity,2019,100,Pre-COVID,Middle 60%
-Gas,2019,100,Pre-COVID,Middle 60%
-Household Durables & Services,2019,100,Pre-COVID,Middle 60%
-Household Durables,2019,100,Pre-COVID,Middle 60%
-Household Services & Supplies,2019,100,Pre-COVID,Middle 60%
-Health Care,2019,100,Pre-COVID,Middle 60%
-Medicines & Health Products,2019,100,Pre-COVID,Middle 60%
-Outpatient Services,2019,100,Pre-COVID,Middle 60%
-Hospital Services,2019,100,Pre-COVID,Middle 60%
-Health Insurance,2019,100,Pre-COVID,Middle 60%
-Transport,2019,100,Pre-COVID,Middle 60%
-Private Transport,2019,100,Pre-COVID,Middle 60%
-Cars,2019,100,Pre-COVID,Middle 60%
-Petrol,2019,100,Pre-COVID,Middle 60%
-Public Transport,2019,100,Pre-COVID,Middle 60%
-Bus & Train Fares,2019,100,Pre-COVID,Middle 60%
-Point-To-Point Transport Services,2019,100,Pre-COVID,Middle 60%
-Other Transport Services,2019,100,Pre-COVID,Middle 60%
-Communication,2019,100,Pre-COVID,Middle 60%
-Postage & Courier Services,2019,100.001,Pre-COVID,Middle 60%
-Telecommunication Equipment,2019,100,Pre-COVID,Middle 60%
-Telecommunication Services,2019,100,Pre-COVID,Middle 60%
-Recreation & Culture,2019,100,Pre-COVID,Middle 60%
-Recreational & Cultural Goods,2019,100,Pre-COVID,Middle 60%
-Recreational & Cultural Services,2019,100,Pre-COVID,Middle 60%
-"Newspapers, Books & Stationery",2019,100,Pre-COVID,Middle 60%
-Holiday Expenses,2019,100,Pre-COVID,Middle 60%
-Education,2019,100,Pre-COVID,Middle 60%
-Tuition & Other Fees,2019,100,Pre-COVID,Middle 60%
-Textbooks & Study Guides,2019,100,Pre-COVID,Middle 60%
-Miscellaneous Goods & Services,2019,100,Pre-COVID,Middle 60%
-Personal Care,2019,100,Pre-COVID,Middle 60%
-Alcoholic Drinks & Tobacco,2019,100,Pre-COVID,Middle 60%
-Personal Effects,2019,100,Pre-COVID,Middle 60%
-Social Services,2019,100,Pre-COVID,Middle 60%
-Other Miscellaneous Services,2019,100,Pre-COVID,Middle 60%
-All Items Less Imputed Rentals On Owner-Occupied Accommodation,2019,100,Pre-COVID,Middle 60%
-All Items Less Accommodation,2019,100,Pre-COVID,Middle 60%
-All Items,2018,99.542,Pre-COVID,Middle 60%
-Food,2018,98.512,Pre-COVID,Middle 60%
-Food Excl Food Serving Services,2018,98.861,Pre-COVID,Middle 60%
-Bread & Cereals,2018,98.482,Pre-COVID,Middle 60%
-Meat,2018,99.849,Pre-COVID,Middle 60%
-Fish & Seafood,2018,98.609,Pre-COVID,Middle 60%
-"Milk, Cheese & Eggs",2018,99.621,Pre-COVID,Middle 60%
-Oils & Fats,2018,99.256,Pre-COVID,Middle 60%
-Fruits,2018,97.933,Pre-COVID,Middle 60%
-Vegetables,2018,98.083,Pre-COVID,Middle 60%
-"Sugar, Preserves & Confectionery",2018,100.3,Pre-COVID,Middle 60%
-Non-Alcoholic Beverages,2018,98.474,Pre-COVID,Middle 60%
-Other Food,2018,99.523,Pre-COVID,Middle 60%
-Food Serving Services,2018,98.317,Pre-COVID,Middle 60%
-Restaurant Food,2018,98.24,Pre-COVID,Middle 60%
-Fast Food,2018,98.459,Pre-COVID,Middle 60%
-Hawker Food,2018,98.378,Pre-COVID,Middle 60%
-Hawker Centres,2018,,Pre-COVID,Middle 60%
-Food Courts & Coffee Shops,2018,,Pre-COVID,Middle 60%
-Catered Food,2018,95.415,Pre-COVID,Middle 60%
-Clothing & Footwear,2018,100.711,Pre-COVID,Middle 60%
-Clothing,2018,101.138,Pre-COVID,Middle 60%
-Other Articles & Related Services,2018,100.35,Pre-COVID,Middle 60%
-Footwear,2018,99.405,Pre-COVID,Middle 60%
-Housing & Utilities,2018,101.17,Pre-COVID,Middle 60%
-Accommodation,2018,101.162,Pre-COVID,Middle 60%
-Utilities & Other Fuels,2018,101.217,Pre-COVID,Middle 60%
-Water Supply,2018,93.591,Pre-COVID,Middle 60%
-Electricity,2018,105.92,Pre-COVID,Middle 60%
-Gas,2018,99.943,Pre-COVID,Middle 60%
-Household Durables & Services,2018,99.424,Pre-COVID,Middle 60%
-Household Durables,2018,100.529,Pre-COVID,Middle 60%
-Household Services & Supplies,2018,98.671,Pre-COVID,Middle 60%
-Health Care,2018,98.992,Pre-COVID,Middle 60%
-Medicines & Health Products,2018,100.761,Pre-COVID,Middle 60%
-Outpatient Services,2018,98.766,Pre-COVID,Middle 60%
-Hospital Services,2018,97.913,Pre-COVID,Middle 60%
-Health Insurance,2018,99.946,Pre-COVID,Middle 60%
-Transport,2018,99.601,Pre-COVID,Middle 60%
-Private Transport,2018,100.536,Pre-COVID,Middle 60%
-Cars,2018,100.597,Pre-COVID,Middle 60%
-Petrol,2018,99.95,Pre-COVID,Middle 60%
-Public Transport,2018,97.372,Pre-COVID,Middle 60%
-Bus & Train Fares,2018,95.785,Pre-COVID,Middle 60%
-Point-To-Point Transport Services,2018,100,Pre-COVID,Middle 60%
-Other Transport Services,2018,99.11,Pre-COVID,Middle 60%
-Communication,2018,100.913,Pre-COVID,Middle 60%
-Postage & Courier Services,2018,100.018,Pre-COVID,Middle 60%
-Telecommunication Equipment,2018,111.156,Pre-COVID,Middle 60%
-Telecommunication Services,2018,100.489,Pre-COVID,Middle 60%
-Recreation & Culture,2018,98.971,Pre-COVID,Middle 60%
-Recreational & Cultural Goods,2018,101.255,Pre-COVID,Middle 60%
-Recreational & Cultural Services,2018,98.664,Pre-COVID,Middle 60%
-"Newspapers, Books & Stationery",2018,99.832,Pre-COVID,Middle 60%
-Holiday Expenses,2018,98.086,Pre-COVID,Middle 60%
-Education,2018,97.698,Pre-COVID,Middle 60%
-Tuition & Other Fees,2018,97.643,Pre-COVID,Middle 60%
-Textbooks & Study Guides,2018,100.702,Pre-COVID,Middle 60%
-Miscellaneous Goods & Services,2018,99.569,Pre-COVID,Middle 60%
-Personal Care,2018,99.205,Pre-COVID,Middle 60%
-Alcoholic Drinks & Tobacco,2018,99.449,Pre-COVID,Middle 60%
-Personal Effects,2018,100.713,Pre-COVID,Middle 60%
-Social Services,2018,99.774,Pre-COVID,Middle 60%
-Other Miscellaneous Services,2018,100.093,Pre-COVID,Middle 60%
-All Items Less Imputed Rentals On Owner-Occupied Accommodation,2018,99.179,Pre-COVID,Middle 60%
-All Items Less Accommodation,2018,99.157,Pre-COVID,Middle 60%
 All Items,2024,114.318,Post-COVID,Lowest 20%
 Food,2024,118.778,Post-COVID,Lowest 20%
 Food Excl Food Serving Services,2024,117.617,Post-COVID,Lowest 20%
@@ -1082,7 +818,7 @@ Footwear,2022,91.053,COVID,Lowest 20%
 Housing & Utilities,2022,106.744,COVID,Lowest 20%
 Accommodation,2022,106.525,COVID,Lowest 20%
 Utilities & Other Fuels,2022,108.132,COVID,Lowest 20%
-Water Supply,2022,100,COVID,Lowest 20%
+Water Supply,2022,100.0,COVID,Lowest 20%
 Electricity,2022,111.145,COVID,Lowest 20%
 Gas,2022,111.13,COVID,Lowest 20%
 Household Durables & Services,2022,103.702,COVID,Lowest 20%
@@ -1148,7 +884,7 @@ Footwear,2021,89.35,COVID,Lowest 20%
 Housing & Utilities,2021,101.218,COVID,Lowest 20%
 Accommodation,2021,102.044,COVID,Lowest 20%
 Utilities & Other Fuels,2021,95.997,COVID,Lowest 20%
-Water Supply,2021,100,COVID,Lowest 20%
+Water Supply,2021,100.0,COVID,Lowest 20%
 Electricity,2021,91.382,COVID,Lowest 20%
 Gas,2021,103.026,COVID,Lowest 20%
 Household Durables & Services,2021,101.612,COVID,Lowest 20%
@@ -1214,7 +950,7 @@ Footwear,2020,95.366,COVID,Lowest 20%
 Housing & Utilities,2020,99.413,COVID,Lowest 20%
 Accommodation,2020,100.159,COVID,Lowest 20%
 Utilities & Other Fuels,2020,94.703,COVID,Lowest 20%
-Water Supply,2020,100,COVID,Lowest 20%
+Water Supply,2020,100.0,COVID,Lowest 20%
 Electricity,2020,90.61,COVID,Lowest 20%
 Gas,2020,95.038,COVID,Lowest 20%
 Household Durables & Services,2020,100.288,COVID,Lowest 20%
@@ -1250,138 +986,6 @@ Personal Care,2020,100.153,COVID,Lowest 20%
 Alcoholic Drinks & Tobacco,2020,99.526,COVID,Lowest 20%
 Personal Effects,2020,95.833,COVID,Lowest 20%
 Social Services,2020,97.565,COVID,Lowest 20%
-Other Miscellaneous Services,2020,100,COVID,Lowest 20%
+Other Miscellaneous Services,2020,100.0,COVID,Lowest 20%
 All Items Less Imputed Rentals On Owner-Occupied Accommodation,2020,99.745,COVID,Lowest 20%
 All Items Less Accommodation,2020,99.836,COVID,Lowest 20%
-All Items,2019,100,Pre-COVID,Lowest 20%
-Food,2019,100,Pre-COVID,Lowest 20%
-Food Excl Food Serving Services,2019,100,Pre-COVID,Lowest 20%
-Bread & Cereals,2019,100,Pre-COVID,Lowest 20%
-Meat,2019,100,Pre-COVID,Lowest 20%
-Fish & Seafood,2019,100,Pre-COVID,Lowest 20%
-"Milk, Cheese & Eggs",2019,100,Pre-COVID,Lowest 20%
-Oils & Fats,2019,100,Pre-COVID,Lowest 20%
-Fruits,2019,100,Pre-COVID,Lowest 20%
-Vegetables,2019,100,Pre-COVID,Lowest 20%
-"Sugar, Preserves & Confectionery",2019,100,Pre-COVID,Lowest 20%
-Non-Alcoholic Beverages,2019,100,Pre-COVID,Lowest 20%
-Other Food,2019,100,Pre-COVID,Lowest 20%
-Food Serving Services,2019,100,Pre-COVID,Lowest 20%
-Restaurant Food,2019,100,Pre-COVID,Lowest 20%
-Fast Food,2019,100,Pre-COVID,Lowest 20%
-Hawker Food,2019,100,Pre-COVID,Lowest 20%
-Hawker Centres,2019,100,Pre-COVID,Lowest 20%
-Food Courts & Coffee Shops,2019,100,Pre-COVID,Lowest 20%
-Catered Food,2019,100,Pre-COVID,Lowest 20%
-Clothing & Footwear,2019,100,Pre-COVID,Lowest 20%
-Clothing,2019,100,Pre-COVID,Lowest 20%
-Other Articles & Related Services,2019,100,Pre-COVID,Lowest 20%
-Footwear,2019,100,Pre-COVID,Lowest 20%
-Housing & Utilities,2019,100,Pre-COVID,Lowest 20%
-Accommodation,2019,100,Pre-COVID,Lowest 20%
-Utilities & Other Fuels,2019,100,Pre-COVID,Lowest 20%
-Water Supply,2019,100,Pre-COVID,Lowest 20%
-Electricity,2019,100,Pre-COVID,Lowest 20%
-Gas,2019,100,Pre-COVID,Lowest 20%
-Household Durables & Services,2019,100,Pre-COVID,Lowest 20%
-Household Durables,2019,100,Pre-COVID,Lowest 20%
-Household Services & Supplies,2019,100,Pre-COVID,Lowest 20%
-Health Care,2019,100,Pre-COVID,Lowest 20%
-Medicines & Health Products,2019,100,Pre-COVID,Lowest 20%
-Outpatient Services,2019,100,Pre-COVID,Lowest 20%
-Hospital Services,2019,100,Pre-COVID,Lowest 20%
-Health Insurance,2019,100,Pre-COVID,Lowest 20%
-Transport,2019,100,Pre-COVID,Lowest 20%
-Private Transport,2019,100,Pre-COVID,Lowest 20%
-Cars,2019,100,Pre-COVID,Lowest 20%
-Petrol,2019,100,Pre-COVID,Lowest 20%
-Public Transport,2019,100,Pre-COVID,Lowest 20%
-Bus & Train Fares,2019,100.001,Pre-COVID,Lowest 20%
-Point-To-Point Transport Services,2019,100,Pre-COVID,Lowest 20%
-Other Transport Services,2019,100,Pre-COVID,Lowest 20%
-Communication,2019,100,Pre-COVID,Lowest 20%
-Postage & Courier Services,2019,100.001,Pre-COVID,Lowest 20%
-Telecommunication Equipment,2019,100,Pre-COVID,Lowest 20%
-Telecommunication Services,2019,100,Pre-COVID,Lowest 20%
-Recreation & Culture,2019,100,Pre-COVID,Lowest 20%
-Recreational & Cultural Goods,2019,100,Pre-COVID,Lowest 20%
-Recreational & Cultural Services,2019,100,Pre-COVID,Lowest 20%
-"Newspapers, Books & Stationery",2019,100,Pre-COVID,Lowest 20%
-Holiday Expenses,2019,100,Pre-COVID,Lowest 20%
-Education,2019,100,Pre-COVID,Lowest 20%
-Tuition & Other Fees,2019,100,Pre-COVID,Lowest 20%
-Textbooks & Study Guides,2019,100,Pre-COVID,Lowest 20%
-Miscellaneous Goods & Services,2019,100,Pre-COVID,Lowest 20%
-Personal Care,2019,100,Pre-COVID,Lowest 20%
-Alcoholic Drinks & Tobacco,2019,100,Pre-COVID,Lowest 20%
-Personal Effects,2019,100,Pre-COVID,Lowest 20%
-Social Services,2019,100,Pre-COVID,Lowest 20%
-Other Miscellaneous Services,2019,100,Pre-COVID,Lowest 20%
-All Items Less Imputed Rentals On Owner-Occupied Accommodation,2019,100,Pre-COVID,Lowest 20%
-All Items Less Accommodation,2019,100,Pre-COVID,Lowest 20%
-All Items,2018,99.704,Pre-COVID,Lowest 20%
-Food,2018,98.541,Pre-COVID,Lowest 20%
-Food Excl Food Serving Services,2018,98.778,Pre-COVID,Lowest 20%
-Bread & Cereals,2018,98.38,Pre-COVID,Lowest 20%
-Meat,2018,99.899,Pre-COVID,Lowest 20%
-Fish & Seafood,2018,98.518,Pre-COVID,Lowest 20%
-"Milk, Cheese & Eggs",2018,99.48,Pre-COVID,Lowest 20%
-Oils & Fats,2018,99.014,Pre-COVID,Lowest 20%
-Fruits,2018,97.921,Pre-COVID,Lowest 20%
-Vegetables,2018,98.197,Pre-COVID,Lowest 20%
-"Sugar, Preserves & Confectionery",2018,99.789,Pre-COVID,Lowest 20%
-Non-Alcoholic Beverages,2018,98.572,Pre-COVID,Lowest 20%
-Other Food,2018,99.589,Pre-COVID,Lowest 20%
-Food Serving Services,2018,98.358,Pre-COVID,Lowest 20%
-Restaurant Food,2018,98.58,Pre-COVID,Lowest 20%
-Fast Food,2018,98.457,Pre-COVID,Lowest 20%
-Hawker Food,2018,98.356,Pre-COVID,Lowest 20%
-Hawker Centres,2018,,Pre-COVID,Lowest 20%
-Food Courts & Coffee Shops,2018,,Pre-COVID,Lowest 20%
-Catered Food,2018,95.145,Pre-COVID,Lowest 20%
-Clothing & Footwear,2018,100.428,Pre-COVID,Lowest 20%
-Clothing,2018,100.902,Pre-COVID,Lowest 20%
-Other Articles & Related Services,2018,99.722,Pre-COVID,Lowest 20%
-Footwear,2018,99.103,Pre-COVID,Lowest 20%
-Housing & Utilities,2018,101.052,Pre-COVID,Lowest 20%
-Accommodation,2018,101.113,Pre-COVID,Lowest 20%
-Utilities & Other Fuels,2018,100.733,Pre-COVID,Lowest 20%
-Water Supply,2018,93.591,Pre-COVID,Lowest 20%
-Electricity,2018,105.92,Pre-COVID,Lowest 20%
-Gas,2018,99.985,Pre-COVID,Lowest 20%
-Household Durables & Services,2018,99.611,Pre-COVID,Lowest 20%
-Household Durables,2018,100.818,Pre-COVID,Lowest 20%
-Household Services & Supplies,2018,98.905,Pre-COVID,Lowest 20%
-Health Care,2018,98.706,Pre-COVID,Lowest 20%
-Medicines & Health Products,2018,100.443,Pre-COVID,Lowest 20%
-Outpatient Services,2018,98.822,Pre-COVID,Lowest 20%
-Hospital Services,2018,97.766,Pre-COVID,Lowest 20%
-Health Insurance,2018,99.943,Pre-COVID,Lowest 20%
-Transport,2018,99.324,Pre-COVID,Lowest 20%
-Private Transport,2018,101.764,Pre-COVID,Lowest 20%
-Cars,2018,103.944,Pre-COVID,Lowest 20%
-Petrol,2018,99.951,Pre-COVID,Lowest 20%
-Public Transport,2018,96.787,Pre-COVID,Lowest 20%
-Bus & Train Fares,2018,95.778,Pre-COVID,Lowest 20%
-Point-To-Point Transport Services,2018,100,Pre-COVID,Lowest 20%
-Other Transport Services,2018,98.605,Pre-COVID,Lowest 20%
-Communication,2018,100.131,Pre-COVID,Lowest 20%
-Postage & Courier Services,2018,100.018,Pre-COVID,Lowest 20%
-Telecommunication Equipment,2018,110.877,Pre-COVID,Lowest 20%
-Telecommunication Services,2018,99.893,Pre-COVID,Lowest 20%
-Recreation & Culture,2018,99.222,Pre-COVID,Lowest 20%
-Recreational & Cultural Goods,2018,102.492,Pre-COVID,Lowest 20%
-Recreational & Cultural Services,2018,99.248,Pre-COVID,Lowest 20%
-"Newspapers, Books & Stationery",2018,99.935,Pre-COVID,Lowest 20%
-Holiday Expenses,2018,97.908,Pre-COVID,Lowest 20%
-Education,2018,98.087,Pre-COVID,Lowest 20%
-Tuition & Other Fees,2018,98.054,Pre-COVID,Lowest 20%
-Textbooks & Study Guides,2018,99.959,Pre-COVID,Lowest 20%
-Miscellaneous Goods & Services,2018,99.416,Pre-COVID,Lowest 20%
-Personal Care,2018,99.232,Pre-COVID,Lowest 20%
-Alcoholic Drinks & Tobacco,2018,99.266,Pre-COVID,Lowest 20%
-Personal Effects,2018,100.753,Pre-COVID,Lowest 20%
-Social Services,2018,99.891,Pre-COVID,Lowest 20%
-Other Miscellaneous Services,2018,100,Pre-COVID,Lowest 20%
-All Items Less Imputed Rentals On Owner-Occupied Accommodation,2018,99.148,Pre-COVID,Lowest 20%
-All Items Less Accommodation,2018,99.098,Pre-COVID,Lowest 20%

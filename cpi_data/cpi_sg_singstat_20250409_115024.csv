@@ -1,4 +1,4 @@
-data_series,2019,2020,2021,2022,2023,2024,period,income_group,data_source
+data_series,2019,2020,2021,2022,2023,2024,frequency,income_group,data_source
 Accommodation,100,100.449,101.508,105.494,110.018,113.365,Annual,Highest 20%,sg_singstat
 Alcoholic Drinks & Tobacco,100,98.114,98.245,98.97,106.093,107.664,Annual,Highest 20%,sg_singstat
 All Items,100,99.85,102.639,109.579,115.16,117.607,Annual,Highest 20%,sg_singstat

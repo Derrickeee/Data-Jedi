@@ -1,0 +1,67 @@
+DataSeries,2024,2023,2022,2021,2020,2019,frequency,income_group,data_source
+All Items,114.318,111.299,106.737,101.624,99.932,100.0,Annual,Lowest 60%,sg_gov
+    Food,118.778,115.685,109.323,103.574,101.977,100.0,Annual,Lowest 60%,sg_gov
+    Food Excl Food Serving Services,117.617,116.151,110.344,104.644,102.925,100.0,Annual,Lowest 60%,sg_gov
+        Bread & Cereals,117.774,113.642,106.231,102.357,101.894,100.0,Annual,Lowest 60%,sg_gov
+        Meat,124.164,124.381,116.488,105.649,105.641,100.0,Annual,Lowest 60%,sg_gov
+        Fish & Seafood,109.311,112.772,107.646,102.438,101.388,100.0,Annual,Lowest 60%,sg_gov
+"        Milk, Cheese & Eggs",119.752,118.183,110.672,103.127,101.558,100.0,Annual,Lowest 60%,sg_gov
+        Oils & Fats,115.118,113.867,111.251,103.689,101.899,100.0,Annual,Lowest 60%,sg_gov
+        Fruits,114.746,111.919,106.989,104.52,101.53,100.0,Annual,Lowest 60%,sg_gov
+        Vegetables,119.79,116.945,114.994,110.02,104.911,100.0,Annual,Lowest 60%,sg_gov
+"        Sugar, Preserves & Confectionery",114.9,113.774,109.056,105.705,105.035,100.0,Annual,Lowest 60%,sg_gov
+        Non-Alcoholic Beverages,120.176,116.85,110.144,105.094,103.345,100.0,Annual,Lowest 60%,sg_gov
+        Other Food,119.129,113.626,106.307,102.415,101.118,100.0,Annual,Lowest 60%,sg_gov
+    Food Serving Services,119.578,115.364,108.62,102.836,101.324,100.0,Annual,Lowest 60%,sg_gov
+        Restaurant Food,118.711,114.504,108.075,102.765,101.429,100.0,Annual,Lowest 60%,sg_gov
+        Fast Food,120.811,115.868,107.413,103.2,101.408,100.0,Annual,Lowest 60%,sg_gov
+        Hawker Food,119.718,115.54,108.821,102.833,101.293,100.0,Annual,Lowest 60%,sg_gov
+            Hawker Centres,120.92,115.69,109.1,102.978,101.597,100.0,Annual,Lowest 60%,sg_gov
+            Food Courts & Coffee Shops,119.243,115.481,108.711,102.776,101.174,100.0,Annual,Lowest 60%,sg_gov
+        Catered Food,117.347,113.673,107.096,102.597,101.658,100.0,Annual,Lowest 60%,sg_gov
+    Clothing & Footwear,95.263,96.326,93.476,91.356,96.474,100.0,Annual,Lowest 60%,sg_gov
+        Clothing,93.791,94.837,93.603,91.502,96.554,100.0,Annual,Lowest 60%,sg_gov
+        Other Articles & Related Services,112.432,109.925,99.862,96.204,99.153,100.0,Annual,Lowest 60%,sg_gov
+        Footwear,95.01,97.238,91.053,89.35,95.366,100.0,Annual,Lowest 60%,sg_gov
+    Housing & Utilities,115.145,111.512,106.744,101.218,99.413,100.0,Annual,Lowest 60%,sg_gov
+        Accommodation,114.892,111.626,106.525,102.044,100.159,100.0,Annual,Lowest 60%,sg_gov
+        Utilities & Other Fuels,116.739,110.785,108.132,95.997,94.703,100.0,Annual,Lowest 60%,sg_gov
+            Water Supply,107.355,101.023,100.0,100.0,100.0,100.0,Annual,Lowest 60%,sg_gov
+            Electricity,122.148,116.09,111.145,91.382,90.61,100.0,Annual,Lowest 60%,sg_gov
+            Gas,115.15,109.043,111.13,103.026,95.038,100.0,Annual,Lowest 60%,sg_gov
+    Household Durables & Services,106.167,105.609,103.702,101.612,100.288,100.0,Annual,Lowest 60%,sg_gov
+        Household Durables,106.703,106.512,104.608,101.41,99.902,100.0,Annual,Lowest 60%,sg_gov
+        Household Services & Supplies,105.881,105.128,103.22,101.719,100.493,100.0,Annual,Lowest 60%,sg_gov
+    Health Care,103.627,99.593,99.665,98.685,97.783,100.0,Annual,Lowest 60%,sg_gov
+        Medicines & Health Products,105.661,103.536,101.054,99.581,99.417,100.0,Annual,Lowest 60%,sg_gov
+        Outpatient Services,98.798,94.917,94.347,93.782,94.58,100.0,Annual,Lowest 60%,sg_gov
+        Hospital Services,107.197,101.381,104.278,103.053,100.856,100.0,Annual,Lowest 60%,sg_gov
+        Health Insurance,110.603,108.445,106.546,105.23,99.958,100.0,Annual,Lowest 60%,sg_gov
+    Transport,131.401,127.32,121.072,106.488,100.028,100.0,Annual,Lowest 60%,sg_gov
+        Private Transport,140.84,137.619,127.932,108.323,98.321,100.0,Annual,Lowest 60%,sg_gov
+            Cars,164.319,160.819,143.294,115.202,101.825,100.0,Annual,Lowest 60%,sg_gov
+            Petrol,128.165,124.507,129.596,108.687,92.378,100.0,Annual,Lowest 60%,sg_gov
+        Public Transport,122.368,114.412,111.093,105.18,104.03,100.0,Annual,Lowest 60%,sg_gov
+            Bus & Train Fares,120.381,112.668,109.323,106.998,106.964,100.001,Annual,Lowest 60%,sg_gov
+            Point-To-Point Transport Services,129.924,120.88,117.163,103.32,99.248,100.0,Annual,Lowest 60%,sg_gov
+        Other Transport Services,106.753,110.612,114.552,100.207,96.582,100.0,Annual,Lowest 60%,sg_gov
+    Communication,102.758,102.358,99.466,100.653,100.874,100.0,Annual,Lowest 60%,sg_gov
+        Postage & Courier Services,111.887,99.54,97.149,92.955,102.522,100.001,Annual,Lowest 60%,sg_gov
+        Telecommunication Equipment,92.873,96.701,97.859,93.342,98.041,100.0,Annual,Lowest 60%,sg_gov
+        Telecommunication Services,103.066,102.57,99.533,100.944,100.967,100.0,Annual,Lowest 60%,sg_gov
+    Recreation & Culture,113.704,109.883,103.728,99.279,98.694,100.0,Annual,Lowest 60%,sg_gov
+        Recreational & Cultural Goods,104.462,102.711,100.632,98.676,99.17,100.0,Annual,Lowest 60%,sg_gov
+        Recreational & Cultural Services,113.793,109.812,104.654,100.597,100.029,100.0,Annual,Lowest 60%,sg_gov
+"        Newspapers, Books & Stationery",102.635,101.947,101.052,100.59,100.414,100.0,Annual,Lowest 60%,sg_gov
+        Holiday Expenses,118.297,113.443,104.599,98.531,97.513,100.0,Annual,Lowest 60%,sg_gov
+    Education,104.362,104.581,102.647,100.076,98.963,100.0,Annual,Lowest 60%,sg_gov
+        Tuition & Other Fees,104.345,104.591,102.667,100.071,98.944,100.0,Annual,Lowest 60%,sg_gov
+        Textbooks & Study Guides,105.717,103.75,101.025,100.426,100.548,100.0,Annual,Lowest 60%,sg_gov
+    Miscellaneous Goods & Services,106.637,104.691,99.231,98.553,99.566,100.0,Annual,Lowest 60%,sg_gov
+        Personal Care,105.615,104.23,100.547,98.608,100.153,100.0,Annual,Lowest 60%,sg_gov
+        Alcoholic Drinks & Tobacco,115.996,112.253,100.808,99.497,99.526,100.0,Annual,Lowest 60%,sg_gov
+        Personal Effects,97.144,96.991,96.553,96.374,95.833,100.0,Annual,Lowest 60%,sg_gov
+        Social Services,87.455,87.425,86.971,91.776,97.565,100.0,Annual,Lowest 60%,sg_gov
+        Other Miscellaneous Services,92.704,92.266,93.133,98.288,100.0,100.0,Annual,Lowest 60%,sg_gov
+All Items Less Imputed Rentals On Owner-Occupied Accommodation,113.527,110.686,106.44,101.328,99.745,100.0,Annual,Lowest 60%,sg_gov
+All Items Less Accommodation,114.077,111.162,106.826,101.447,99.836,100.0,Annual,Lowest 60%,sg_gov
