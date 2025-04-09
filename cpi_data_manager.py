@@ -2,6 +2,7 @@
 """
 CPI Data Crawler GUI
 """
+import os
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from web_crawler import CPIDataCrawler
@@ -52,6 +53,7 @@ class CPIApp:
         self.create_main_tab()
         self.create_crawler_tab()
         self.create_database_tab()
+        self.set_window_icon()
 
     def create_main_tab(self):
         """Create the main tab with general information"""
@@ -309,6 +311,38 @@ class CPIApp:
         self.status_text.insert(tk.END, message + "\n")
         self.status_text.see(tk.END)
         self.status_text.config(state=tk.DISABLED)
+
+    def set_window_icon(self):
+        """Set the application icon"""
+        try:
+            # Try to use an icon file in the same directory
+            icon_path = self.get_icon_path('app_icon.ico')
+            if icon_path:
+                self.root.iconbitmap(icon_path)
+            else:
+                # Fallback to a PNG icon (works cross-platform)
+                icon_path = self.get_icon_path('app_icon.png')
+                if icon_path:
+                    img = tk.PhotoImage(file=icon_path)
+                    self.root.tk.call('wm', 'iconphoto', self.root.w, img)
+        except Exception as e:
+            print(f"Could not load window icon: {e}")
+
+    @staticmethod
+    def get_icon_path(filename):
+        """Get the full path to the icon file"""
+        # Try in the current directory
+        if os.path.exists(filename):
+            return filename
+
+        # Try in a subdirectory
+        icon_dir = os.path.join(os.path.dirname(__file__), 'icons')
+        icon_path = os.path.join(icon_dir, filename)
+        if os.path.exists(icon_path):
+            return icon_path
+
+        return None
+
 
 
 if __name__ == "__main__":
