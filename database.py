@@ -38,7 +38,7 @@ class DatabaseManager:
                 raise Exception(f"Database '{db_name}' already exists")
 
             # Create new database
-            cursor.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(db_name)))
+            cursor.execute(sql.SQL("CREATE DATABASE IF NOT EXISTS {}").format(sql.Identifier(db_name)))
             log_callback(f"Database '{db_name}' created successfully")
 
             # Update connection params to use new database
