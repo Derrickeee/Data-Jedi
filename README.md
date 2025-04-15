@@ -48,7 +48,7 @@ The [DataGovSG Exploration Notebook](https://github.com/datagovsg/dgs-exploratio
 - Create a database and configure connection credentials.
 
 4. Run the data crawler:
-- Configure API keys in the script (e.g., Twitter API).
+- Key in the Dataset ID in the executable.
 - Execute the script to fetch and store data.
 
 ## Contribution
