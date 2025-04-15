@@ -20,6 +20,9 @@ Data sources that we used:
 - [Data.gov.sg](https://www.data.gov.sg/)
 - [SingStat Table Builder](https://tablebuilder.singstat.gov.sg/)
 
+## Reference
+The [DataGovSG Exploration Notebook](https://github.com/datagovsg/dgs-exploration/blob/master/DataGovSG.ipynb) served as an inspiration for this project. It explores data from Singapore's DataGovSG and demonstrates approaches to data sourcing and analysis.
+
 ## Requirements
 - Python 3.7+ 
 - PostgreSQL (or any other preferred DBMS)
@@ -35,4 +38,19 @@ Data sources that we used:
    ```bash
    git clone https://github.com/Derrickeee/Data-Jedi.git
    cd Data-Jedi
+
+2. Install required Python libraries:
+   ```bash
+   pip install -r requirements.txt
+
+3. Set up PostgreSQL:
+- Install PostgreSQL.
+- Create a database and configure connection credentials.
+
+4. Run the data crawler:
+- Configure API keys in the script (e.g., Twitter API).
+- Execute the script to fetch and store data.
+
+## Contribution
+Contributions are welcome! Please submit a pull request or open an issue for any enhancements, bugs, or ideas.
 

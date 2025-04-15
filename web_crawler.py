@@ -58,24 +58,6 @@ class CPIDataCrawler:
             try:
                 # Initialize session
                 s = requests.Session()
-                s.headers.update({
-                    'referer': 'https://colab.research.google.com',
-                    'User-Agent': self.headers['User-Agent']
-                })
-
-                # Get metadata first
-                url = f"{self.sources['sg_gov']['base_url']}/v2/public/api/datasets/{dataset_id}/metadata"
-                print(f"Fetching metadata from: {url}")
-                response = s.get(url)
-                data = response.json()['data']
-                column_metadata = data.pop('columnMetadata', None)
-
-                print("\nSingapore Dataset Metadata:")
-                print(json.dumps(data, indent=2))
-
-                if column_metadata:
-                    print("\nColumns:", list(column_metadata['map'].values()))
-
                 # Download the actual data
                 print("\nInitiating data download...")
                 initiate_url = f"https://api-open.data.gov.sg/v1/public/api/datasets/{dataset_id}/initiate-download"
