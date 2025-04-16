@@ -200,8 +200,8 @@ class CPIApp:
 
             # Run crawler
             self.crawler.run(
-                sg_dataset_ids=sg_dataset_id,
-                singstat_table_ids=singstat_table_id
+                sg_dataset_id=sg_dataset_id,
+                singstat_table_id=singstat_table_id
             )
 
             self.status_var.set("Crawler completed successfully")

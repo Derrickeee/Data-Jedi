@@ -96,7 +96,7 @@ class CPIDataCrawler:
 
         return pd.concat(dfs, ignore_index=True) if dfs else None
 
-    def fetch_singstat_data(self, table_ids):
+    def fetch_singstat_api(self, table_ids):
         """Fetch data from SingStat Table Builder API for multiple table IDs"""
         if not table_ids:
             logging.warning("No SingStat table IDs provided")
@@ -273,34 +273,34 @@ class CPIDataCrawler:
         logging.info(f"Data saved to {output_path}")
         return output_path
 
-    def run(self, sg_dataset_ids=None, singstat_table_ids=None):
+    def run(self, sg_dataset_id=None, singstat_table_id=None):
         """Main execution method"""
         print("Starting CPI Data Crawler...")
 
         processed_files = []
 
         # Fetch Singapore Data.gov.sg data if enabled and dataset IDs provided
-        if self.sources['sg_gov']['active'] and sg_dataset_ids:
+        if self.sources['sg_gov']['active'] and sg_dataset_id:
             # Convert single ID to list if needed
-            if isinstance(sg_dataset_ids, str):
-                sg_dataset_ids = [sg_dataset_ids]
+            if isinstance(sg_dataset_id, str):
+                sg_dataset_id = [sg_dataset_id]
 
-            sg_df = self.fetch_data_gov(sg_dataset_ids)
+            sg_df = self.fetch_data_gov(sg_dataset_id)
             if sg_df is not None:
-                sg_df = self.clean_and_transform(sg_df, 'sg_gov', sg_dataset_ids)
+                sg_df = self.clean_and_transform(sg_df, 'sg_gov', sg_dataset_id)
                 sg_file = self.save_data(sg_df, 'sg_gov')
                 if sg_file:
                     processed_files.append(sg_file)
 
         # Fetch Singapore SingStat API data if enabled
-        if self.sources['sg_singstat']['active'] and singstat_table_ids:
+        if self.sources['sg_singstat']['active'] and singstat_table_id:
             # Convert single ID to list if needed
-            if isinstance(singstat_table_ids, str):
-                singstat_table_ids = [singstat_table_ids]
+            if isinstance(singstat_table_id, str):
+                singstat_table_id = [singstat_table_id]
 
-            singstat_df = self.fetch_singstat_data(table_ids=singstat_table_ids)
+            singstat_df = self.fetch_singstat_api(singstat_table_id)
             if singstat_df is not None:
-                singstat_df = self.clean_and_transform(singstat_df, 'sg_singstat', singstat_table_ids)
+                singstat_df = self.clean_and_transform(singstat_df, 'sg_singstat', singstat_table_id)
                 singstat_file = self.save_data(singstat_df, 'sg_singstat')
                 if singstat_file:
                     processed_files.append(singstat_file)
@@ -312,20 +312,12 @@ if __name__ == "__main__":
     crawler = CPIDataCrawler()
 
     # Singapore CPI dataset IDs
-    SG_CPI_DATASET_IDS = [
-        "d_c5bde9ed17cef8c365629311f8550ce2",  # CPI for Highest 20%
-        "d_8f3660871b62f38609915ee7ef45ee2c",  # CPI for Middle 60%
-        "d_36c4af91ffd0a75f6b557960efcb476e"  # CPI for Lowest 60%
-    ]
+    SG_CPI_DATASET_ID = "d_c5bde9ed17cef8c365629311f8550ce2"
 
     # SingStat table IDs
-    SINGSTAT_TABLE_IDS = [
-        "M213051",  # CPI for Highest 20%
-        "M213041",  # CPI for Middle 60%
-        "M213031"  # CPI for Lowest 60%
-    ]
+    SINGSTAT_TABLE_ID = "M213051"
 
     crawler.run(
-        sg_dataset_ids=SG_CPI_DATASET_IDS,
-        singstat_table_ids=SINGSTAT_TABLE_IDS
+        sg_dataset_id=SG_CPI_DATASET_ID,
+        singstat_table_id=SINGSTAT_TABLE_ID
     )
