@@ -2,6 +2,7 @@
 """
 CPI Data Crawler GUI
 """
+import logging
 import os
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
@@ -309,7 +310,7 @@ class CPIApp:
                     img = tk.PhotoImage(file=icon_path)
                     self.root.tk.call('wm', 'iconphoto', self.root.w, img)
         except Exception as e:
-            print(f"Could not load window icon: {e}")
+            logging.exception(f"Could not load window icon: {e}")
 
     @staticmethod
     def get_icon_path(filename):

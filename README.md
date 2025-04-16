@@ -31,7 +31,6 @@ The [DataGovSG Exploration Notebook](https://github.com/datagovsg/dgs-exploratio
   - 'pandas'
   - 'SQLAlchemy'
   - 'psycopg2'
-  - 'bs4'
 
 ## Installation
 1. Clone this repository:
@@ -44,12 +43,12 @@ The [DataGovSG Exploration Notebook](https://github.com/datagovsg/dgs-exploratio
    pip install -r requirements.txt
 
 3. Set up PostgreSQL:
-- Install PostgreSQL.
-- Create a database and configure connection credentials.
+   - Install PostgreSQL.
+   - Create a database and configure connection credentials.
 
 4. Run the data crawler:
-- Key in the Dataset ID in the executable.
-- Execute the script to fetch and store data.
+   - Key in the Dataset ID in the executable.
+   - Execute the script to fetch and store data.
 
 ## Contribution
 Contributions are welcome! Please submit a pull request or open an issue for any enhancements, bugs, or ideas.

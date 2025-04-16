@@ -148,7 +148,7 @@ class CPIDataCrawler:
                 if lower_col in column_mapping:
                     df = df.rename(columns={col: column_mapping[lower_col]})
 
-            # Add processing for half-yearly data
+            # Add processing for half-yearly, quarterly and monthly data
             years = [str(year) for year in range(1000, 2025)]
             half_years = ["1H", "2H", "3H", "4H"]
             quarter_years = ["1Q", "2Q", "3Q", "4Q"]
