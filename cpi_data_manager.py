@@ -5,8 +5,9 @@ CPI Data Crawler GUI
 import os
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
-from web_crawler import CPIDataCrawler
+import web_crawler
 from database import DatabaseManager
+
 
 class CPIApp:
     def __init__(self, master):
@@ -22,7 +23,7 @@ class CPIApp:
         self.root.geometry("900x700")
 
         # Initialize components
-        self.crawler = CPIDataCrawler()
+        self.crawler = web_crawler.CPIDataCrawler()
         self.db_manager = DatabaseManager()
 
         # Create notebook for tabs
@@ -111,12 +112,6 @@ class CPIApp:
         ttk.Checkbutton(singstat_frame, text="Enable SingStat",
                         variable=self.singstat_enabled).pack(anchor='w', padx=10)
 
-        # API vs Web Scraping selection
-        ttk.Radiobutton(singstat_frame, text="API Mode",
-                        variable=self.singstat_mode, value="api").pack(anchor='w', padx=10)
-        ttk.Radiobutton(singstat_frame, text="Web Scraping Mode",
-                        variable=self.singstat_mode, value="scrape").pack(anchor='w', padx=10)
-
         # API Configuration
         api_frame = ttk.LabelFrame(singstat_frame, text="API Configuration")
         api_frame.pack(padx=10, pady=10, fill='x')
@@ -125,15 +120,6 @@ class CPIApp:
         self.table_id_entry = ttk.Entry(api_frame, width=30)
         self.table_id_entry.pack(anchor='w', padx=10, pady=(0, 10))
         self.table_id_entry.insert(0, "M213041")
-
-        # Web Scraping Configuration
-        scrape_frame = ttk.LabelFrame(singstat_frame, text="Web Scraping Configuration")
-        scrape_frame.pack(padx=10, pady=10, fill='x')
-
-        ttk.Label(scrape_frame, text="Table URL:").pack(anchor='w', padx=10, pady=(10, 0))
-        self.table_url_entry = ttk.Entry(scrape_frame, width=50)
-        self.table_url_entry.pack(anchor='w', padx=10, pady=(0, 10))
-        self.table_url_entry.insert(0, "https://tablebuilder.singstat.gov.sg/table/TS/M213041")
 
         # Run button
         ttk.Button(self.crawler_frame, text="Run Crawler", command=self.run_crawler).pack(pady=20)
@@ -207,19 +193,15 @@ class CPIApp:
             if self.singstat_enabled.get():
                 if self.singstat_mode.get() == "api":
                     singstat_table_id = self.table_id_entry.get()
-                    singstat_url = None
                 else:
                     singstat_table_id = None
-                    singstat_url = self.table_url_entry.get()
             else:
                 singstat_table_id = None
-                singstat_url = None
 
             # Run crawler
             self.crawler.run(
                 sg_dataset_ids=sg_dataset_id,
-                singstat_table_ids=singstat_table_id,
-                singstat_urls=singstat_url
+                singstat_table_ids=singstat_table_id
             )
 
             self.status_var.set("Crawler completed successfully")
@@ -229,13 +211,14 @@ class CPIApp:
             self.status_var.set(f"Error: {str(e)}")
             messagebox.showerror("Error", f"An error occurred: {str(e)}")
 
-    def open_output_folder(self):
+    @staticmethod
+    def open_output_folder():
         """Open the output folder in the system file explorer"""
         import os
         import platform
         import subprocess
 
-        path = os.path.abspath(self.crawler.output_dir)
+        path = os.path.abspath(web_crawler.OUTPUT_DIR)
 
         try:
             if platform.system() == "Windows":
@@ -342,7 +325,6 @@ class CPIApp:
             return icon_path
 
         return None
-
 
 
 if __name__ == "__main__":

@@ -6,6 +6,7 @@ CPI Data Crawler - Collects CPI data from multiple sources including:
 """
 
 import json
+import logging
 import requests
 import pandas as pd
 import time
@@ -14,17 +15,30 @@ import urllib3  # Import urllib3 for HTTP requests
 import certifi  # Import certifi for SSL certificate verification
 from urllib.request import Request, urlopen
 from datetime import datetime
-from bs4 import BeautifulSoup
+
+# --- Configuration ---
+OUTPUT_DIR = "cpi_data"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+HEADERS = {
+    'User-Agent': USER_AGENT,
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+}
+
+# --- Logging Setup ---
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("crawler.log"),
+        logging.StreamHandler()
+    ]
+)
 
 
 class CPIDataCrawler:
     def __init__(self):
-        self.output_dir = "cpi_data"
-        self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-        }
-        os.makedirs(self.output_dir, exist_ok=True)
 
         # Initialize a PoolManager for HTTP requests with SSL verification
         self.http = urllib3.PoolManager(
@@ -44,80 +58,56 @@ class CPIDataCrawler:
             }
         }
 
-    def fetch_sg_datasets(self, dataset_ids=None):
+    @staticmethod
+    def fetch_data_gov(dataset_ids):
         """Fetch data from Singapore's Data.gov.sg API for multiple dataset IDs"""
         if not dataset_ids:
-            print("No dataset IDs provided for Singapore data")
+            logging.warning("No dataset IDs provided for Data.gov.sg")
             return None
 
-        all_dfs = []
+        dfs = []
 
         for dataset_id in dataset_ids:
-            print(f"\nFetching Singapore CPI data from Data.gov.sg for dataset ID: {dataset_id}...")
-
+            logging.info(f"Fetching from Data.gov.sg dataset: {dataset_id}")
+            session = requests.Session()
             try:
-                # Initialize session
-                s = requests.Session()
-                # Download the actual data
-                print("\nInitiating data download...")
-                initiate_url = f"https://api-open.data.gov.sg/v1/public/api/datasets/{dataset_id}/initiate-download"
-                initiate_response = s.get(
-                    initiate_url,
-                    headers={"Content-Type": "application/json"},
-                    json={}
-                )
-                print(initiate_response.json()['data']['message'])
+                initiate_resp = session.get(
+                    f"https://api-open.data.gov.sg/v1/public/api/datasets/{dataset_id}/initiate-download"
+                ).json()
 
-                # Poll for download URL
-                max_polls = 5
-                download_url = None
-                for i in range(max_polls):
-                    poll_url = f"https://api-open.data.gov.sg/v1/public/api/datasets/{dataset_id}/poll-download"
-                    poll_response = s.get(
-                        poll_url,
-                        headers={"Content-Type": "application/json"},
-                        json={}
-                    )
+                logging.info(initiate_resp['data']['message'])
 
-                    poll_data = poll_response.json()['data']
-                    if "url" in poll_data:
-                        download_url = poll_data['url']
-                        print(f"Download URL obtained: {download_url}")
+                for _ in range(5):
+                    poll_resp = session.get(
+                        f"https://api-open.data.gov.sg/v1/public/api/datasets/{dataset_id}/poll-download"
+                    ).json()
+                    url = poll_resp['data'].get('url')
+                    if url:
+                        logging.info(f"Download URL: {url}")
+                        df = pd.read_csv(url)
+                        dfs.append(df)
                         break
-
-                    print(f"{i + 1}/{max_polls}: Polling...")
-                    time.sleep(3)
-
-                if download_url:
-                    df = pd.read_csv(download_url)
-                    print("\nSample of Singapore CPI data:")
-                    print(df.head())
-                    all_dfs.append(df)
+                    time.sleep(2)
                 else:
-                    print(f"Failed to obtain download URL for dataset {dataset_id} after multiple attempts")
+                    logging.error(f"Download failed after retries: {dataset_id}")
 
             except Exception as e:
-                print(f"Error fetching Singapore data for dataset {dataset_id}: {e}")
-                continue
+                logging.exception(f"Error fetching dataset {dataset_id}: {e}")
 
-        if all_dfs:
-            return pd.concat(all_dfs, ignore_index=True)
-        return None
+        return pd.concat(dfs, ignore_index=True) if dfs else None
 
-    def fetch_singstat_data(self, table_ids=None):
+    def fetch_singstat_data(self, table_ids):
         """Fetch data from SingStat Table Builder API for multiple table IDs"""
         if not table_ids:
-            print("No table IDs provided for SingStat data")
+            logging.warning("No SingStat table IDs provided")
             return None
 
-        all_dfs = []
-
+        dfs = []
         for table_id in table_ids:
-            print(f"\nFetching Singapore CPI data from SingStat Table Builder for table ID: {table_id}...")
-            api_url = f"{self.sources['sg_singstat']['base_url']}/api/table/tabledata/{table_id}"
+            url = f"{self.sources['sg_singstat']['base_url']}/api/table/tabledata/{table_id}"
 
             try:
-                request = Request(api_url, headers=self.headers)
+                request = Request(url, headers=HEADERS)
                 with urlopen(request) as response:
                     data = json.loads(response.read().decode())
 
@@ -126,66 +116,17 @@ class CPIDataCrawler:
                         df = pd.DataFrame(data['Data'])
                         df.columns = df.columns.str.strip()
                         df['extraction_date'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                        df['source'] = 'SingStat Table Builder API'
-
-                        print("\nSample of SingStat CPI data:")
-                        print(df.head())
-                        all_dfs.append(df)
+                        df['source'] = 'SingStat API'
+                        dfs.append(df)
                     else:
-                        print(f"No data found for table ID {table_id}")
+                        logging.warning(f"No data found for table ID {table_id}")
 
             except Exception as e:
-                print(f"Error fetching SingStat API data: {e}")
+                logging.exception(f"Error fetching SingStat API data: {e}")
                 continue
 
-        if all_dfs:
-            return pd.concat(all_dfs, ignore_index=True)
-        return None
-
-    def scrape_singstat_table(self, table_urls=None):
-        """Scrape data from SingStat Table Builder interface for multiple URLs"""
-        if not table_urls:
-            print("No table URLs provided for SingStat scraping")
-            return None
-
-        all_dfs = []
-
-        for table_url in table_urls:
-            print(f"\nScraping Singapore CPI data from SingStat Table Builder page: {table_url}...")
-            try:
-                response = requests.get(table_url, headers=self.headers)
-                response.raise_for_status()
-                soup = BeautifulSoup(response.text, 'html.parser')
-
-                # Extract the main data table
-                table = soup.find('table', {'class': 'data-table'})
-                if not table:
-                    print(f"No data table found on page: {table_url}")
-                    continue
-
-                # Extract headers
-                headers = [th.text.strip() for th in table.find_all('th')]
-
-                # Extract rows
-                data = []
-                for row in table.find_all('tr')[1:]:  # Skip header row
-                    cols = row.find_all('td')
-                    data.append([col.text.strip() for col in cols])
-
-                # Create DataFrame
-                df = pd.DataFrame(data, columns=headers)
-                df['source_url'] = table_url  # Add source URL for reference
-
-                print("\nSample of scraped SingStat data:")
-                print(df.head())
-                all_dfs.append(df)
-
-            except Exception as e:
-                print(f"Error scraping SingStat table from {table_url}: {e}")
-                continue
-
-        if all_dfs:
-            return pd.concat(all_dfs, ignore_index=True)
+        if dfs:
+            return pd.concat(dfs, ignore_index=True)
         return None
 
     @staticmethod
@@ -318,20 +259,21 @@ class CPIDataCrawler:
 
         return df
 
-    def save_data(self, df, source):
+    @staticmethod
+    def save_data(df, source):
         """Save processed data to CSV"""
         if df is None or df.empty:
-            print(f"No data to save for {source}")
+            logging.info(f"No data to save for {source}")
             return None
 
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         filename = f"cpi_{source}_{timestamp}.csv"
-        output_path = os.path.join(self.output_dir, filename)
+        output_path = os.path.join(OUTPUT_DIR, filename)
         df.to_csv(output_path, index=False)
-        print(f"Data saved to {output_path}")
+        logging.info(f"Data saved to {output_path}")
         return output_path
 
-    def run(self, sg_dataset_ids=None, singstat_table_ids=None, singstat_urls=None):
+    def run(self, sg_dataset_ids=None, singstat_table_ids=None):
         """Main execution method"""
         print("Starting CPI Data Crawler...")
 
@@ -343,7 +285,7 @@ class CPIDataCrawler:
             if isinstance(sg_dataset_ids, str):
                 sg_dataset_ids = [sg_dataset_ids]
 
-            sg_df = self.fetch_sg_datasets(sg_dataset_ids)
+            sg_df = self.fetch_data_gov(sg_dataset_ids)
             if sg_df is not None:
                 sg_df = self.clean_and_transform(sg_df, 'sg_gov', sg_dataset_ids)
                 sg_file = self.save_data(sg_df, 'sg_gov')
@@ -362,19 +304,6 @@ class CPIDataCrawler:
                 singstat_file = self.save_data(singstat_df, 'sg_singstat')
                 if singstat_file:
                     processed_files.append(singstat_file)
-
-        # Scrape Singapore SingStat table if URL provided
-        if self.sources['sg_singstat']['active'] and singstat_urls:
-            # Convert single URL to list if needed
-            if isinstance(singstat_urls, str):
-                singstat_urls = [singstat_urls]
-
-            scraped_df = self.scrape_singstat_table(table_urls=singstat_urls)
-            if scraped_df is not None:
-                scraped_df = self.clean_and_transform(scraped_df, 'sg_singstat', singstat_table_ids)
-                scraped_file = self.save_data(scraped_df, 'sg_singstat_scraped')
-                if scraped_file:
-                    processed_files.append(scraped_file)
 
         print("\nCPI Data Crawler completed successfully.")
 
@@ -396,15 +325,7 @@ if __name__ == "__main__":
         "M213031"  # CPI for Lowest 60%
     ]
 
-    # SingStat table URLs
-    SINGSTAT_TABLE_URLS = [
-        "https://tablebuilder.singstat.gov.sg/table/TS/M213051",
-        "https://tablebuilder.singstat.gov.sg/table/TS/M213041"
-        "https://tablebuilder.singstat.gov.sg/table/TS/M213031"
-    ]
-
     crawler.run(
         sg_dataset_ids=SG_CPI_DATASET_IDS,
-        singstat_table_ids=SINGSTAT_TABLE_IDS,
-        singstat_urls=SINGSTAT_TABLE_URLS
+        singstat_table_ids=SINGSTAT_TABLE_IDS
     )
