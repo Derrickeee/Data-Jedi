@@ -10,7 +10,7 @@ This repository contains the source code and documentation for the **Data Crawle
 5. Enable possible analyses of the sourced data.
 
 ## Features
-- **Data Crawling**: Extract data from APIs or websites (e.g., Twitter API).
+- **Data Crawling**: Extract data from APIs or websites (i.e., Data.gov.sg and Singstat Table Builder).
 - **Data Transformation**: Clean, parse, and restructure data for efficient storage.
 - **Database Integration**: Store and retrieve data using PostgreSQL.
 - **Python-Powered Analytics**: Provide scripts for querying and analyzing the data.
@@ -48,7 +48,7 @@ The [DataGovSG Exploration Notebook](https://github.com/datagovsg/dgs-exploratio
 - Create a database and configure connection credentials.
 
 4. Run the data crawler:
-- Configure API keys in the script (e.g., Twitter API).
+- Key in the Dataset ID in the executable.
 - Execute the script to fetch and store data.
 
 ## Contribution
