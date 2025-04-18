@@ -12,6 +12,8 @@ from database import DatabaseManager
 
 class CPIApp:
     def __init__(self, master):
+        self.table_id_validation_label = None
+        self.table_id_var = None
         self.dataset_id_entry = None
         self.table_id_entry = None
         self.table_url_entry = None
@@ -56,6 +58,26 @@ class CPIApp:
         self.create_crawler_tab()
         self.create_database_tab()
         self.set_window_icon()
+
+    @staticmethod
+    def validate_table_id(table_id):
+        """Validate the SingStat table ID format (M followed by 6 digits)"""
+        if len(table_id) != 7:
+            return False
+        if table_id[0] != 'M':
+            return False
+        if not table_id[1:].isdigit():
+            return False
+        return True
+
+    def on_table_id_change(self):
+        """Handle changes to the table ID entry"""
+        table_id = self.table_id_var.get()
+        if table_id:  # Only validate if there's input
+            if not self.validate_table_id(table_id):
+                self.table_id_entry.config(foreground='red')
+            else:
+                self.table_id_entry.config(foreground='black')
 
     def create_main_tab(self):
         """Create the main tab with general information"""
@@ -118,9 +140,18 @@ class CPIApp:
         api_frame.pack(padx=10, pady=10, fill='x')
 
         ttk.Label(api_frame, text="Table ID:").pack(anchor='w', padx=10, pady=(10, 0))
+
+        # Use a StringVar to track changes
+        self.table_id_var = tk.StringVar()
+        self.table_id_var.trace('w', self.on_table_id_change)
+
         self.table_id_entry = ttk.Entry(api_frame, width=30)
         self.table_id_entry.pack(anchor='w', padx=10, pady=(0, 10))
         self.table_id_entry.insert(0, "M213041")
+
+        # Add validation label
+        self.table_id_validation_label = ttk.Label(api_frame, text="Format: M followed by 6 digits", foreground='gray')
+        self.table_id_validation_label.pack(anchor='w', padx=10, pady=(0, 5))
 
         # Run button
         ttk.Button(self.crawler_frame, text="Run Crawler", command=self.run_crawler).pack(pady=20)
@@ -180,6 +211,30 @@ class CPIApp:
 
     def run_crawler(self):
         """Execute the crawler based on user configuration"""
+        # Validate at least one source is enabled
+        if not self.data_gov_enabled.get() and not self.singstat_enabled.get():
+            messagebox.showerror("Configuration Error",
+                                 "Please enable at least one data source (Data.gov.sg or SingStat)")
+            self.status_var.set("No data sources enabled")
+            return
+
+        # Validate SingStat API configuration if enabled
+        if self.singstat_enabled.get() and self.singstat_mode.get() == "api":
+            table_id = self.table_id_entry.get()
+            if not self.validate_table_id(table_id):
+                messagebox.showerror("Invalid Table ID",
+                                     "Table ID must be in format M###### (M followed by 6 digits)")
+                self.status_var.set("Invalid Table ID format")
+                return
+
+        # Validate Data.gov.sg configuration if enabled
+        if self.data_gov_enabled.get():
+            dataset_id = self.dataset_id_entry.get().strip()
+            if not dataset_id:
+                messagebox.showerror("Configuration Error",
+                                     "Please enter a Dataset ID for Data.gov.sg")
+                self.status_var.set("Missing Dataset ID")
+                return
         self.status_var.set("Running crawler...")
         self.root.update()
 
