@@ -110,7 +110,6 @@ class CPIDataCrawler:
                 request = Request(url, headers=HEADERS)
                 with urlopen(request) as response:
                     data = json.loads(response.read().decode())
-
                     # Process the raw data
                     if 'Data' in data:
                         df = pd.DataFrame(data['Data'])
@@ -120,9 +119,8 @@ class CPIDataCrawler:
                         dfs.append(df)
                     else:
                         logging.warning(f"No data found for table ID {table_id}")
-
             except Exception as e:
-                logging.exception(f"Error fetching SingStat API data: {e}")
+                logging.error(f"Error fetching SingStat API data: {e}")
                 continue
 
         if dfs:
@@ -304,8 +302,6 @@ class CPIDataCrawler:
                 singstat_file = self.save_data(singstat_df, 'sg_singstat')
                 if singstat_file:
                     processed_files.append(singstat_file)
-
-        print("\nCPI Data Crawler completed successfully.")
 
 
 if __name__ == "__main__":
