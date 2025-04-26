@@ -11,6 +11,10 @@ from tkinter import ttk, messagebox, filedialog
 import web_crawler
 from database import DatabaseManager
 
+# --- Configuration ---
+OUTPUT_DIR = "cpi_data"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
 
 class CPIApp:
     def __init__(self, master):
@@ -205,6 +209,10 @@ class CPIApp:
             self.crawler.sources['sg_singstat']['active'] = self.singstat_enabled.get()
             # Get parameters
             sg_dataset_id = self.dataset_id_entry.get().strip() if self.data_gov_enabled.get() else None
+            # Get the list of existing files BEFORE the operation
+            existing_files = set()
+            if os.path.exists(OUTPUT_DIR):
+                existing_files = set(os.listdir(OUTPUT_DIR))
             if self.singstat_enabled.get():
                 if self.singstat_mode.get() == "api":
                     singstat_table_id = self.table_id_entry.get().strip()
@@ -217,9 +225,24 @@ class CPIApp:
                 sg_dataset_id=sg_dataset_id,
                 singstat_table_id=singstat_table_id
             )
-            self.status_var.set("Crawler completed successfully")
-            messagebox.showinfo("Success", "Data collection completed successfully!")
-
+            # After the operation, check for new files
+            current_files = set()
+            if os.path.exists(OUTPUT_DIR):
+                current_files = set(os.listdir(OUTPUT_DIR))
+            new_files = current_files - existing_files
+            if new_files:
+                # Filter out directories and only keep files
+                new_files = [f for f in new_files if os.path.isfile(os.path.join(OUTPUT_DIR, f))]
+                if new_files:
+                    new_file = new_files[0]  # Get the first new file
+                    self.status_var.set("Crawler completed successfully")
+                    messagebox.showinfo("Success", f"New dataset added: {new_file}")
+                else:
+                    self.status_var.set("No new dataset was added")
+                    messagebox.showwarning("No Update", "No new dataset was generated.")
+            else:
+                self.status_var.set("No new dataset was added")
+                messagebox.showwarning("No Update", "No new dataset was generated.")
         except Exception as e:
             self.status_var.set(f"Error: {str(e)}")
             messagebox.showerror("Error", f"An error occurred: {str(e)}")
@@ -254,6 +277,18 @@ class CPIApp:
             messagebox.showwarning("Input Error", "Please enter a database name")
             return
         try:
+            # First check if database already exists
+            if self.db_manager.database_exists(db_name):
+                response = messagebox.askyesno(
+                    "Database Exists",
+                    f"Database '{db_name}' already exists. Do you want to recreate it?\n"
+                    "Warning: This will DROP the existing database and all its data!"
+                )
+                if not response:
+                    self.log_status(f"Database creation cancelled - '{db_name}' already exists")
+                    return
+                # Drop existing database if user confirms
+                self.db_manager.drop_database(db_name, self.log_status)
             self.db_manager.create_database(db_name, self.log_status)
             # Update connection params to use new database
             self.db_manager.conn_params['database'] = db_name
@@ -266,8 +301,38 @@ class CPIApp:
         if not db_name:
             messagebox.showwarning("Input Error", "Please enter a database name")
             return
+
         try:
+            # First check if database exists
+            if not self.db_manager.database_exists(db_name):
+                response = messagebox.askyesno(
+                    "Database Missing",
+                    f"Database '{db_name}' doesn't exist. Create it first?"
+                )
+                if response:
+                    self.create_database()  # This will handle the creation
+                else:
+                    self.log_status("Table creation cancelled - database doesn't exist")
+                    return
+
+            # Check if tables already exist
+            if self.db_manager.tables_exist(db_name):
+                response = messagebox.askyesno(
+                    "Tables Exist",
+                    "Tables already exist in this database. Recreate them?\n"
+                    "Warning: This will DROP existing tables and all their data!"
+                )
+                if not response:
+                    self.log_status("Table creation cancelled - tables already exist")
+                    return
+
+                # Drop existing tables if user confirms
+                self.db_manager.drop_tables(db_name, self.log_status)
+
+            # Create the tables
             self.db_manager.create_tables(db_name, self.log_status)
+            messagebox.showinfo("Success", "Tables created successfully")
+
         except Exception as e:
             self.log_status(f"Error creating tables: {e}")
             messagebox.showerror("Table Error", f"Error creating tables: {e}")

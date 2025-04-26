@@ -38,7 +38,7 @@ class DatabaseManager:
                 raise Exception(f"Database '{db_name}' already exists")
 
             # Create new database
-            cursor.execute(sql.SQL("CREATE DATABASE IF NOT EXISTS {}").format(sql.Identifier(db_name)))
+            cursor.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(db_name)))
             log_callback(f"Database '{db_name}' created successfully")
 
             # Update connection params to use new database
@@ -235,3 +235,119 @@ class DatabaseManager:
         finally:
             if self.conn:
                 self.conn.close()
+
+    def database_exists(self, db_name):
+        """Check if a database exists"""
+        try:
+            # Connect to postgres database to check
+            conn = psycopg2.connect(
+                host=self.conn_params['host'],
+                user=self.conn_params['user'],
+                password=self.conn_params['password'],
+                dbname='postgres'  # Connect to default DB to check for others
+            )
+            conn.autocommit = True
+            cur = conn.cursor()
+
+            cur.execute("SELECT 1 FROM pg_database WHERE datname = %s", (db_name,))
+            exists = cur.fetchone() is not None
+
+            cur.close()
+            conn.close()
+
+            return exists
+        except Exception as e:
+            raise Exception(f"Error checking database existence: {str(e)}")
+
+    def drop_database(self, db_name, log_callback):
+        """Drop an existing database"""
+        try:
+            # Connect to postgres database to perform drop
+            conn = psycopg2.connect(
+                host=self.conn_params['host'],
+                user=self.conn_params['user'],
+                password=self.conn_params['password'],
+                dbname='postgres'  # Connect to default DB to drop others
+            )
+            conn.autocommit = True
+            cur = conn.cursor()
+
+            # Terminate all connections to the target database first
+            cur.execute(f"""
+                   SELECT pg_terminate_backend(pg_stat_activity.pid)
+                   FROM pg_stat_activity
+                   WHERE pg_stat_activity.datname = '{db_name}'
+                   AND pid <> pg_backend_pid();
+               """)
+
+            # Now drop the database
+            cur.execute(f"DROP DATABASE IF EXISTS {db_name}")
+
+            if log_callback:
+                log_callback(f"Dropped database '{db_name}'")
+
+            cur.close()
+            conn.close()
+        except Exception as e:
+            raise Exception(f"Error dropping database: {str(e)}")
+
+    def tables_exist(self, db_name):
+        """Check if tables already exist in the database"""
+        try:
+            # Connect to the specified database
+            conn = psycopg2.connect(
+                host=self.conn_params['host'],
+                user=self.conn_params['user'],
+                password=self.conn_params['password'],
+                dbname=db_name
+            )
+            cur = conn.cursor()
+
+            # Check for existence of key tables (adjust according to your schema)
+            cur.execute("""
+                SELECT EXISTS (
+                    SELECT FROM information_schema.tables 
+                    WHERE table_name = 'cpi_data'
+                )
+            """)
+            exists = cur.fetchone()[0]
+
+            cur.close()
+            conn.close()
+
+            return exists
+        except Exception as e:
+            raise Exception(f"Error checking table existence: {str(e)}")
+
+    def drop_tables(self, db_name, log_callback):
+        """Drop all tables in the database"""
+        try:
+            # Connect to the specified database
+            conn = psycopg2.connect(
+                host=self.conn_params['host'],
+                user=self.conn_params['user'],
+                password=self.conn_params['password'],
+                dbname=db_name
+            )
+            conn.autocommit = True
+            cur = conn.cursor()
+
+            # Get all tables in the database
+            cur.execute("""
+                SELECT table_name 
+                FROM information_schema.tables 
+                WHERE table_schema = 'public'
+            """)
+            tables = [row[0] for row in cur.fetchall()]
+
+            if tables:
+                # Drop all tables with CASCADE to handle dependencies
+                for table in tables:
+                    cur.execute(f"DROP TABLE IF EXISTS {table} CASCADE")
+                    if log_callback:
+                        log_callback(f"Dropped table: {table}")
+
+            cur.close()
+            conn.close()
+        except Exception as e:
+            raise Exception(f"Error dropping tables: {str(e)}")
