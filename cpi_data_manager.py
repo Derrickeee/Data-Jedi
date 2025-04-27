@@ -234,9 +234,13 @@ class CPIApp:
                 # Filter out directories and only keep files
                 new_files = [f for f in new_files if os.path.isfile(os.path.join(OUTPUT_DIR, f))]
                 if new_files:
-                    new_file = new_files[0]  # Get the first new file
+                    # Create a message showing all new files
+                    if len(new_files) == 1:
+                        file_message = f"New dataset added: {new_files[0]}"
+                    else:
+                        file_message = f"{len(new_files)} new datasets added:\n" + "\n".join(new_files)
                     self.status_var.set("Crawler completed successfully")
-                    messagebox.showinfo("Success", f"New dataset added: {new_file}")
+                    messagebox.showinfo("Success", file_message)
                 else:
                     self.status_var.set("No new dataset was added")
                     messagebox.showwarning("No Update", "No new dataset was generated.")
@@ -301,7 +305,6 @@ class CPIApp:
         if not db_name:
             messagebox.showwarning("Input Error", "Please enter a database name")
             return
-
         try:
             # First check if database exists
             if not self.db_manager.database_exists(db_name):
@@ -314,7 +317,6 @@ class CPIApp:
                 else:
                     self.log_status("Table creation cancelled - database doesn't exist")
                     return
-
             # Check if tables already exist
             if self.db_manager.tables_exist(db_name):
                 response = messagebox.askyesno(
@@ -325,14 +327,11 @@ class CPIApp:
                 if not response:
                     self.log_status("Table creation cancelled - tables already exist")
                     return
-
                 # Drop existing tables if user confirms
                 self.db_manager.drop_tables(db_name, self.log_status)
-
             # Create the tables
             self.db_manager.create_tables(db_name, self.log_status)
             messagebox.showinfo("Success", "Tables created successfully")
-
         except Exception as e:
             self.log_status(f"Error creating tables: {e}")
             messagebox.showerror("Table Error", f"Error creating tables: {e}")

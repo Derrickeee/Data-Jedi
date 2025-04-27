@@ -1,190 +1,191 @@
-food_id,food_item,year,sector_id
-1,Bread & Cereals,2018,2
-2,Bread & Cereals,2019,2
-3,Bread & Cereals,2020,2
-4,Bread & Cereals,2021,2
-5,Bread & Cereals,2022,2
-6,Bread & Cereals,2023,2
-7,Bread & Cereals,2024,2
-8,Bread & Cereals,2018,2
-9,Bread & Cereals,2019,2
-10,Bread & Cereals,2020,2
-11,Bread & Cereals,2021,2
-12,Bread & Cereals,2022,2
-13,Bread & Cereals,2023,2
-14,Bread & Cereals,2024,2
-15,Bread & Cereals,2018,2
-16,Bread & Cereals,2019,2
-17,Bread & Cereals,2020,2
-18,Bread & Cereals,2021,2
-19,Bread & Cereals,2022,2
-20,Bread & Cereals,2023,2
-21,Bread & Cereals,2024,2
-22,Catered Food,2018,2
-23,Catered Food,2019,2
-24,Catered Food,2020,2
-25,Catered Food,2021,2
-26,Catered Food,2022,2
-27,Catered Food,2023,2
-28,Catered Food,2024,2
-29,Catered Food,2018,2
-30,Catered Food,2019,2
-31,Catered Food,2020,2
-32,Catered Food,2021,2
-33,Catered Food,2022,2
-34,Catered Food,2023,2
-35,Catered Food,2024,2
-36,Catered Food,2018,2
-37,Catered Food,2019,2
-38,Catered Food,2020,2
-39,Catered Food,2021,2
-40,Catered Food,2022,2
-41,Catered Food,2023,2
-42,Catered Food,2024,2
-43,Fast Food,2018,2
-44,Fast Food,2019,2
-45,Fast Food,2020,2
-46,Fast Food,2021,2
-47,Fast Food,2022,2
-48,Fast Food,2023,2
-49,Fast Food,2024,2
-50,Fast Food,2018,2
-51,Fast Food,2019,2
-52,Fast Food,2020,2
-53,Fast Food,2021,2
-54,Fast Food,2022,2
-55,Fast Food,2023,2
-56,Fast Food,2024,2
-57,Fast Food,2018,2
-58,Fast Food,2019,2
-59,Fast Food,2020,2
-60,Fast Food,2021,2
-61,Fast Food,2022,2
-62,Fast Food,2023,2
-63,Fast Food,2024,2
-64,Food,2018,2
-65,Food,2019,2
-66,Food,2020,2
-67,Food,2021,2
-68,Food,2022,2
-69,Food,2023,2
-70,Food,2024,2
-71,Food,2018,2
-72,Food,2019,2
-73,Food,2020,2
-74,Food,2021,2
-75,Food,2022,2
-76,Food,2023,2
-77,Food,2024,2
-78,Food,2018,2
-79,Food,2019,2
-80,Food,2020,2
-81,Food,2021,2
-82,Food,2022,2
-83,Food,2023,2
-84,Food,2024,2
-85,Food Courts & Coffee Shops,2018,2
-86,Food Courts & Coffee Shops,2019,2
-87,Food Courts & Coffee Shops,2020,2
-88,Food Courts & Coffee Shops,2021,2
-89,Food Courts & Coffee Shops,2022,2
-90,Food Courts & Coffee Shops,2023,2
-91,Food Courts & Coffee Shops,2024,2
-92,Food Courts & Coffee Shops,2018,2
-93,Food Courts & Coffee Shops,2019,2
-94,Food Courts & Coffee Shops,2020,2
-95,Food Courts & Coffee Shops,2021,2
-96,Food Courts & Coffee Shops,2022,2
-97,Food Courts & Coffee Shops,2023,2
-98,Food Courts & Coffee Shops,2024,2
-99,Food Courts & Coffee Shops,2018,2
-100,Food Courts & Coffee Shops,2019,2
-101,Food Courts & Coffee Shops,2020,2
-102,Food Courts & Coffee Shops,2021,2
-103,Food Courts & Coffee Shops,2022,2
-104,Food Courts & Coffee Shops,2023,2
-105,Food Courts & Coffee Shops,2024,2
-106,Hawker Centres,2018,2
-107,Hawker Centres,2019,2
-108,Hawker Centres,2020,2
-109,Hawker Centres,2021,2
-110,Hawker Centres,2022,2
-111,Hawker Centres,2023,2
-112,Hawker Centres,2024,2
-113,Hawker Centres,2018,2
-114,Hawker Centres,2019,2
-115,Hawker Centres,2020,2
-116,Hawker Centres,2021,2
-117,Hawker Centres,2022,2
-118,Hawker Centres,2023,2
-119,Hawker Centres,2024,2
-120,Hawker Centres,2018,2
-121,Hawker Centres,2019,2
-122,Hawker Centres,2020,2
-123,Hawker Centres,2021,2
-124,Hawker Centres,2022,2
-125,Hawker Centres,2023,2
-126,Hawker Centres,2024,2
-127,Hawker Food,2018,2
-128,Hawker Food,2019,2
-129,Hawker Food,2020,2
-130,Hawker Food,2021,2
-131,Hawker Food,2022,2
-132,Hawker Food,2023,2
-133,Hawker Food,2024,2
-134,Hawker Food,2018,2
-135,Hawker Food,2019,2
-136,Hawker Food,2020,2
-137,Hawker Food,2021,2
-138,Hawker Food,2022,2
-139,Hawker Food,2023,2
-140,Hawker Food,2024,2
-141,Hawker Food,2018,2
-142,Hawker Food,2019,2
-143,Hawker Food,2020,2
-144,Hawker Food,2021,2
-145,Hawker Food,2022,2
-146,Hawker Food,2023,2
-147,Hawker Food,2024,2
-148,Other Food,2018,2
-149,Other Food,2019,2
-150,Other Food,2020,2
-151,Other Food,2021,2
-152,Other Food,2022,2
-153,Other Food,2023,2
-154,Other Food,2024,2
-155,Other Food,2018,2
-156,Other Food,2019,2
-157,Other Food,2020,2
-158,Other Food,2021,2
-159,Other Food,2022,2
-160,Other Food,2023,2
-161,Other Food,2024,2
-162,Other Food,2018,2
-163,Other Food,2019,2
-164,Other Food,2020,2
-165,Other Food,2021,2
-166,Other Food,2022,2
-167,Other Food,2023,2
-168,Other Food,2024,2
-169,Restaurant Food,2018,2
-170,Restaurant Food,2019,2
-171,Restaurant Food,2020,2
-172,Restaurant Food,2021,2
-173,Restaurant Food,2022,2
-174,Restaurant Food,2023,2
-175,Restaurant Food,2024,2
-176,Restaurant Food,2018,2
-177,Restaurant Food,2019,2
-178,Restaurant Food,2020,2
-179,Restaurant Food,2021,2
-180,Restaurant Food,2022,2
-181,Restaurant Food,2023,2
-182,Restaurant Food,2024,2
-183,Restaurant Food,2018,2
-184,Restaurant Food,2019,2
-185,Restaurant Food,2020,2
-186,Restaurant Food,2021,2
-187,Restaurant Food,2022,2
-188,Restaurant Food,2023,2
-189,Restaurant Food,2024,2
+,,,,food,,,
+,,,,food_id,food_item,year,sector_id
+,,,,1,Bread & Cereals,2018,2
+,,,,2,Bread & Cereals,2019,2
+,,,,3,Bread & Cereals,2020,2
+,,,,4,Bread & Cereals,2021,2
+,,,,5,Bread & Cereals,2022,2
+,,,,6,Bread & Cereals,2023,2
+,,,,7,Bread & Cereals,2024,2
+,,,,8,Bread & Cereals,2018,2
+,,,,9,Bread & Cereals,2019,2
+,,,,10,Bread & Cereals,2020,2
+,,,,11,Bread & Cereals,2021,2
+,,,,12,Bread & Cereals,2022,2
+,,,,13,Bread & Cereals,2023,2
+,,,,14,Bread & Cereals,2024,2
+,,,,15,Bread & Cereals,2018,2
+,,,,16,Bread & Cereals,2019,2
+,,,,17,Bread & Cereals,2020,2
+,,,,18,Bread & Cereals,2021,2
+,,,,19,Bread & Cereals,2022,2
+,,,,20,Bread & Cereals,2023,2
+,,,,21,Bread & Cereals,2024,2
+,,,,22,Catered Food,2018,2
+,,,,23,Catered Food,2019,2
+,,,,24,Catered Food,2020,2
+,,,,25,Catered Food,2021,2
+,,,,26,Catered Food,2022,2
+,,,,27,Catered Food,2023,2
+,,,,28,Catered Food,2024,2
+,,,,29,Catered Food,2018,2
+,,,,30,Catered Food,2019,2
+,,,,31,Catered Food,2020,2
+,,,,32,Catered Food,2021,2
+,,,,33,Catered Food,2022,2
+,,,,34,Catered Food,2023,2
+,,,,35,Catered Food,2024,2
+,,,,36,Catered Food,2018,2
+,,,,37,Catered Food,2019,2
+,,,,38,Catered Food,2020,2
+,,,,39,Catered Food,2021,2
+,,,,40,Catered Food,2022,2
+,,,,41,Catered Food,2023,2
+,,,,42,Catered Food,2024,2
+,,,,43,Fast Food,2018,2
+,,,,44,Fast Food,2019,2
+,,,,45,Fast Food,2020,2
+,,,,46,Fast Food,2021,2
+,,,,47,Fast Food,2022,2
+,,,,48,Fast Food,2023,2
+,,,,49,Fast Food,2024,2
+,,,,50,Fast Food,2018,2
+,,,,51,Fast Food,2019,2
+,,,,52,Fast Food,2020,2
+,,,,53,Fast Food,2021,2
+,,,,54,Fast Food,2022,2
+,,,,55,Fast Food,2023,2
+,,,,56,Fast Food,2024,2
+,,,,57,Fast Food,2018,2
+,,,,58,Fast Food,2019,2
+,,,,59,Fast Food,2020,2
+,,,,60,Fast Food,2021,2
+,,,,61,Fast Food,2022,2
+,,,,62,Fast Food,2023,2
+,,,,63,Fast Food,2024,2
+,,,,64,Food,2018,2
+,,,,65,Food,2019,2
+,,,,66,Food,2020,2
+,,,,67,Food,2021,2
+,,,,68,Food,2022,2
+,,,,69,Food,2023,2
+,,,,70,Food,2024,2
+,,,,71,Food,2018,2
+,,,,72,Food,2019,2
+,,,,73,Food,2020,2
+,,,,74,Food,2021,2
+,,,,75,Food,2022,2
+,,,,76,Food,2023,2
+,,,,77,Food,2024,2
+,,,,78,Food,2018,2
+,,,,79,Food,2019,2
+,,,,80,Food,2020,2
+,,,,81,Food,2021,2
+,,,,82,Food,2022,2
+,,,,83,Food,2023,2
+,,,,84,Food,2024,2
+,,,,85,Food Courts & Coffee Shops,2018,2
+,,,,86,Food Courts & Coffee Shops,2019,2
+,,,,87,Food Courts & Coffee Shops,2020,2
+,,,,88,Food Courts & Coffee Shops,2021,2
+,,,,89,Food Courts & Coffee Shops,2022,2
+,,,,90,Food Courts & Coffee Shops,2023,2
+,,,,91,Food Courts & Coffee Shops,2024,2
+,,,,92,Food Courts & Coffee Shops,2018,2
+,,,,93,Food Courts & Coffee Shops,2019,2
+,,,,94,Food Courts & Coffee Shops,2020,2
+,,,,95,Food Courts & Coffee Shops,2021,2
+,,,,96,Food Courts & Coffee Shops,2022,2
+,,,,97,Food Courts & Coffee Shops,2023,2
+,,,,98,Food Courts & Coffee Shops,2024,2
+,,,,99,Food Courts & Coffee Shops,2018,2
+,,,,100,Food Courts & Coffee Shops,2019,2
+,,,,101,Food Courts & Coffee Shops,2020,2
+,,,,102,Food Courts & Coffee Shops,2021,2
+,,,,103,Food Courts & Coffee Shops,2022,2
+,,,,104,Food Courts & Coffee Shops,2023,2
+,,,,105,Food Courts & Coffee Shops,2024,2
+,,,,106,Hawker Centres,2018,2
+,,,,107,Hawker Centres,2019,2
+,,,,108,Hawker Centres,2020,2
+,,,,109,Hawker Centres,2021,2
+,,,,110,Hawker Centres,2022,2
+,,,,111,Hawker Centres,2023,2
+,,,,112,Hawker Centres,2024,2
+,,,,113,Hawker Centres,2018,2
+,,,,114,Hawker Centres,2019,2
+,,,,115,Hawker Centres,2020,2
+,,,,116,Hawker Centres,2021,2
+,,,,117,Hawker Centres,2022,2
+,,,,118,Hawker Centres,2023,2
+,,,,119,Hawker Centres,2024,2
+,,,,120,Hawker Centres,2018,2
+,,,,121,Hawker Centres,2019,2
+,,,,122,Hawker Centres,2020,2
+,,,,123,Hawker Centres,2021,2
+,,,,124,Hawker Centres,2022,2
+,,,,125,Hawker Centres,2023,2
+,,,,126,Hawker Centres,2024,2
+,,,,127,Hawker Food,2018,2
+,,,,128,Hawker Food,2019,2
+,,,,129,Hawker Food,2020,2
+,,,,130,Hawker Food,2021,2
+,,,,131,Hawker Food,2022,2
+,,,,132,Hawker Food,2023,2
+,,,,133,Hawker Food,2024,2
+,,,,134,Hawker Food,2018,2
+,,,,135,Hawker Food,2019,2
+,,,,136,Hawker Food,2020,2
+,,,,137,Hawker Food,2021,2
+,,,,138,Hawker Food,2022,2
+,,,,139,Hawker Food,2023,2
+,,,,140,Hawker Food,2024,2
+,,,,141,Hawker Food,2018,2
+,,,,142,Hawker Food,2019,2
+,,,,143,Hawker Food,2020,2
+,,,,144,Hawker Food,2021,2
+,,,,145,Hawker Food,2022,2
+,,,,146,Hawker Food,2023,2
+,,,,147,Hawker Food,2024,2
+,,,,148,Other Food,2018,2
+,,,,149,Other Food,2019,2
+,,,,150,Other Food,2020,2
+,,,,151,Other Food,2021,2
+,,,,152,Other Food,2022,2
+,,,,153,Other Food,2023,2
+,,,,154,Other Food,2024,2
+,,,,155,Other Food,2018,2
+,,,,156,Other Food,2019,2
+,,,,157,Other Food,2020,2
+,,,,158,Other Food,2021,2
+,,,,159,Other Food,2022,2
+,,,,160,Other Food,2023,2
+,,,,161,Other Food,2024,2
+,,,,162,Other Food,2018,2
+,,,,163,Other Food,2019,2
+,,,,164,Other Food,2020,2
+,,,,165,Other Food,2021,2
+,,,,166,Other Food,2022,2
+,,,,167,Other Food,2023,2
+,,,,168,Other Food,2024,2
+,,,,169,Restaurant Food,2018,2
+,,,,170,Restaurant Food,2019,2
+,,,,171,Restaurant Food,2020,2
+,,,,172,Restaurant Food,2021,2
+,,,,173,Restaurant Food,2022,2
+,,,,174,Restaurant Food,2023,2
+,,,,175,Restaurant Food,2024,2
+,,,,176,Restaurant Food,2018,2
+,,,,177,Restaurant Food,2019,2
+,,,,178,Restaurant Food,2020,2
+,,,,179,Restaurant Food,2021,2
+,,,,180,Restaurant Food,2022,2
+,,,,181,Restaurant Food,2023,2
+,,,,182,Restaurant Food,2024,2
+,,,,183,Restaurant Food,2018,2
+,,,,184,Restaurant Food,2019,2
+,,,,185,Restaurant Food,2020,2
+,,,,186,Restaurant Food,2021,2
+,,,,187,Restaurant Food,2022,2
+,,,,188,Restaurant Food,2023,2
+,,,,189,Restaurant Food,2024,2

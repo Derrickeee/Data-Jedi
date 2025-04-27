@@ -174,31 +174,24 @@ class DatabaseManager:
                 'columns': ['infla_id', 'inflation_value', 'year']
             }
         }
-
         try:
             # Connect to the specified database
             conn_params = self.conn_params.copy()
             conn_params['database'] = db_name
             self.conn = psycopg2.connect(**conn_params)
             cursor = self.conn.cursor()
-
             success_count = 0
             total_tables = len(table_config)
-
             # Process each CSV file
             for csv_file, config in table_config.items():
                 csv_path = os.path.join(csv_dir, csv_file)
-
                 if not os.path.exists(csv_path):
                     log_callback(f"Warning: CSV file not found - {csv_path}")
                     continue
-
                 log_callback(f"Importing data from {csv_file} to {config['table']} table...")
-
                 with open(csv_path, 'r', encoding='utf-8') as f:
                     reader = csv.reader(f)
                     next(reader)  # Skip header row
-
                     # Prepare the INSERT statement
                     insert_query = sql.SQL("""
                         INSERT INTO {} ({})
@@ -208,7 +201,6 @@ class DatabaseManager:
                         sql.SQL(', ').join(map(sql.Identifier, config['columns'])),
                         sql.SQL(', ').join([sql.Placeholder()] * len(config['columns']))
                     )
-
                     # Insert each row
                     rows_imported = 0
                     for row in reader:
@@ -221,7 +213,6 @@ class DatabaseManager:
                             self.conn.rollback()
                             log_callback(f"Error inserting row {row}: {e}")
                             continue
-
                     self.conn.commit()
                     if rows_imported > 0:
                         log_callback(f"Successfully imported data to {config['table']} table")
@@ -229,7 +220,6 @@ class DatabaseManager:
                     else:
                         log_callback(
                             f"\nImport completed with {success_count} out of {total_tables} tables successfully imported")
-
         except psycopg2.Error as e:
             raise Exception(f"Database error: {e}")
         finally:
@@ -248,13 +238,10 @@ class DatabaseManager:
             )
             conn.autocommit = True
             cur = conn.cursor()
-
             cur.execute("SELECT 1 FROM pg_database WHERE datname = %s", (db_name,))
             exists = cur.fetchone() is not None
-
             cur.close()
             conn.close()
-
             return exists
         except Exception as e:
             raise Exception(f"Error checking database existence: {str(e)}")
@@ -271,7 +258,6 @@ class DatabaseManager:
             )
             conn.autocommit = True
             cur = conn.cursor()
-
             # Terminate all connections to the target database first
             cur.execute(f"""
                    SELECT pg_terminate_backend(pg_stat_activity.pid)
@@ -279,13 +265,10 @@ class DatabaseManager:
                    WHERE pg_stat_activity.datname = '{db_name}'
                    AND pid <> pg_backend_pid();
                """)
-
             # Now drop the database
             cur.execute(f"DROP DATABASE IF EXISTS {db_name}")
-
             if log_callback:
                 log_callback(f"Dropped database '{db_name}'")
-
             cur.close()
             conn.close()
         except Exception as e:
@@ -302,7 +285,6 @@ class DatabaseManager:
                 dbname=db_name
             )
             cur = conn.cursor()
-
             # Check for existence of key tables (adjust according to your schema)
             cur.execute("""
                 SELECT EXISTS (
@@ -311,10 +293,8 @@ class DatabaseManager:
                 )
             """)
             exists = cur.fetchone()[0]
-
             cur.close()
             conn.close()
-
             return exists
         except Exception as e:
             raise Exception(f"Error checking table existence: {str(e)}")
@@ -331,7 +311,6 @@ class DatabaseManager:
             )
             conn.autocommit = True
             cur = conn.cursor()
-
             # Get all tables in the database
             cur.execute("""
                 SELECT table_name 
@@ -339,14 +318,12 @@ class DatabaseManager:
                 WHERE table_schema = 'public'
             """)
             tables = [row[0] for row in cur.fetchall()]
-
             if tables:
                 # Drop all tables with CASCADE to handle dependencies
                 for table in tables:
                     cur.execute(f"DROP TABLE IF EXISTS {table} CASCADE")
                     if log_callback:
                         log_callback(f"Dropped table: {table}")
-
             cur.close()
             conn.close()
         except Exception as e:
