@@ -56,7 +56,6 @@ class CPIApp:
         self.create_main_tab()
         self.create_crawler_tab()
         self.create_database_tab()
-        self.set_window_icon()
 
     @staticmethod
     def validate_table_id(table_id):

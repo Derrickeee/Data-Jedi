@@ -39,13 +39,11 @@ logging.basicConfig(
 
 class CPIDataCrawler:
     def __init__(self):
-
         # Initialize a PoolManager for HTTP requests with SSL verification
         self.http = urllib3.PoolManager(
             cert_reqs='CERT_REQUIRED',
             ca_certs=certifi.where()
         )
-
         # Data source configurations
         self.sources = {
             'sg_gov': {
@@ -64,9 +62,7 @@ class CPIDataCrawler:
         if not dataset_ids:
             logging.warning("No dataset IDs provided for Data.gov.sg")
             return None
-
         dfs = []
-
         for dataset_id in dataset_ids:
             logging.info(f"Fetching from Data.gov.sg dataset: {dataset_id}")
             session = requests.Session()
@@ -74,9 +70,7 @@ class CPIDataCrawler:
                 initiate_resp = session.get(
                     f"https://api-open.data.gov.sg/v1/public/api/datasets/{dataset_id}/initiate-download"
                 ).json()
-
                 logging.info(initiate_resp['data']['message'])
-
                 for _ in range(5):
                     poll_resp = session.get(
                         f"https://api-open.data.gov.sg/v1/public/api/datasets/{dataset_id}/poll-download"
@@ -90,7 +84,6 @@ class CPIDataCrawler:
                     time.sleep(2)
                 else:
                     logging.error(f"Download failed after retries: {dataset_id}")
-
             except Exception as e:
                 logging.exception(f"Error fetching dataset {dataset_id}: {e}")
 
@@ -101,11 +94,9 @@ class CPIDataCrawler:
         if not table_ids:
             logging.warning("No SingStat table IDs provided")
             return None
-
         dfs = []
         for table_id in table_ids:
             url = f"{self.sources['sg_singstat']['base_url']}/api/table/tabledata/{table_id}"
-
             try:
                 request = Request(url, headers=HEADERS)
                 with urlopen(request) as response:
@@ -173,7 +164,6 @@ class CPIDataCrawler:
                     "d_8f3660871b62f38609915ee7ef45ee2c": "Middle 60%",
                     "d_36c4af91ffd0a75f6b557960efcb476e": "Lowest 60%"
                 }
-
                 # Iterate through the dataset_id list
                 for dataset in dataset_id:
                     if dataset in dataset_map:
@@ -181,14 +171,12 @@ class CPIDataCrawler:
                         break  # Exit the loop once a match is found
             # Add source identifier
             df['data_source'] = source
-
         elif source == 'sg_singstat':
             if 'row' in df.columns:
                 # Normalize the nested JSON data in 'row' column
                 normalized_data = pd.json_normalize(df['row'], 'columns', 'rowText')
                 # Concatenate with the original DataFrame and drop the original 'row' column
                 df = pd.concat([df.drop(columns=['row']), normalized_data], axis=1)
-
             # Standardize SingStat data columns
             column_mapping = {
                 'year': 'year',
@@ -199,11 +187,9 @@ class CPIDataCrawler:
                 lower_col = col.lower()
                 if lower_col in column_mapping:
                     df = df.rename(columns={col: column_mapping[lower_col]})
-
             df = df.drop_duplicates(subset=["data_series", "key"])
             # Pivot the DataFrame to rearrange the data by 'data_series'
             df = df.pivot(index="data_series", columns="key", values="cpi_value")
-
             # Reset the index if you need a clean DataFrame
             df.reset_index(inplace=True)
             # Add processing for half-yearly data
@@ -274,28 +260,23 @@ class CPIDataCrawler:
     def run(self, sg_dataset_id=None, singstat_table_id=None):
         """Main execution method"""
         print("Starting CPI Data Crawler...")
-
         processed_files = []
-
         # Fetch Singapore Data.gov.sg data if enabled and dataset IDs provided
         if self.sources['sg_gov']['active'] and sg_dataset_id:
             # Convert single ID to list if needed
             if isinstance(sg_dataset_id, str):
                 sg_dataset_id = [sg_dataset_id]
-
             sg_df = self.fetch_data_gov(sg_dataset_id)
             if sg_df is not None:
                 sg_df = self.clean_and_transform(sg_df, 'sg_gov', sg_dataset_id)
                 sg_file = self.save_data(sg_df, 'sg_gov')
                 if sg_file:
                     processed_files.append(sg_file)
-
         # Fetch Singapore SingStat API data if enabled
         if self.sources['sg_singstat']['active'] and singstat_table_id:
             # Convert single ID to list if needed
             if isinstance(singstat_table_id, str):
                 singstat_table_id = [singstat_table_id]
-
             singstat_df = self.fetch_singstat_api(singstat_table_id)
             if singstat_df is not None:
                 singstat_df = self.clean_and_transform(singstat_df, 'sg_singstat', singstat_table_id)
