@@ -363,35 +363,6 @@ class CPIApp:
         self.status_text.see(tk.END)
         self.status_text.config(state=tk.DISABLED)
 
-    def set_window_icon(self):
-        """Set the application icon"""
-        try:
-            # Try to use an icon file in the same directory
-            icon_path = self.get_icon_path('app_icon.ico')
-            if icon_path:
-                self.root.iconbitmap(icon_path)
-            else:
-                # Fallback to a PNG icon (works cross-platform)
-                icon_path = self.get_icon_path('app_icon.png')
-                if icon_path:
-                    img = tk.PhotoImage(file=icon_path)
-                    self.root.tk.call('wm', 'iconphoto', self.root.w, img)
-        except Exception as e:
-            logging.exception(f"Could not load window icon: {e}")
-
-    @staticmethod
-    def get_icon_path(filename):
-        """Get the full path to the icon file"""
-        # Try in the current directory
-        if os.path.exists(filename):
-            return filename
-        # Try in a subdirectory
-        icon_dir = os.path.join(os.path.dirname(__file__), 'icons')
-        icon_path = os.path.join(icon_dir, filename)
-        if os.path.exists(icon_path):
-            return icon_path
-        return None
-
 
 if __name__ == "__main__":
     root = tk.Tk()
