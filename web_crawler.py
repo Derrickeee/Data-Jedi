@@ -288,13 +288,7 @@ class CPIDataCrawler:
 if __name__ == "__main__":
     crawler = CPIDataCrawler()
 
-    # Singapore CPI dataset IDs
-    SG_CPI_DATASET_ID = "d_c5bde9ed17cef8c365629311f8550ce2"
-
-    # SingStat table IDs
-    SINGSTAT_TABLE_ID = "M213051"
-
     crawler.run(
-        sg_dataset_id=SG_CPI_DATASET_ID,
-        singstat_table_id=SINGSTAT_TABLE_ID
+        sg_dataset_id=["d_c5bde9ed17cef8c365629311f8550ce2"],
+        singstat_table_id=["M213051"]
     )

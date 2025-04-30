@@ -2,7 +2,6 @@
 """
 CPI Data Crawler GUI
 """
-import logging
 import os
 import platform
 import subprocess
