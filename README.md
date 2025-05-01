@@ -2,16 +2,6 @@
 
 This repository contains the source code and documentation for the **Data Crawler** project. The aim is to develop a Python-based tool for extracting, transforming, and loading data from various sources, utilizing open-source libraries and PostgreSQL for storage and analysis.
 
-## Table of Contents
-1. [Project Objectives](#project-objectives)
-2. [Features](#features)
-3. [Data Sources](#data-sources)
-4. [References](#references)
-5. [Requirements](#requirements)
-6. [Installation](#installation)
-7. [Deliverables](#deliverables)
-8. [Contribution](#contribution)
-
 ## Project Objectives
 1. Develop a Python data crawler to source data from multiple platforms.
 2. Utilize open-source libraries for data extraction, transformation, and loading (ETL).

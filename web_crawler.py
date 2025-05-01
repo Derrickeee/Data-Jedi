@@ -28,8 +28,8 @@ HEADERS = {
 
 # --- Logging Setup ---
 logging.basicConfig(
-    level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
+    level=logging.INFO,
     handlers=[
         logging.FileHandler("crawler.log"),
         logging.StreamHandler()
@@ -86,7 +86,6 @@ class CPIDataCrawler:
                     logging.error(f"Download failed after retries: {dataset_id}")
             except Exception as e:
                 logging.exception(f"Error fetching dataset {dataset_id}: {e}")
-
         return pd.concat(dfs, ignore_index=True) if dfs else None
 
     def fetch_singstat_api(self, table_ids):
